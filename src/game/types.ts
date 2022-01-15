@@ -1,1 +1,0 @@
-export type state = '' | 'correct' | 'absent' | 'used'

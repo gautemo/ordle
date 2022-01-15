@@ -50,6 +50,10 @@ button{
   padding: 0;
   font-size: inherit;
 }
+
+footer{
+  padding-bottom: 1rem;
+}
 </style>
 
 <style>

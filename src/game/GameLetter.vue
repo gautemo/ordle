@@ -1,42 +1,30 @@
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue';
-import { isFocused, keyToType } from './state';
-import { state } from './types';
+import { watchEffect } from 'vue';
+import { $computed, $ref } from 'vue/macros';
+import { game } from './state';
 
 const props = defineProps<{
-  index: number,
-  letter: string,
-  checked: state,
+  row: number,
+  column: number,
   active: boolean,
 }>()
-const emit = defineEmits<{
-  (e: 'update:letter', value: string): void
-  (e: 'backspace'): void
-}>()
+
+const row = $computed(() => game.rows[props.row])
+const letter = $computed(() => row?.columns[props.column])
 
 function onKey(event: KeyboardEvent) {
-  const target = event.target as HTMLInputElement
-  if (event.code === 'Backspace' && !props.letter) {
-    emit('backspace')
+  if (event.code === 'Backspace') {
+    row.backspace()
+  }else{
+    row.setLetter((event.target as HTMLInputElement).value)
   }
-  if (target.value.length > 1) {
-    target.value = target.value[target.value.length - 1]
-  }
-  emit('update:letter', target.value)
 }
 
-const el = ref<HTMLInputElement>()
+const el = $ref<HTMLInputElement>()
 watchEffect(() => {
-  if (props.active && isFocused.value === props.index && el.value) {
-    el.value.disabled = false
-    el.value.focus()
-  }
-})
-
-watchEffect(() => {
-  if(isFocused.value === props.index && keyToType.value){
-    emit('update:letter', keyToType.value)
-    keyToType.value = ''
+  if (props.active && row.columnFocused === props.column && el) {
+    el.disabled = false
+    el.focus()
   }
 })
 </script>
@@ -45,11 +33,11 @@ watchEffect(() => {
   <input
     type="text"
     @keyup="onKey"
-    :value="props.letter"
+    :value="letter"
     ref="el"
-    :class="props.checked"
+    :class="row?.checkedColumns[props.column]"
     :disabled="!props.active"
-    @focus="isFocused = props.index"
+    @focus="row.focusTo(props.column)"
   />
 </template>
 
