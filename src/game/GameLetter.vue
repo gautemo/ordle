@@ -14,15 +14,16 @@ const isActiveRow = $computed(() => row?.active(game.rows.length-1))
 
 function onKey(event: KeyboardEvent) {
   if (event.code === 'Backspace') {
-    row.backspace()
-  }else{
-    row.setLetter((event.target as HTMLInputElement).value)
+    row.backspace(true)
+  }
+  if (/^(\w|æ|ø|å){1}$/i.test(event.key)) {
+    row.setLetter(event.key, true)
   }
 }
 
 const el = $ref<HTMLInputElement>()
 watchEffect(() => {
-  if (isActiveRow && row.columnFocused === props.column && el) {
+  if (isActiveRow && row.moveFocusTo === props.column && el) {
     el.disabled = false
     el.focus()
   }
@@ -34,6 +35,7 @@ watchEffect(() => {
     type="text"
     @keyup="onKey"
     :value="letter"
+    maxlength="1"
     ref="el"
     :class="row?.checkedColumns[props.column]"
     :disabled="!isActiveRow"
@@ -49,17 +51,24 @@ input {
   font-size: 2rem;
   text-align: center;
   text-transform: uppercase;
+  border-radius: 8px;
+  border: 2px solid var(--grey);
 }
 
-.absent {
-  background-color: red;
+input:disabled{
+  color: inherit;
+  background-color: var(--grey-light);
 }
 
-.misplaced {
-  background-color: yellow;
+input.absent {
+  background-color: var(--absent);
 }
 
-.correct {
-  background-color: green;
+input.misplaced {
+  background-color: var(--misplaced);
+}
+
+input.correct {
+  background-color: var(--correct);
 }
 </style>

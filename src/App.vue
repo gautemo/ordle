@@ -8,54 +8,73 @@ import GameKeyboard from './game/GameKeyboard.vue';
 
 <template>
   <header>
-    <button><QuestionIcon/></button>
-    <h1><span>ORD</span>LE</h1>
-    <button><GraphIcon/></button>
-    <button><GearIcon/></button>
+    <h1>
+      <span>ORD</span>LE
+    </h1>
+    <section>
+      <button>
+        <QuestionIcon />
+      </button>
+      <button>
+        <GraphIcon />
+      </button>
+      <button>
+        <GearIcon />
+      </button>
+    </section>
   </header>
 
-  <main><Game/></main>
+  <main>
+    <Game />
+  </main>
   <footer>
-    <GameKeyboard/>
+    <GameKeyboard />
   </footer>
 </template>
 
 <style scoped>
-header{
+header {
   display: flex;
-  align-items: center;
-  width: 500px;
-  border-bottom: 1px solid var(--grey);
-  padding-top: 1rem;
   gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1rem;
   font-size: 1.3rem;
+  box-sizing: border-box;
+  background: #035e7b;
+  color: var(--white);
+  --fill-icons: var(--white);
 }
 
-header h1{
+header h1 {
   font-size: 2rem;
-  flex: 1;
-  text-align: center;
   margin: 0;
-  font-weight: bold;
+  font-family: "Arial Black", Gadget, sans-serif;
+  padding: 5px 50px;
 }
 
 h1 > span{
-  color: blue;
+  background: linear-gradient(to right, var(--correct) 10%, var(--misplaced) 50%, var(--absent) 90%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-button{
+button {
   cursor: pointer;
   background: none;
   border: none;
-  padding: 0;
-  font-size: inherit;
+  margin: 0.5rem;
+  padding: 0.2rem;
+  font-size: 1.5rem;
 }
 
-footer{
+footer {
   padding-bottom: 1rem;
 }
 </style>
 
 <style>
-@import './globalStyle.css';
+@import "./globalStyle.css";
 </style>

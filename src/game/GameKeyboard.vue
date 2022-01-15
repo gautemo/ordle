@@ -1,52 +1,65 @@
 <script setup lang="ts">
 import { game } from './state';
 import BackspaceIcon from '@/components/BackspaceIcon.vue';
+import GameKeyboardKey from './GameKeyboardKey.vue';
 </script>
 
 <template>
-  <div class="row">
-    <button @click="game.activeRow.setLetter('Q')">Q</button>
-    <button @click="game.activeRow.setLetter('W')">W</button>
-    <button @click="game.activeRow.setLetter('E')">E</button>
-    <button @click="game.activeRow.setLetter('R')">R</button>
-    <button @click="game.activeRow.setLetter('T')">T</button>
-    <button @click="game.activeRow.setLetter('Y')">Y</button>
-    <button @click="game.activeRow.setLetter('U')">U</button>
-    <button @click="game.activeRow.setLetter('I')">I</button>
-    <button @click="game.activeRow.setLetter('O')">O</button>
-    <button @click="game.activeRow.setLetter('P')">P</button>
-    <button @click="game.activeRow.setLetter('Å')">Å</button>
-  </div>
-  <div class="row">
-    <button @click="game.activeRow.setLetter('A')">A</button>
-    <button @click="game.activeRow.setLetter('S')">S</button>
-    <button @click="game.activeRow.setLetter('D')">D</button>
-    <button @click="game.activeRow.setLetter('F')">F</button>
-    <button @click="game.activeRow.setLetter('G')">G</button>
-    <button @click="game.activeRow.setLetter('H')">H</button>
-    <button @click="game.activeRow.setLetter('J')">J</button>
-    <button @click="game.activeRow.setLetter('K')">K</button>
-    <button @click="game.activeRow.setLetter('L')">L</button>
-    <button @click="game.activeRow.setLetter('Ø')">Ø</button>
-    <button @click="game.activeRow.setLetter('Æ')">Æ</button>
-  </div>
-  <div class="row">
-    <button @click="game.activeRow.checkAnswer()">ENTER</button>
-    <button @click="game.activeRow.setLetter('Z')">Z</button>
-    <button @click="game.activeRow.setLetter('X')">X</button>
-    <button @click="game.activeRow.setLetter('C')">C</button>
-    <button @click="game.activeRow.setLetter('V')">V</button>
-    <button @click="game.activeRow.setLetter('B')">B</button>
-    <button @click="game.activeRow.setLetter('N')">N</button>
-    <button @click="game.activeRow.setLetter('M')">M</button>
-    <button @click="game.activeRow.backspace()"><BackspaceIcon/></button>
+  <div class="keyboard">
+    <GameKeyboardKey letter="Q"/>
+    <GameKeyboardKey letter="W"/>
+    <GameKeyboardKey letter="E"/>
+    <GameKeyboardKey letter="R"/>
+    <GameKeyboardKey letter="T"/>
+    <GameKeyboardKey letter="Y"/>
+    <GameKeyboardKey letter="U"/>
+    <GameKeyboardKey letter="I"/>
+    <GameKeyboardKey letter="O"/>
+    <GameKeyboardKey letter="P"/>
+    <GameKeyboardKey letter="Å"/>
+    <GameKeyboardKey letter="A"/>
+    <GameKeyboardKey letter="S"/>
+    <GameKeyboardKey letter="D"/>
+    <GameKeyboardKey letter="F"/>
+    <GameKeyboardKey letter="G"/>
+    <GameKeyboardKey letter="H"/>
+    <GameKeyboardKey letter="J"/>
+    <GameKeyboardKey letter="K"/>
+    <GameKeyboardKey letter="L"/>
+    <GameKeyboardKey letter="Ø"/>
+    <GameKeyboardKey letter="Æ"/>
+    <button @click="game.activeRow.checkAnswer()" class="c2">ENTER</button>
+    <GameKeyboardKey letter="Z"/>
+    <GameKeyboardKey letter="X"/>
+    <GameKeyboardKey letter="C"/>
+    <GameKeyboardKey letter="V"/>
+    <GameKeyboardKey letter="B"/>
+    <GameKeyboardKey letter="N"/>
+    <GameKeyboardKey letter="M"/>
+    <button @click="game.activeRow.backspace()" class="c2"><BackspaceIcon/></button>
   </div>
 </template>
 
 <style scoped>
+.keyboard{
+  width: clamp(500px, 80vw, 1000px);
+  height: 200px;
+  display: grid;
+  gap: 3px;
+  grid-template: repeat(3, 1fr) / repeat(11, 1fr);
+  background: rgb(239, 239, 239);
+}
+
+.c2{
+  grid-column: span 2;
+}
+
 button{
+  cursor: pointer;
+  flex: 1;
   font-size: 1.5rem;
-  margin: 3px;
-  padding: 5px 10px;
+  height: 100%;
+  background: none;
+  border: none;
 }
 </style>

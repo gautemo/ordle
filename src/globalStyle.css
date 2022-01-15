@@ -1,10 +1,20 @@
 :root{
-  --grey: rgb(207, 207, 207);
+  --grey: rgb(107, 107, 107);
+  --grey-light: rgb(207, 207, 207);
+  --correct: #3BCB67;
+  --absent: #FF6671;
+  --misplaced: #FFDD82;
+  --white: rgb(240, 240, 240);
 }
 
-html,body{
+html,body, #app{
   margin: 0;
   height: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+input, button{
+  font-family: inherit;
 }
 
 #app{
