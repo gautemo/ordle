@@ -5,4 +5,7 @@ module.exports = {
   env: {
     'vue/setup-compiler-macros': true,
   },
+  rules: {
+    'vue/return-in-computed-property': 'off',
+  },
 }

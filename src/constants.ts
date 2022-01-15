@@ -1,0 +1,1 @@
+export const ENTER_ACTIVE = 1005

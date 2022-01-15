@@ -1,0 +1,16 @@
+:root{
+  --grey: rgb(207, 207, 207);
+}
+
+html,body{
+  margin: 0;
+  height: 100%;
+}
+
+#app{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
