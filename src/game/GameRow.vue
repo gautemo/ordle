@@ -7,7 +7,6 @@ import { game } from './state';
 
 const props = defineProps<{
   row: number,
-  active: boolean
 }>()
 
 const row = $computed(() => game.rows[props.row])
@@ -20,7 +19,6 @@ const row = $computed(() => game.rows[props.row])
       :key="i"
       :row="props.row"
       :column="i-1"
-      :active="active"
     />
     <div class="extra-info" v-if="row">
       <TooltipHolder v-if="row.answer.valid" placement="right">

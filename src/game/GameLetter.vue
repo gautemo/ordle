@@ -6,11 +6,11 @@ import { game } from './state';
 const props = defineProps<{
   row: number,
   column: number,
-  active: boolean,
 }>()
 
 const row = $computed(() => game.rows[props.row])
 const letter = $computed(() => row?.columns[props.column])
+const isActiveRow = $computed(() => row?.active(game.rows.length-1))
 
 function onKey(event: KeyboardEvent) {
   if (event.code === 'Backspace') {
@@ -22,7 +22,7 @@ function onKey(event: KeyboardEvent) {
 
 const el = $ref<HTMLInputElement>()
 watchEffect(() => {
-  if (props.active && row.columnFocused === props.column && el) {
+  if (isActiveRow && row.columnFocused === props.column && el) {
     el.disabled = false
     el.focus()
   }
@@ -36,7 +36,7 @@ watchEffect(() => {
     :value="letter"
     ref="el"
     :class="row?.checkedColumns[props.column]"
-    :disabled="!props.active"
+    :disabled="!isActiveRow"
     @focus="row.focusTo(props.column)"
   />
 </template>
@@ -55,7 +55,7 @@ input {
   background-color: red;
 }
 
-.used {
+.misplaced {
   background-color: yellow;
 }
 
