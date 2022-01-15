@@ -4,6 +4,10 @@ import GraphIcon from './components/GraphIcon.vue';
 import GearIcon from './components/GearIcon.vue';
 import Game from './game/Game.vue';
 import GameKeyboard from './game/GameKeyboard.vue';
+import { ref } from 'vue';
+import SettingsModal from './SettingsModal.vue';
+
+const showSettings = ref(false)
 </script>
 
 <template>
@@ -19,7 +23,7 @@ import GameKeyboard from './game/GameKeyboard.vue';
         <GraphIcon />
       </button>
       <button>
-        <GearIcon />
+        <GearIcon @click="showSettings = true" />
       </button>
     </section>
   </header>
@@ -30,6 +34,7 @@ import GameKeyboard from './game/GameKeyboard.vue';
   <footer>
     <GameKeyboard />
   </footer>
+  <SettingsModal v-if="showSettings" @close="showSettings = false"/>
 </template>
 
 <style scoped>

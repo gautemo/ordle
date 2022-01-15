@@ -45,7 +45,6 @@ import GameKeyboardKey from './GameKeyboardKey.vue';
   width: clamp(500px, 80vw, 1000px);
   height: 200px;
   display: grid;
-  gap: 3px;
   grid-template: repeat(3, 1fr) / repeat(11, 1fr);
   background: rgb(239, 239, 239);
 }
@@ -61,5 +60,6 @@ button{
   height: 100%;
   background: none;
   border: none;
+  border-radius: 5px;
 }
 </style>
