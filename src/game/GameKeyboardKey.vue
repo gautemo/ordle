@@ -39,14 +39,17 @@ const marked = computed(() => {
 <style scoped>
 .absent {
   background-color: var(--absent);
+  color: var(--black);
 }
 
 .misplaced {
   background-color: var(--misplaced);
+  color: var(--black);
 }
 
 .correct {
   background-color: var(--correct);
+  color: var(--black);
 }
 
 .correct.misplaced{

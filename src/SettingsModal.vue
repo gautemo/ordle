@@ -1,13 +1,20 @@
 <script setup lang="ts">
+import { useDark } from '@vueuse/core'
+
 const emit = defineEmits<{
   (e: 'close'): void
 }>()
+
+const isDark = useDark()
 </script>
 
 <template>
 <div class="bg" @click="emit('close')">
   <div class="modal" @click.stop>
-    yo
+    <section>
+      <p>Nattmodus</p>
+      <input type="checkbox" v-model="isDark">
+    </section>
   </div>
 </div>
 </template>
@@ -16,7 +23,7 @@ const emit = defineEmits<{
 .bg{
   position: absolute;
   inset: 0;
-  background: rgba(126, 126, 126, 0.3);
+  background: rgba(126, 126, 126, 0.4);
 }
 
 .modal{
@@ -25,6 +32,6 @@ const emit = defineEmits<{
   margin: auto;
   width: 500px;
   height: fit-content;
-  background-color: white;
+  background-color: var(--bg);
 }
 </style>

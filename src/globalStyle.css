@@ -1,10 +1,22 @@
 :root{
   --grey: rgb(107, 107, 107);
-  --grey-light: rgb(207, 207, 207);
   --correct: #3BCB67;
   --absent: #FF6671;
   --misplaced: #FFDD82;
-  --white: rgb(240, 240, 240);
+  --white: #f5f5f5;
+  --black: rgb(32, 32, 32);
+  --bg: var(--white);
+  --bg-alt1: #bbbbbb;
+  --bg-alt2: rgb(207, 207, 207);
+  --input-color: var(--white);
+}
+
+html.dark{
+  --bg: #293138;
+  --bg-alt2: #2f343a;
+  --bg-alt1: #22282a;
+  --input-color: var(--black);
+  color: var(--white);
 }
 
 html,body, #app{
@@ -15,10 +27,13 @@ html,body, #app{
 
 input, button{
   font-family: inherit;
+  color: inherit;
+  background-color: var(--input-color);
 }
 
 #app{
   height: 100%;
+  background-color: var(--bg);
   display: flex;
   flex-direction: column;
   justify-content: space-between;

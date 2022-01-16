@@ -45,8 +45,9 @@ import GameKeyboardKey from './GameKeyboardKey.vue';
   width: clamp(500px, 80vw, 1000px);
   height: 200px;
   display: grid;
+  gap: 1px;
   grid-template: repeat(3, 1fr) / repeat(11, 1fr);
-  background: rgb(239, 239, 239);
+  background: var(--bg-alt1);
 }
 
 .c2{

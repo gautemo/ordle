@@ -57,18 +57,21 @@ input {
 
 input:disabled{
   color: inherit;
-  background-color: var(--grey-light);
+  background-color: var(--bg-alt2);
 }
 
 input.absent {
   background-color: var(--absent);
+  color: var(--black);
 }
 
 input.misplaced {
   background-color: var(--misplaced);
+  color: var(--black);
 }
 
 input.correct {
   background-color: var(--correct);
+  color: var(--black);
 }
 </style>
