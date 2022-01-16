@@ -14,5 +14,5 @@
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
     "skipLibCheck": true
   },
-  "include": ["index.ts"]
+  "include": ["./*.ts"]
 }

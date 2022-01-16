@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { $computed } from 'vue/macros';
 import GameLetter from './GameLetter.vue';
-import InfoIcon from '@/components/InfoIcon.vue';
+import InfoIcon from '../components/InfoIcon.vue';
 import { Dropdown as TooltipHolder } from 'floating-vue'
 import { game } from './state';
 

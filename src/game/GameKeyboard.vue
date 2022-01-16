@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { game } from './state';
-import BackspaceIcon from '@/components/BackspaceIcon.vue';
+import BackspaceIcon from '../components/BackspaceIcon.vue';
 import GameKeyboardKey from './GameKeyboardKey.vue';
 </script>
 
