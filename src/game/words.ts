@@ -1,10 +1,5 @@
-import { words } from './Wordlist.json'
+import {wordList} from './wordList'
 
-// remove once vercel build is happy again
-const wordList: {
-    word: string;
-    explanation: string;
-}[] = words
 const daysSinceStart = Math.floor((new Date().getTime() - new Date(2022, 0, 15).getTime()) / (24 * 60 * 60 * 1000))
 const solutionForDay = [
   1321,
