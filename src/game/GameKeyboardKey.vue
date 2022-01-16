@@ -23,7 +23,6 @@ const marked = computed(() => {
       best = rowStatuses
     } 
   }
-  if (props.letter === 'G') console.log(best)
   const hasMisplaced = best.includes('misplaced')
   if(hasCorrect && hasMisplaced) return 'correct misplaced'
   if(hasCorrect) return 'correct'

@@ -1,9 +1,10 @@
-import { computed, readonly, ref } from 'vue';
+import { computed, readonly, ref, watch } from 'vue';
+import { storePlayed } from './savedStats';
 import { wordList, solution } from './words';
 
-function rowState(row: number) {
-  const columns = ref(['', '', '', '', ''])
-  const checkedColumns = ref<Array<'not_calculated' | 'correct' | 'absent' | 'misplaced'>>([])
+function rowState(row: number, initialColumns = ['', '', '', '', ''], initialCheckedColumns: LetterChecked[] = []) {
+  const columns = ref(initialColumns)
+  const checkedColumns = ref<LetterChecked[]>(initialCheckedColumns)
   const columnFocused = ref(0)
   const moveFocusTo = ref(0)
   function resetFocus() {
@@ -38,28 +39,26 @@ function rowState(row: number) {
           columnFocused.value = index - 1
         }
       }
-      if(moveUIFocus) moveFocusTo.value = columnFocused.value
+      if (moveUIFocus) moveFocusTo.value = columnFocused.value
     },
     setLetter: (value: string, moveUIFocus = false) => {
       if (checkedColumns.value.length > 0) return
       if (value.length > 1) value = value[value.length - 1]
       const index = columnFocused.value
       columns.value[index] = value
-      if(index < 4 && (!columns.value[index+1] || columns.value.every(l => l))){
-        columnFocused.value = index+1
-      } else{
+      if (index < 4 && (!columns.value[index + 1] || columns.value.every(l => l))) {
+        columnFocused.value = index + 1
+      } else {
         resetFocus()
       }
-      if(moveUIFocus) moveFocusTo.value = columnFocused.value
+      if (moveUIFocus) moveFocusTo.value = columnFocused.value
     },
     checkAnswer: () => {
       if (checkedColumns.value.length > 0) return
       if (answer.value.valid) {
         if (answer.value.value === solution) {
-          console.log('yayy')
           checkedColumns.value = Array.from({ length: 5 }, () => 'correct')
         } else {
-          console.log(`not ${solution}`)
           let solutionLeft = solution
           checkedColumns.value = Array.from({ length: 5 }, (_, i) => {
             const letter = columns.value[i].toUpperCase()
@@ -78,7 +77,7 @@ function rowState(row: number) {
             }
             return 'absent'
           })
-          addNewRow()
+          if (game.rows.length < 6) addNewRow()
         }
       }
     },
@@ -89,16 +88,39 @@ function rowState(row: number) {
   })
 }
 
-const rows = ref([rowState(0)])
-const addNewRow = () => rows.value.push(rowState(rows.value.length))
+const gameState = startGame()
+const addNewRow = () => {
+  gameState.rows.value.push(rowState(gameState.rows.value.length))
+  saveGame()
+}
 
 export const game = readonly({
-  rows,
-  activeRow: computed(() => rows.value[rows.value.length - 1]),
+  rows: gameState.rows,
+  activeRow: computed(() => gameState.rows.value[gameState.rows.value.length - 1]),
+  day: gameState.started
+})
+export const gameCompletedState = computed(() => {
+  const active = gameState.rows.value[gameState.rows.value.length - 1]
+  if (active.checkedColumns.length === 0) return 'playing'
+  if (active.checkedColumns.every(s => s === 'correct')) {
+    return gameState.rows.value.length
+  }
+  return 'failed'
+})
+
+watch(gameCompletedState, (state, prevState) => {
+  if (prevState === 'playing' && state !== 'playing') {
+    saveGame()
+    if (state === 'failed') {
+      storePlayed()
+    } else {
+      storePlayed(gameState.rows.value.length as 1 | 2 | 3 | 4 | 5 | 6)
+    }
+  }
 })
 
 document.addEventListener('keyup', event => {
-  if(event.code === 'Tab' && event.target instanceof HTMLButtonElement) game.activeRow.resetFocus()
+  if (event.code === 'Tab' && event.target instanceof HTMLButtonElement) game.activeRow.resetFocus()
   if (event.code === 'Enter' && !(event.target instanceof HTMLButtonElement)) {
     game.activeRow.checkAnswer()
   }
@@ -109,3 +131,48 @@ document.addEventListener('keyup', event => {
     game.activeRow.setLetter(event.key, true)
   }
 })
+
+function saveGame() {
+  const toSave = {
+    started: gameState.started,
+    rows: gameState.rows.value.map(r => {
+      return {
+        columns: r.columns,
+        checkedColumns: r.checkedColumns
+      }
+    })
+  }
+  localStorage.setItem('gameState', JSON.stringify(toSave))
+}
+
+function startGame() {
+  const datesAreOnSameDay = (first: Date, second: Date) => {
+    return first.getFullYear() === second.getFullYear() &&
+      first.getMonth() === second.getMonth() &&
+      first.getDate() === second.getDate()
+  }
+
+  const savedState = localStorage.getItem('gameState')
+  if (savedState) {
+    const saved = JSON.parse(savedState) as GameState
+    const started = new Date(saved.started)
+    const isToday = datesAreOnSameDay(started, new Date())
+    if (isToday) {
+      return {
+        rows: ref(saved.rows.map((r, i) => rowState(i, r.columns, r.checkedColumns))),
+        started: started
+      }
+    }
+  }
+  return { rows: ref([rowState(0)]), started: new Date() }
+}
+
+interface GameState {
+  started: string,
+  rows: {
+    columns: string[],
+    checkedColumns: LetterChecked[]
+  }[]
+}
+
+type LetterChecked = 'not_calculated' | 'correct' | 'absent' | 'misplaced'

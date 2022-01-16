@@ -4,10 +4,20 @@ import GraphIcon from './components/GraphIcon.vue';
 import GearIcon from './components/GearIcon.vue';
 import Game from './game/Game.vue';
 import GameKeyboard from './game/GameKeyboard.vue';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import SettingsModal from './SettingsModal.vue';
+import ModalWrapper from './components/ModalWrapper.vue';
+import StatsModal from './StatsModal.vue';
+import { gameCompletedState } from './game/state';
 
 const showSettings = ref(false)
+const showStats = ref(false)
+
+watch(gameCompletedState, (state, prevState) => {
+  if (prevState === 'playing' && state !== 'playing') {
+    showStats.value = true
+  }
+})
 </script>
 
 <template>
@@ -20,7 +30,7 @@ const showSettings = ref(false)
         <QuestionIcon />
       </button>
       <button>
-        <GraphIcon />
+        <GraphIcon @click="showStats = true"/>
       </button>
       <button>
         <GearIcon @click="showSettings = true" />
@@ -34,7 +44,12 @@ const showSettings = ref(false)
   <footer>
     <GameKeyboard />
   </footer>
-  <SettingsModal v-if="showSettings" @close="showSettings = false"/>
+  <ModalWrapper v-if="showSettings" @close="showSettings = false">
+    <SettingsModal/>
+  </ModalWrapper>
+  <ModalWrapper v-if="showStats" @close="showStats = false">
+    <StatsModal/>
+  </ModalWrapper>
 </template>
 
 <style scoped>

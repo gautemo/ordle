@@ -9,6 +9,7 @@
   --bg-alt1: #bbbbbb;
   --bg-alt2: rgb(207, 207, 207);
   --input-color: var(--white);
+  --shadow: rgba(51, 51, 51, 0.6);
 }
 
 html.dark{
@@ -16,6 +17,7 @@ html.dark{
   --bg-alt2: #2f343a;
   --bg-alt1: #22282a;
   --input-color: var(--black);
+  --shadow: rgba(124, 124, 124, 0.6);
   color: var(--white);
 }
 
