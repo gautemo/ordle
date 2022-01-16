@@ -10,10 +10,15 @@ const marked = computed(() => {
   let best: string[] = []
   let hasCorrect = false
   for (const row of game.rows) {
-    const rowStatuses = row.columns.map((letter, i) => {
+    let rowStatuses = row.columns.map((letter, i) => {
       if (letter.toUpperCase() === props.letter) return row.checkedColumns[i]
       return ''
-    }).filter(status => status)
+    })
+    rowStatuses = rowStatuses.filter(status => {
+      if(!status) return false
+      if(status === 'absent' && (rowStatuses.includes('correct') || rowStatuses.includes('misplaced'))) return false
+      return true
+    })
     if (rowStatuses.includes('correct')) hasCorrect = true
     if (
       (rowStatuses.length === best.length &&
@@ -23,6 +28,7 @@ const marked = computed(() => {
       best = rowStatuses
     } 
   }
+  if(props.letter === 'E') console.log(best)
   const hasMisplaced = best.includes('misplaced')
   if(hasCorrect && hasMisplaced) return 'correct misplaced'
   if(hasCorrect) return 'correct'
