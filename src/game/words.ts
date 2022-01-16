@@ -1,4 +1,4 @@
-import wordList from './Wordlist.json'
+import { words } from './Wordlist.json'
 
 const daysSinceStart = Math.floor((new Date().getTime() - new Date(2022, 0, 15).getTime()) / (24 * 60 * 60 * 1000))
 const solutionForDay = [
@@ -4504,5 +4504,5 @@ const solutionForDay = [
   1810
 ]
 
-const solution = wordList[solutionForDay[daysSinceStart%solutionForDay.length]].word
-export { wordList, solution }
+const solution = words[solutionForDay[daysSinceStart%solutionForDay.length]].word
+export { words, solution }

@@ -1,5 +1,5 @@
 import { computed, readonly, ref } from 'vue';
-import { wordList, solution } from './words';
+import { words, solution } from './words';
 
 function rowState(row: number) {
   const columns = ref(['', '', '', '', ''])
@@ -18,7 +18,7 @@ function rowState(row: number) {
     return {
       value,
       rowFull: value.length === 5,
-      valid: wordList.find(({ word }) => word === value)
+      valid: words.find(({ word }) => word === value)
     }
   })
   return readonly({
