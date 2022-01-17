@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { game } from '../game/state';
 import { reactive } from 'vue';
+import { datesAreOnSameDay } from '../utils/date';
 
 const countdown = reactive({
   hours: '00',
@@ -9,9 +11,15 @@ const countdown = reactive({
 
 function setClock() {
   const now = new Date()
-  countdown.hours = (23 - now.getHours()).toString().padStart(2, '0')
-  countdown.minutes = (59 - now.getMinutes()).toString().padStart(2, '0')
-  countdown.seconds = (59 - now.getSeconds()).toString().padStart(2, '0')
+  if (datesAreOnSameDay(game.day, now)) {
+    countdown.hours = (23 - now.getHours()).toString().padStart(2, '0')
+    countdown.minutes = (59 - now.getMinutes()).toString().padStart(2, '0')
+    countdown.seconds = (59 - now.getSeconds()).toString().padStart(2, '0')
+  } else {
+    countdown.hours = '00'
+    countdown.minutes = '00'
+    countdown.seconds = '00'
+  }
 }
 
 setClock()
@@ -26,14 +34,14 @@ setInterval(setClock, 1000)
 </template>
 
 <style scoped>
-div{
+div {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.time{
+.time {
   font-weight: bold;
 }
 </style>

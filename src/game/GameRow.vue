@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { $computed } from 'vue/macros';
 import GameLetter from './GameLetter.vue';
-import InfoIcon from '../components/InfoIcon.vue';
 import { Dropdown as TooltipHolder } from 'floating-vue'
 import { game } from './state';
 
@@ -21,14 +20,6 @@ const row = $computed(() => game.rows[props.row])
       :column="i-1"
     />
     <div class="extra-info" v-if="row">
-      <TooltipHolder v-if="row.answer.valid" placement="right">
-        <button>
-          <InfoIcon />
-        </button>
-        <template #popper>
-          <p class="popper">{{ row.answer.valid.explanation }}</p>
-        </template>
-      </TooltipHolder>
       <TooltipHolder v-if="row.answer.rowFull && !row.answer.valid" v-bind="{ placement: 'right', shown: true, autoHide: false }">
         <template #popper>
           <p class="popper">Ikke et ord</p>

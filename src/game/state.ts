@@ -1,6 +1,7 @@
+import { datesAreOnSameDay } from '../utils/date';
 import { computed, readonly, ref, watch } from 'vue';
 import { storePlayed } from './savedStats';
-import { wordList, solution } from './words';
+import { words, solution } from './words';
 
 function rowState(row: number, initialColumns = ['', '', '', '', ''], initialCheckedColumns: LetterChecked[] = []) {
   const columns = ref(initialColumns)
@@ -19,7 +20,7 @@ function rowState(row: number, initialColumns = ['', '', '', '', ''], initialChe
     return {
       value,
       rowFull: value.length === 5,
-      valid: wordList.find(({ word }) => word === value)
+      valid: words.includes(value)
     }
   })
   return readonly({
@@ -146,12 +147,6 @@ function saveGame() {
 }
 
 function startGame() {
-  const datesAreOnSameDay = (first: Date, second: Date) => {
-    return first.getFullYear() === second.getFullYear() &&
-      first.getMonth() === second.getMonth() &&
-      first.getDate() === second.getDate()
-  }
-
   const savedState = localStorage.getItem('gameState')
   if (savedState) {
     const saved = JSON.parse(savedState) as GameState
