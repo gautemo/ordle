@@ -116,10 +116,10 @@ footer {
     padding: 0;
   }
   header h1 {
-    font-size: 1rem;
+    font-size: 1.5rem;
   }
   button {
-    font-size: 1rem;
+    font-size: 1.5rem;
   }
 }
 </style>

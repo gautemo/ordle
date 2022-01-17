@@ -75,7 +75,7 @@ button {
     font-size: 1em;
   }
 }
-@media only screen and (max-height: 700px) {
+@media only screen and (max-height: 550px) {
   .keyboard {
     height: 130px;
   }
