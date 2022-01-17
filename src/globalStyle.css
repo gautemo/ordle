@@ -41,3 +41,10 @@ input, button{
   justify-content: space-between;
   align-items: center;
 }
+
+a{
+  color: rgb(38, 78, 255);
+}
+a.dark{
+  color: rgb(71, 172, 255);
+}

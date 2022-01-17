@@ -9,9 +9,13 @@ import SettingsModal from './SettingsModal.vue';
 import ModalWrapper from './components/ModalWrapper.vue';
 import StatsModal from './StatsModal.vue';
 import { gameCompletedState } from './game/state';
+import InfoModal from './InfoModal.vue';
 
 const showSettings = ref(false)
 const showStats = ref(false)
+const pageVisited = Boolean(localStorage.getItem('page-visited'))
+localStorage.setItem('page-visited', 'true')
+const showInfo = ref(!pageVisited)
 
 watch(gameCompletedState, (state, prevState) => {
   if (prevState === 'playing' && state !== 'playing') {
@@ -26,14 +30,14 @@ watch(gameCompletedState, (state, prevState) => {
       <span>ORD</span>LE
     </h1>
     <section>
-      <button>
-        <QuestionIcon />
+      <button @click="showInfo = true">
+        <QuestionIcon/>
       </button>
-      <button>
-        <GraphIcon @click="showStats = true"/>
+      <button @click="showStats = true">
+        <GraphIcon />
       </button>
-      <button>
-        <GearIcon @click="showSettings = true" />
+      <button @click="showSettings = true">
+        <GearIcon />
       </button>
     </section>
   </header>
@@ -44,6 +48,9 @@ watch(gameCompletedState, (state, prevState) => {
   <footer>
     <GameKeyboard />
   </footer>
+  <ModalWrapper v-if="showInfo" @close="showInfo = false">
+    <InfoModal/>
+  </ModalWrapper>
   <ModalWrapper v-if="showSettings" @close="showSettings = false">
     <SettingsModal/>
   </ModalWrapper>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { watchEffect } from 'vue';
+import { computed, watchEffect } from 'vue';
 import { $computed, $ref } from 'vue/macros';
 import { game } from './state';
 
@@ -28,6 +28,7 @@ watchEffect(() => {
     el.focus()
   }
 })
+const focused = computed(() => isActiveRow && row.columnFocused === props.column)
 </script>
 
 <template>
@@ -37,7 +38,7 @@ watchEffect(() => {
     :value="letter"
     maxlength="1"
     ref="el"
-    :class="row?.checkedColumns[props.column]"
+    :class="[row?.checkedColumns[props.column], {focus: focused}]"
     :disabled="!isActiveRow"
     @focus="row.focusTo(props.column)"
   />
@@ -73,5 +74,11 @@ input.misplaced {
 input.correct {
   background-color: var(--correct);
   color: var(--black);
+}
+
+input:focus-visible,
+input.focus{
+  outline: none;
+  border-color: currentColor;
 }
 </style>

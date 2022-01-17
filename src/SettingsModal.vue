@@ -20,9 +20,12 @@ label{
   align-items: center;
   gap: .5rem;
   font-size: 1.5rem;
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--grey);
 }
 
 input{
+  cursor: pointer;
   position: relative;
   appearance: none;
   width: 2em;
