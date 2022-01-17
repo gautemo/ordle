@@ -107,19 +107,20 @@ footer {
 }
 
 @media only screen and (max-width: 600px) {
+  header{
+    padding: 5px;
+  }
   header h1 {
     padding: 5px 10px;
-  }
-}
-@media only screen and (max-height: 700px) {
-  header {
-    padding: 0;
-  }
-  header h1 {
-    font-size: 1.5rem;
+    font-size: 1.7rem;
   }
   button {
-    font-size: 1.5rem;
+    font-size: 1.7rem;
+    margin: 2px 4px;
+    padding: 2px;
+  }
+  footer{
+    padding-bottom: 10px;
   }
 }
 </style>

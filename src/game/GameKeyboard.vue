@@ -68,16 +68,12 @@ button {
 
 @media only screen and (max-width: 600px) {
   .keyboard {
-    width: clamp(300px, 90vw, 600px);
+    width: clamp(300px, 95vw, 600px);
+    height: 150px;
   }
 
   button {
     font-size: 1em;
-  }
-}
-@media only screen and (max-height: 550px) {
-  .keyboard {
-    height: 130px;
   }
 }
 </style>

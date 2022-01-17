@@ -85,16 +85,9 @@ input.focus {
 
 @media only screen and (max-width: 600px) {
   input {
-    width: 52px;
-    height: 52px;
+    width: 50px;
+    height: 50px;
     font-size: 1.7rem;
-  }
-}
-@media only screen and (max-height: 570px) {
-  input {
-    width: 40px;
-    height: 40px;
-    font-size: 1.2rem;
   }
 }
 </style>

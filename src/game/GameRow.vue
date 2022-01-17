@@ -9,6 +9,13 @@ const props = defineProps<{
 }>()
 
 const row = $computed(() => game.rows[props.row])
+const tooltipPlace = $computed(() => {
+  if(screen.width <= 600){
+    if(props.row <= 4) return 'top'
+    return 'bottom'
+  }
+  return 'right'
+})
 </script>
 
 <template>
@@ -19,8 +26,8 @@ const row = $computed(() => game.rows[props.row])
       :row="props.row"
       :column="i-1"
     />
-    <div class="extra-info" v-if="row">
-      <TooltipHolder v-if="row.answer.rowFull && !row.answer.valid" v-bind="{ placement: 'right', shown: true, autoHide: false }">
+    <div v-if="row" class="extra-info" :class="tooltipPlace">
+      <TooltipHolder v-if="row.answer.rowFull && !row.answer.valid" v-bind="{ placement: tooltipPlace, shown: true, autoHide: false }">
         <template #popper>
           <p class="popper">Ikke et ord</p>
         </template>
@@ -42,6 +49,21 @@ const row = $computed(() => game.rows[props.row])
   margin: auto 10px;
   width: fit-content;
   height: fit-content;
+}
+
+.extra-info.top{
+  left: 0;
+  right: 0;
+  top: -5px;
+  margin: auto;
+  bottom: auto;
+}
+.extra-info.bottom{
+  left: 0;
+  right: 0;
+  bottom: -5px;
+  margin: auto;
+  top: auto;
 }
 
 .extra-info button {
