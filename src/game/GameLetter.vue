@@ -41,6 +41,7 @@ const focused = computed(() => isActiveRow && row.columnFocused === props.column
     :class="[row?.checkedColumns[props.column], {focus: focused}]"
     :disabled="!isActiveRow"
     @focus="row.focusTo(props.column)"
+    inputmode="none"
   />
 </template>
 
