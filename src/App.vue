@@ -31,7 +31,7 @@ watch(gameCompletedState, (state, prevState) => {
     </h1>
     <section>
       <button @click="showInfo = true">
-        <QuestionIcon/>
+        <QuestionIcon />
       </button>
       <button @click="showStats = true">
         <GraphIcon />
@@ -49,13 +49,13 @@ watch(gameCompletedState, (state, prevState) => {
     <GameKeyboard />
   </footer>
   <ModalWrapper v-if="showInfo" @close="showInfo = false">
-    <InfoModal/>
+    <InfoModal />
   </ModalWrapper>
   <ModalWrapper v-if="showSettings" @close="showSettings = false">
-    <SettingsModal/>
+    <SettingsModal />
   </ModalWrapper>
   <ModalWrapper v-if="showStats" @close="showStats = false">
-    <StatsModal/>
+    <StatsModal />
   </ModalWrapper>
 </template>
 
@@ -81,8 +81,13 @@ header h1 {
   padding: 5px 50px;
 }
 
-h1 > span{
-  background: linear-gradient(to right, var(--correct) 10%, var(--misplaced) 50%, var(--absent) 90%);
+h1 > span {
+  background: linear-gradient(
+    to right,
+    var(--correct) 10%,
+    var(--misplaced) 50%,
+    var(--absent) 90%
+  );
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -99,6 +104,23 @@ button {
 
 footer {
   padding-bottom: 1rem;
+}
+
+@media only screen and (max-width: 600px) {
+  header h1 {
+    padding: 5px 10px;
+  }
+}
+@media only screen and (max-height: 700px) {
+  header {
+    padding: 0;
+  }
+  header h1 {
+    font-size: 1rem;
+  }
+  button {
+    font-size: 1rem;
+  }
 }
 </style>
 

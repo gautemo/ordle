@@ -10,7 +10,7 @@ const props = defineProps<{
 
 const row = $computed(() => game.rows[props.row])
 const letter = $computed(() => row?.columns[props.column])
-const isActiveRow = $computed(() => row?.active(game.rows.length-1))
+const isActiveRow = $computed(() => row?.active(game.rows.length - 1))
 
 function onKey(event: KeyboardEvent) {
   if (event.code === 'Backspace') {
@@ -38,7 +38,7 @@ const focused = computed(() => isActiveRow && row.columnFocused === props.column
     :value="letter"
     maxlength="1"
     ref="el"
-    :class="[row?.checkedColumns[props.column], {focus: focused}]"
+    :class="[row?.checkedColumns[props.column], { focus: focused }]"
     :disabled="!isActiveRow"
     @focus="row.focusTo(props.column)"
     inputmode="none"
@@ -57,7 +57,7 @@ input {
   border: 2px solid var(--grey);
 }
 
-input:disabled{
+input:disabled {
   color: inherit;
   background-color: var(--bg-alt2);
 }
@@ -78,8 +78,23 @@ input.correct {
 }
 
 input:focus-visible,
-input.focus{
+input.focus {
   outline: none;
   border-color: currentColor;
+}
+
+@media only screen and (max-width: 600px) {
+  input {
+    width: 45px;
+    height: 45px;
+    font-size: 1.5rem;
+  }
+}
+@media only screen and (max-height: 700px) {
+  input {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
 }
 </style>

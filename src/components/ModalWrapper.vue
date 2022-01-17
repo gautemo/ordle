@@ -12,20 +12,20 @@ useFocusTrap(modal, { immediate: true })
 </script>
 
 <template>
-<div class="bg" @click="emit('close')" ref="modal">
-  <div class="modal" @click.stop>
-    <header>
-      <button @click="emit('close')" autofocus>
-        <CrossIcon/>
-      </button>
-    </header>
-    <slot></slot>
+  <div class="bg" @click="emit('close')" ref="modal">
+    <div class="modal" @click.stop>
+      <header>
+        <button @click="emit('close')" autofocus>
+          <CrossIcon />
+        </button>
+      </header>
+      <slot></slot>
+    </div>
   </div>
-</div>
 </template>
 
 <style scoped>
-header{
+header {
   display: flex;
   justify-content: flex-end;
 }
@@ -39,18 +39,26 @@ header{
   position: absolute;
   inset: 0;
   margin: auto;
-  width: 500px;
+  width: clamp(300px, 75vw, 500px);
   height: fit-content;
   min-height: 300px;
   background-color: var(--bg);
   box-shadow: 0 4px 10px 2px var(--shadow);
   padding: 1rem;
+  max-height: 90vh;
+  overflow: auto;
 }
 
-button{
+button {
   cursor: pointer;
   border: none;
   background: none;
   font-size: 1.5rem;
+}
+
+@media only screen and (max-width: 600px) {
+  .modal {
+    padding: 5px;
+  }
 }
 </style>

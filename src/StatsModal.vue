@@ -33,7 +33,7 @@ const revealed = ref(false)
     </section>
     <ShareText v-if="gameCompletedState !== 'failed' && gameCompletedState !== 'playing'"/>
     <h2>Statistikk</h2>
-    <section>
+    <section class="stats">
       <div class="stat">
         <span>{{ totalPlayed }}</span>
         <span>Antall spill</span>
@@ -125,5 +125,20 @@ section {
   border: 1px dashed var(--grey);
   padding: 3px;
   font-size: inherit;
+}
+
+@media only screen and (max-width: 600px) {
+  .stats{
+    display: grid;
+    grid-template: 1fr 1fr / 1fr 1fr;
+    justify-items: center;
+  }
+
+  .stat:nth-child(2n){
+    justify-self: start;
+  }
+  .stat:nth-child(2n+1){
+    justify-self: end;
+  }
 }
 </style>

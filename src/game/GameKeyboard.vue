@@ -6,43 +6,45 @@ import GameKeyboardKey from './GameKeyboardKey.vue';
 
 <template>
   <div class="keyboard">
-    <GameKeyboardKey letter="Q"/>
-    <GameKeyboardKey letter="W"/>
-    <GameKeyboardKey letter="E"/>
-    <GameKeyboardKey letter="R"/>
-    <GameKeyboardKey letter="T"/>
-    <GameKeyboardKey letter="Y"/>
-    <GameKeyboardKey letter="U"/>
-    <GameKeyboardKey letter="I"/>
-    <GameKeyboardKey letter="O"/>
-    <GameKeyboardKey letter="P"/>
-    <GameKeyboardKey letter="Å"/>
-    <GameKeyboardKey letter="A"/>
-    <GameKeyboardKey letter="S"/>
-    <GameKeyboardKey letter="D"/>
-    <GameKeyboardKey letter="F"/>
-    <GameKeyboardKey letter="G"/>
-    <GameKeyboardKey letter="H"/>
-    <GameKeyboardKey letter="J"/>
-    <GameKeyboardKey letter="K"/>
-    <GameKeyboardKey letter="L"/>
-    <GameKeyboardKey letter="Ø"/>
-    <GameKeyboardKey letter="Æ"/>
+    <GameKeyboardKey letter="Q" />
+    <GameKeyboardKey letter="W" />
+    <GameKeyboardKey letter="E" />
+    <GameKeyboardKey letter="R" />
+    <GameKeyboardKey letter="T" />
+    <GameKeyboardKey letter="Y" />
+    <GameKeyboardKey letter="U" />
+    <GameKeyboardKey letter="I" />
+    <GameKeyboardKey letter="O" />
+    <GameKeyboardKey letter="P" />
+    <GameKeyboardKey letter="Å" />
+    <GameKeyboardKey letter="A" />
+    <GameKeyboardKey letter="S" />
+    <GameKeyboardKey letter="D" />
+    <GameKeyboardKey letter="F" />
+    <GameKeyboardKey letter="G" />
+    <GameKeyboardKey letter="H" />
+    <GameKeyboardKey letter="J" />
+    <GameKeyboardKey letter="K" />
+    <GameKeyboardKey letter="L" />
+    <GameKeyboardKey letter="Ø" />
+    <GameKeyboardKey letter="Æ" />
     <button @click="game.activeRow.checkAnswer()" class="c2">ENTER</button>
-    <GameKeyboardKey letter="Z"/>
-    <GameKeyboardKey letter="X"/>
-    <GameKeyboardKey letter="C"/>
-    <GameKeyboardKey letter="V"/>
-    <GameKeyboardKey letter="B"/>
-    <GameKeyboardKey letter="N"/>
-    <GameKeyboardKey letter="M"/>
-    <button @click="game.activeRow.backspace()" class="c2"><BackspaceIcon/></button>
+    <GameKeyboardKey letter="Z" />
+    <GameKeyboardKey letter="X" />
+    <GameKeyboardKey letter="C" />
+    <GameKeyboardKey letter="V" />
+    <GameKeyboardKey letter="B" />
+    <GameKeyboardKey letter="N" />
+    <GameKeyboardKey letter="M" />
+    <button @click="game.activeRow.backspace()" class="c2">
+      <BackspaceIcon />
+    </button>
   </div>
 </template>
 
 <style scoped>
-.keyboard{
-  width: clamp(500px, 80vw, 1000px);
+.keyboard {
+  width: clamp(400px, 75vw, 1000px);
   height: 200px;
   display: grid;
   gap: 1px;
@@ -50,11 +52,11 @@ import GameKeyboardKey from './GameKeyboardKey.vue';
   background: var(--bg-alt1);
 }
 
-.c2{
+.c2 {
   grid-column: span 2;
 }
 
-button{
+button {
   cursor: pointer;
   flex: 1;
   font-size: 1.5rem;
@@ -62,5 +64,20 @@ button{
   background: none;
   border: none;
   border-radius: 5px;
+}
+
+@media only screen and (max-width: 600px) {
+  .keyboard {
+    width: clamp(300px, 90vw, 600px);
+  }
+
+  button {
+    font-size: 1em;
+  }
+}
+@media only screen and (max-height: 700px) {
+  .keyboard {
+    height: 130px;
+  }
 }
 </style>
