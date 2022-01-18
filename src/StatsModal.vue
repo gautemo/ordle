@@ -20,9 +20,7 @@ const revealed = ref(false)
   <div class="container">
     <section v-if="gameCompletedState !== 'playing'" class="today">
       <div v-if="gameCompletedState === 'failed'" class="failed-container">
-        <p class="failed">
-          Ikke riktig.
-        </p>
+        <p class="failed">Ikke riktig.</p>
         <button v-if="!revealed" @click="revealed = true">avslør</button>
         <span v-else class="reveal">Korrekt: {{ solution }}</span>
       </div>
@@ -31,7 +29,7 @@ const revealed = ref(false)
       </div>
       <CountDown />
     </section>
-    <ShareText v-if="gameCompletedState !== 'failed' && gameCompletedState !== 'playing'"/>
+    <ShareText v-if="gameCompletedState !== 'failed' && gameCompletedState !== 'playing'" />
     <h2>Statistikk</h2>
     <section class="stats">
       <div class="stat">
@@ -107,13 +105,13 @@ section {
   border-bottom: 3px solid var(--correct);
 }
 
-.failed{
+.failed {
   margin: 0;
   font-size: 1.5rem;
   border-bottom: 3px solid var(--absent);
 }
 
-.failed-container{
+.failed-container {
   margin: 0.5rem 0;
   display: flex;
   align-items: center;
@@ -121,24 +119,30 @@ section {
 }
 
 .failed-container .reveal,
-.failed-container button{
+.failed-container button {
   border: 1px dashed var(--grey);
   padding: 3px;
   font-size: inherit;
 }
 
 @media only screen and (max-width: 600px) {
-  .stats{
+  section{
+    gap: 0.5rem;
+  }
+  .stats {
     display: grid;
     grid-template: 1fr 1fr / 1fr 1fr;
     justify-items: center;
   }
 
-  .stat:nth-child(2n){
+  .stat:nth-child(2n) {
     justify-self: start;
   }
-  .stat:nth-child(2n+1){
+  .stat:nth-child(2n + 1) {
     justify-self: end;
+  }
+  .stat > span:first-child {
+    font-size: 1.2rem;
   }
 }
 </style>

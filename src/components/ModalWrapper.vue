@@ -39,7 +39,7 @@ header {
   position: absolute;
   inset: 0;
   margin: auto;
-  width: clamp(300px, 75vw, 500px);
+  width: clamp(300px, 80vw, 500px);
   height: fit-content;
   min-height: 300px;
   background-color: var(--bg);
