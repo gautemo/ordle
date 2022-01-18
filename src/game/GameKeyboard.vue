@@ -45,7 +45,7 @@ import GameKeyboardKey from './GameKeyboardKey.vue';
 <style scoped>
 .keyboard {
   width: clamp(400px, 75vw, 1000px);
-  height: 200px;
+  height: clamp(150px, 20vh, 250px);
   display: grid;
   gap: 1px;
   grid-template: repeat(3, 1fr) / repeat(11, 1fr);
@@ -57,9 +57,8 @@ import GameKeyboardKey from './GameKeyboardKey.vue';
 }
 
 button {
-  cursor: pointer;
   flex: 1;
-  font-size: 1.5rem;
+  font-size: var(--size-l);
   height: 100%;
   background: none;
   border: none;
@@ -68,12 +67,11 @@ button {
 
 @media only screen and (max-width: 600px) {
   .keyboard {
-    width: clamp(300px, 95vw, 600px);
-    height: 150px;
+    width: 100%;
   }
 
   button {
-    font-size: 1em;
+    font-size: var(--size-n);
   }
 }
 </style>

@@ -47,10 +47,10 @@ const focused = computed(() => isActiveRow && row.columnFocused === props.column
 
 <style scoped>
 input {
-  width: 62px;
-  height: 62px;
+  width: clamp(30px, min(10vw, 10vh), 80px);
+  height: clamp(30px, min(10vw, 10vh), 80px);
   margin: 3px;
-  font-size: 2rem;
+  font-size: var(--size-xl);
   text-align: center;
   text-transform: uppercase;
   border-radius: 8px;
@@ -83,11 +83,4 @@ input.focus {
   border-color: currentColor;
 }
 
-@media only screen and (max-width: 600px) {
-  input {
-    width: 50px;
-    height: 50px;
-    font-size: 1.7rem;
-  }
-}
 </style>

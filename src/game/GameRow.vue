@@ -66,16 +66,6 @@ const tooltipPlace = $computed(() => {
   top: auto;
 }
 
-.extra-info button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 2rem;
-  display: grid;
-  place-items: center;
-  padding: 0;
-}
-
 .popper {
   padding-left: 1rem;
   padding-right: 1rem;

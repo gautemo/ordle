@@ -94,6 +94,23 @@ const addNewRow = () => {
   gameState.rows.value.push(rowState(gameState.rows.value.length))
   saveGame()
 }
+const letterState = computed(() => {
+  const present: string[] = []
+  for(const [i, letter] of [...solution].entries()){
+    const found = gameState.rows.value.some(row => row.columns[i] === letter)
+    if(found){
+      present.push(letter)
+      continue
+    }
+    const misplaced = gameState.rows.value.some(row => {
+      const existOnIndex = row.columns.indexOf(letter)
+      //-1 // index is correct
+    }) // no check if i is correct
+  }
+  return {
+
+  }
+})
 
 export const game = readonly({
   rows: gameState.rows,

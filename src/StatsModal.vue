@@ -30,7 +30,6 @@ const revealed = ref(false)
       <CountDown />
     </section>
     <ShareText v-if="gameCompletedState !== 'failed' && gameCompletedState !== 'playing'" />
-    <h2>Statistikk</h2>
     <section class="stats">
       <div class="stat">
         <span>{{ totalPlayed }}</span>
@@ -74,6 +73,10 @@ section {
   gap: 1rem;
 }
 
+.stats{
+  margin: 15px 0;
+}
+
 .stat {
   display: grid;
   place-items: center;
@@ -82,7 +85,7 @@ section {
 }
 
 .stat > span:first-child {
-  font-size: 2rem;
+  font-size: var(--size-xl);
 }
 .stat > span:last-child {
   height: 50px;
@@ -91,7 +94,7 @@ section {
 .grid {
   display: grid;
   justify-content: start;
-  grid-template: repeat(6, 1fr) / 20px 20px repeat(v-bind(columns), 1fr);
+  grid-template: repeat(6, 1fr) / 20px 30px repeat(v-bind(columns), 1fr);
   gap: 0.5rem;
 }
 
@@ -100,14 +103,14 @@ section {
 }
 
 .correct {
-  font-size: 1.5rem;
+  font-size: var(--size-l);
   margin: 0.5rem 0;
   border-bottom: 3px solid var(--correct);
 }
 
 .failed {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: var(--size-l);
   border-bottom: 3px solid var(--absent);
 }
 
@@ -115,14 +118,13 @@ section {
   margin: 0.5rem 0;
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 15px;
 }
 
 .failed-container .reveal,
 .failed-container button {
   border: 1px dashed var(--grey);
-  padding: 3px;
-  font-size: inherit;
+  padding: 5px 10px;
 }
 
 @media only screen and (max-width: 600px) {
@@ -140,9 +142,6 @@ section {
   }
   .stat:nth-child(2n + 1) {
     justify-self: end;
-  }
-  .stat > span:first-child {
-    font-size: 1.2rem;
   }
 }
 </style>

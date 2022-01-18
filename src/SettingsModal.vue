@@ -19,19 +19,18 @@ label{
   display: flex;
   align-items: center;
   gap: .5rem;
-  font-size: 1.5rem;
+  font-size: var(--size-l);
   padding-bottom: 5px;
   border-bottom: 1px solid var(--grey);
 }
 
 input{
-  cursor: pointer;
   position: relative;
   appearance: none;
-  width: 2em;
-  height: 2em;
-  border: 0.15em solid currentColor;
-  border-radius: 0.2em;
+  width: var(--size-xl);
+  height: var(--size-xl);
+  border: 0.15rem solid currentColor;
+  border-radius: 0.2rem;
 }
 input::before{
   content: "";

@@ -66,8 +66,7 @@ header {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 1rem;
-  font-size: 1.3rem;
+  padding: var(--size-xs);
   box-sizing: border-box;
   background: #035e7b;
   color: var(--white);
@@ -75,7 +74,7 @@ header {
 }
 
 header h1 {
-  font-size: 2rem;
+  font-size: var(--size-xl);
   margin: 0;
   font-family: "Arial Black", Gadget, sans-serif;
   padding: 5px 50px;
@@ -94,33 +93,23 @@ h1 > span {
 }
 
 button {
-  cursor: pointer;
   background: none;
   border: none;
-  margin: 0.5rem;
-  padding: 0.2rem;
-  font-size: 1.5rem;
+  margin: var(--size-s);
+  padding: var(--size-xs);
+  font-size: var(--size-l);
 }
 
 footer {
   padding-bottom: 1rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 @media only screen and (max-width: 600px) {
-  header{
-    padding: 5px;
-  }
-  header h1 {
-    padding: 5px 10px;
-    font-size: 1.7rem;
-  }
-  button {
-    font-size: 1.7rem;
-    margin: 2px 4px;
-    padding: 2px;
-  }
   footer{
-    padding-bottom: 10px;
+    padding-bottom: 0;
   }
 }
 </style>

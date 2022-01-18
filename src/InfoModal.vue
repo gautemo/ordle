@@ -42,10 +42,11 @@
 }
 
 .letter {
-  width: 62px;
-  height: 62px;
+  width: clamp(30px, min(10vw, 10vh), 80px);
+  min-width: clamp(30px, min(10vw, 10vh), 80px);
+  height: clamp(30px, min(10vw, 10vh), 80px);
   margin: 3px;
-  font-size: 2rem;
+  font-size: var(--size-xl);
   display: grid;
   place-items: center;
   border-radius: 8px;

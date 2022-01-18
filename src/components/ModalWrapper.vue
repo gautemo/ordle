@@ -50,10 +50,9 @@ header {
 }
 
 button {
-  cursor: pointer;
   border: none;
   background: none;
-  font-size: 1.5rem;
+  font-size: var(--size-l);
 }
 
 @media only screen and (max-width: 600px) {

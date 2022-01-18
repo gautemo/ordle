@@ -41,7 +41,6 @@ function copy(event: MouseEvent) {
 }
 
 .header {
-  font-weight: bold;
   margin-bottom: 5px;
 }
 
@@ -58,11 +57,10 @@ p {
 }
 
 .copy {
-  cursor: pointer;
+  flex-direction: column;
   border: 1px dashed var(--correct);
   padding: 3px;
   background: none;
-  font-size: inherit;
   user-select: text;
 }
 
