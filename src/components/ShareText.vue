@@ -22,9 +22,9 @@ function copy(event: MouseEvent) {
         <br />
         <div v-for="(row, i) in game.rows" :key="i">
           <span v-for="(column,j) in row.checkedColumns" :key="j">
-            <span v-if="column === 'correct'">🟩</span>
-            <span v-if="column === 'misplaced'">🟨</span>
-            <span v-if="column === 'absent'">🟥</span>
+            <template v-if="column === 'correct'">🟩</template>
+            <template v-if="column === 'misplaced'">🟨</template>
+            <template v-if="column === 'absent'">🟥</template>
           </span>
         </div>
       </button>
@@ -53,15 +53,21 @@ p {
 }
 
 .copy > div:first-of-type {
-  margin-top: -10px;
+  margin-top: -15px;
 }
 
 .copy {
   flex-direction: column;
+  align-items: flex-start;
   border: 1px dashed var(--correct);
   padding: 3px;
   background: none;
   user-select: text;
+}
+
+.copy div > span{
+  font-size: 0.9rem;
+  line-height: 0px;
 }
 
 .popper {

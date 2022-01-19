@@ -7,32 +7,8 @@ const props = defineProps<{
 }>()
 
 const marked = computed(() => {
-  let best: string[] = []
-  let hasCorrect = false
-  for (const row of game.rows) {
-    let rowStatuses = row.columns.map((letter, i) => {
-      if (letter.toUpperCase() === props.letter) return row.checkedColumns[i]
-      return ''
-    })
-    rowStatuses = rowStatuses.filter(status => {
-      if(!status) return false
-      if(status === 'absent' && (rowStatuses.includes('correct') || rowStatuses.includes('misplaced'))) return false
-      return true
-    })
-    if (rowStatuses.includes('correct')) hasCorrect = true
-    if (
-      (rowStatuses.length === best.length &&
-      rowStatuses.filter(s => s === 'correct').length > best.filter(s => s === 'correct').length) ||
-      rowStatuses.length > best.length
-    ) {
-      best = rowStatuses
-    } 
-  }
-  const hasMisplaced = best.includes('misplaced')
-  if(hasCorrect && hasMisplaced) return 'correct misplaced'
-  if(hasCorrect) return 'correct'
-  if(hasMisplaced) return 'misplaced'
-  if(best.includes('absent')) return 'absent'
+  if(game.knownAbsent.has(props.letter)) return 'absent'
+  return game.solutionLetters.find(sl => sl.letter === props.letter)?.state ?? []
 })
 </script>
 

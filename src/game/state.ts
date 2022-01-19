@@ -16,7 +16,7 @@ function rowState(row: number, initialColumns = ['', '', '', '', ''], initialChe
     else if (!columns.value[4]) columnFocused.value = 4
   }
   const answer = computed(() => {
-    const value = columns.value.join('').toUpperCase()
+    const value = columns.value.join('')
     return {
       value,
       rowFull: value.length === 5,
@@ -46,7 +46,7 @@ function rowState(row: number, initialColumns = ['', '', '', '', ''], initialChe
       if (checkedColumns.value.length > 0) return
       if (value.length > 1) value = value[value.length - 1]
       const index = columnFocused.value
-      columns.value[index] = value
+      columns.value[index] = value.toUpperCase()
       if (index < 4 && (!columns.value[index + 1] || columns.value.every(l => l))) {
         columnFocused.value = index + 1
       } else {
@@ -57,29 +57,31 @@ function rowState(row: number, initialColumns = ['', '', '', '', ''], initialChe
     checkAnswer: () => {
       if (checkedColumns.value.length > 0) return
       if (answer.value.valid) {
-        if (answer.value.value === solution) {
-          checkedColumns.value = Array.from({ length: 5 }, () => 'correct')
-        } else {
-          let solutionLeft = solution
-          checkedColumns.value = Array.from({ length: 5 }, (_, i) => {
-            const letter = columns.value[i].toUpperCase()
-            if (solution[i] === letter) {
-              solutionLeft = solutionLeft.replace(letter, '')
-              return 'correct'
-            }
-            return 'not_calculated'
-          })
-          checkedColumns.value = checkedColumns.value.map((c, i) => {
-            if (c === 'correct') return c
-            const letter = columns.value[i].toUpperCase()
-            if (solutionLeft.includes(letter)) {
-              solutionLeft = solutionLeft.replace(letter, '')
-              return 'misplaced'
-            }
-            return 'absent'
-          })
-          if (game.rows.length < 6) addNewRow()
+        let solutionLeft = solution
+        for (const [i, letter] of [...solution].entries()) {
+          if (columns.value[i] == letter) {
+            checkedColumns.value.push('correct')
+            gameState.solutionLetters.find(sl => sl.letter === letter)?.fountAt(i)
+            solutionLeft = solutionLeft.replace(letter, '')
+          } else {
+            checkedColumns.value.push('not_calculated')
+          }
         }
+        for (const [i, letter] of columns.value.entries()) {
+          if (checkedColumns.value[i] === 'correct') continue
+          if (solutionLeft.includes(letter)) {
+            checkedColumns.value[i] = 'misplaced'
+          } else {
+            checkedColumns.value[i] = 'absent'
+            if (!solution.includes(letter)) gameState.knownAbsent.value.add(letter)
+          }
+        }
+        new Set([...columns.value]).forEach(letter => {
+          const occurs = columns.value.filter(l => l === letter).length
+          gameState.solutionLetters.find(sl => sl.letter === letter)?.guessedTimes(occurs)
+        })
+        const won = checkedColumns.value.every(state => state === 'correct')
+        if (!won && game.rows.length < 6) addNewRow()
       }
     },
     focusTo: (column: number) => {
@@ -94,28 +96,13 @@ const addNewRow = () => {
   gameState.rows.value.push(rowState(gameState.rows.value.length))
   saveGame()
 }
-const letterState = computed(() => {
-  const present: string[] = []
-  for(const [i, letter] of [...solution].entries()){
-    const found = gameState.rows.value.some(row => row.columns[i] === letter)
-    if(found){
-      present.push(letter)
-      continue
-    }
-    const misplaced = gameState.rows.value.some(row => {
-      const existOnIndex = row.columns.indexOf(letter)
-      //-1 // index is correct
-    }) // no check if i is correct
-  }
-  return {
-
-  }
-})
 
 export const game = readonly({
   rows: gameState.rows,
   activeRow: computed(() => gameState.rows.value[gameState.rows.value.length - 1]),
-  day: gameState.started
+  day: gameState.started,
+  knownAbsent: gameState.knownAbsent,
+  solutionLetters: gameState.solutionLetters
 })
 export const gameCompletedState = computed(() => {
   const active = gameState.rows.value[gameState.rows.value.length - 1]
@@ -150,15 +137,37 @@ document.addEventListener('keyup', event => {
   }
 })
 
+function solutionLetter(letter: string, at: number[], initMaxGuess = 0, initFoundSet: number[] = []) {
+  const maxGuess = ref(initMaxGuess)
+  const found = ref(new Set(initFoundSet))
+  const state = computed<LetterChecked[]>(() => {
+    if (found.value.size === at.length) return ['correct']
+    if (found.value.size > 0 && maxGuess.value > found.value.size) return ['correct', 'misplaced']
+    if (found.value.size > 0) return ['correct']
+    if (maxGuess.value > 0) return ['misplaced']
+    return []
+  })
+  return readonly({
+    letter,
+    maxGuess,
+    found,
+    state,
+    fountAt: (i: number) => found.value.add(i),
+    guessedTimes: (times: number) => maxGuess.value = Math.max(maxGuess.value, times),
+  })
+}
+
 function saveGame() {
-  const toSave = {
-    started: gameState.started,
+  const toSave: GameState = {
+    started: gameState.started.toString(),
     rows: gameState.rows.value.map(r => {
       return {
         columns: r.columns,
         checkedColumns: r.checkedColumns
       }
-    })
+    }),
+    knownAbsent: [...gameState.knownAbsent.value],
+    solutionLetters: gameState.solutionLetters.map(sl => ({ letter: sl.letter, found: [...sl.found], maxGuess: sl.maxGuess }))
   }
   localStorage.setItem('gameState', JSON.stringify(toSave))
 }
@@ -171,19 +180,33 @@ function startGame() {
     const isToday = datesAreOnSameDay(started, new Date())
     if (isToday) {
       return {
-        rows: ref(saved.rows.map((r, i) => rowState(i, r.columns, r.checkedColumns))),
-        started: started
+        rows: ref(saved.rows.map((r, i) => rowState(i, r.columns as string[], r.checkedColumns as LetterChecked[]))),
+        started: started,
+        knownAbsent: ref(new Set([...saved.knownAbsent])),
+        solutionLetters: saved.solutionLetters.map(sl => solutionLetter(sl.letter, getLetterAt(sl.letter), sl.maxGuess, sl.found)),
       }
     }
   }
-  return { rows: ref([rowState(0)]), started: new Date() }
+  const knownAbsent = ref(new Set<string>())
+  const solutionLetters = [...new Set([...solution])].map(l => solutionLetter(l, getLetterAt(l)))
+  return { rows: ref([rowState(0)]), started: new Date(), solutionLetters, knownAbsent }
+}
+
+function getLetterAt(letter: string){
+  return [...solution].reduce((acc, curr, i) => curr === letter ? [...acc, i] : acc, [] as number[])
 }
 
 interface GameState {
-  started: string,
+  started: string
   rows: {
-    columns: string[],
-    checkedColumns: LetterChecked[]
+    columns: readonly string[]
+    checkedColumns: readonly LetterChecked[]
+  }[]
+  knownAbsent: string[]
+  solutionLetters: {
+    letter: string
+    maxGuess: number
+    found: number[]
   }[]
 }
 

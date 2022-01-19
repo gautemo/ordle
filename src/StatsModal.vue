@@ -31,22 +31,14 @@ const revealed = ref(false)
     </section>
     <ShareText v-if="gameCompletedState !== 'failed' && gameCompletedState !== 'playing'" />
     <section class="stats">
-      <div class="stat">
-        <span>{{ totalPlayed }}</span>
-        <span>Antall spill</span>
-      </div>
-      <div class="stat">
-        <span>{{ winPercentage }}</span>
-        <span>Vunnet %</span>
-      </div>
-      <div class="stat">
-        <span>{{ streak.current }}</span>
-        <span>Vunnet rekke</span>
-      </div>
-      <div class="stat">
-        <span>{{ streak.best }}</span>
-        <span>Beste vunnet rekke</span>
-      </div>
+      <span>{{ totalPlayed }}</span>
+      <span>Antall spill</span>
+      <span>{{ winPercentage }} %</span>
+      <span>Vunnet</span>
+      <span>{{ streak.current }}</span>
+      <span>Vunnet rekke</span>
+      <span>{{ streak.best }}</span>
+      <span>Beste vunnet rekke</span>
     </section>
     <h3>Fordeling av riktige gjetninger</h3>
     <section class="grid">
@@ -74,21 +66,23 @@ section {
 }
 
 .stats{
-  margin: 15px 0;
-}
-
-.stat {
+  margin: 10px 0;
   display: grid;
-  place-items: center;
-  text-align: center;
-  width: 100px;
+  justify-items: center;
+  gap: 5px;
+  grid-template: 1fr auto / repeat(4, 1fr);
 }
 
-.stat > span:first-child {
+.stats > span{
+  text-align: center;
+}
+
+.stats > :nth-child(2n+1) {
   font-size: var(--size-xl);
 }
-.stat > span:last-child {
-  height: 50px;
+
+.stats > :nth-child(2n) {
+  grid-row: 2;
 }
 
 .grid {
@@ -127,21 +121,7 @@ section {
   padding: 5px 10px;
 }
 
-@media only screen and (max-width: 600px) {
-  section{
-    gap: 0.5rem;
-  }
-  .stats {
-    display: grid;
-    grid-template: 1fr 1fr / 1fr 1fr;
-    justify-items: center;
-  }
-
-  .stat:nth-child(2n) {
-    justify-self: start;
-  }
-  .stat:nth-child(2n + 1) {
-    justify-self: end;
-  }
+h3{
+  margin: 5px;
 }
 </style>

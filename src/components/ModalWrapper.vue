@@ -37,9 +37,10 @@ header {
 
 .modal {
   position: absolute;
+  z-index: 10001;
   inset: 0;
   margin: auto;
-  width: clamp(300px, 95vw, 500px);
+  width: clamp(300px, 90vw, 500px);
   height: fit-content;
   min-height: 300px;
   background-color: var(--bg);
@@ -57,7 +58,7 @@ button {
 
 @media only screen and (max-width: 600px) {
   .modal {
-    padding: 5px;
+    padding: 10px;
   }
 }
 </style>

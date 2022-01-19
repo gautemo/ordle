@@ -10,7 +10,7 @@ const props = defineProps<{
 
 const row = $computed(() => game.rows[props.row])
 const tooltipPlace = $computed(() => {
-  if(screen.width <= 600){
+  if(screen.width <= 650){
     if(props.row <= 4) return 'top'
     return 'bottom'
   }
