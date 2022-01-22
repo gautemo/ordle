@@ -44,8 +44,6 @@
 .letter {
   width: clamp(30px, min(15vw, 8vh), 80px);
   aspect-ratio: 1 / 1;
-  min-width: 30px;
-  min-height: 30px;
   margin: 3px;
   font-size: var(--size-xl);
   display: grid;

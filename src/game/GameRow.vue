@@ -39,6 +39,7 @@ const tooltipPlace = $computed(() => {
 <style scoped>
 .row {
   position: relative;
+  display: flex;
 }
 
 .extra-info {
