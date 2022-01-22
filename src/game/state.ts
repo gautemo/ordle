@@ -102,7 +102,12 @@ export const game = readonly({
   activeRow: computed(() => gameState.rows.value[gameState.rows.value.length - 1]),
   day: gameState.started,
   knownAbsent: gameState.knownAbsent,
-  solutionLetters: gameState.solutionLetters
+  solutionLetters: gameState.solutionLetters,
+  hardMode: gameState.hardMode,
+  changeHardMode: (on: boolean) => {
+    gameState.hardMode.value = on
+    localStorage.setItem('hardMode', on ? 'on' : '')
+  }
 })
 export const gameCompletedState = computed(() => {
   const active = gameState.rows.value[gameState.rows.value.length - 1]
@@ -167,7 +172,8 @@ function saveGame() {
       }
     }),
     knownAbsent: [...gameState.knownAbsent.value],
-    solutionLetters: gameState.solutionLetters.map(sl => ({ letter: sl.letter, found: [...sl.found], maxGuess: sl.maxGuess }))
+    solutionLetters: gameState.solutionLetters.map(sl => ({ letter: sl.letter, found: [...sl.found], maxGuess: sl.maxGuess })),
+    hardMode: gameState.hardMode.value
   }
   localStorage.setItem('gameState', JSON.stringify(toSave))
 }
@@ -184,12 +190,14 @@ function startGame() {
         started: started,
         knownAbsent: ref(new Set([...saved.knownAbsent])),
         solutionLetters: saved.solutionLetters.map(sl => solutionLetter(sl.letter, getLetterAt(sl.letter), sl.maxGuess, sl.found)),
+        hardMode: ref(saved.hardMode)
       }
     }
   }
   const knownAbsent = ref(new Set<string>())
   const solutionLetters = [...new Set([...solution])].map(l => solutionLetter(l, getLetterAt(l)))
-  return { rows: ref([rowState(0)]), started: new Date(), solutionLetters, knownAbsent }
+  const hardMode = ref(Boolean(localStorage.getItem('hardMode') ?? false))
+  return { rows: ref([rowState(0)]), started: new Date(), solutionLetters, knownAbsent, hardMode }
 }
 
 function getLetterAt(letter: string){
@@ -208,6 +216,7 @@ interface GameState {
     maxGuess: number
     found: number[]
   }[]
+  hardMode: boolean
 }
 
 type LetterChecked = 'not_calculated' | 'correct' | 'absent' | 'misplaced'
