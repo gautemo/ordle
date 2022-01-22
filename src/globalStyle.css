@@ -11,7 +11,7 @@
   --input-color: var(--white);
   --shadow: rgba(51, 51, 51, 0.6);
   
-  font-size: clamp(1rem, 2vw, 1.5rem);
+  font-size: clamp(16px, calc(0.5rem + 0.6vw), 1.5rem);
   --size-xs: 0.1rem;
   --size-s: 0.3rem;
   --size-n: 1rem;

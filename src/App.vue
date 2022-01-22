@@ -108,8 +108,12 @@ footer {
 }
 
 @media only screen and (max-width: 600px) {
-  footer{
+  footer {
     padding-bottom: 0;
+  }
+
+  header h1 {
+    padding: 5px 10px;
   }
 }
 </style>

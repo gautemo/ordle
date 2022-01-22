@@ -72,6 +72,7 @@ button {
 
   button {
     font-size: var(--size-n);
+    padding: 1px 2px;
   }
 }
 </style>
