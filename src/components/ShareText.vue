@@ -1,22 +1,19 @@
 <script setup lang="ts">
-import { ref } from 'vue';
 import { game, gameCompletedState } from '../game/state';
-import { Dropdown as TooltipHolder } from 'floating-vue'
-
-const showCopied = ref(false)
+import PopperToast from '../popper/PopperToast.vue';
+import { toast } from '../popper/toaster';
 
 function copy(event: MouseEvent) {
   navigator.clipboard.writeText((event.currentTarget as HTMLButtonElement).innerText.replace('\n\n', '\n'))
-  showCopied.value = true
-  setTimeout(() => showCopied.value = false, 2000)
+  toast('copy')
 }
 </script>
 
 <template>
   <div class="box">
     <p class="header">Tekst du kan dele:</p>
-    <TooltipHolder :shows="showCopied" placement="right">
-      <button class="copy" @click.once="copy">
+    <PopperToast toast-key="copy" msg="Tekst kopiert" placement="right">
+      <button class="copy" @click="copy">
         <span class="line">Ordle {{ game.day.toLocaleDateString() }}</span>
         <span class="line">Forsøk: {{ gameCompletedState }}/6</span>
         <br />
@@ -28,10 +25,7 @@ function copy(event: MouseEvent) {
           </span>
         </div>
       </button>
-      <template #popper>
-        <p class="popper">Tekst kopiert</p>
-      </template>
-    </TooltipHolder>
+    </PopperToast>
   </div>
 </template>
 
@@ -68,10 +62,5 @@ p {
 .copy div > span{
   font-size: 0.9rem;
   line-height: 0px;
-}
-
-.popper {
-  padding: 1rem;
-  max-width: 200px;
 }
 </style>
