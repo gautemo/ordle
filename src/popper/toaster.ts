@@ -4,7 +4,7 @@ const currentlyToasts = ref<string[]>([])
 
 function toast(key: string){
   currentlyToasts.value.push(key)
-  setTimeout(() => currentlyToasts.value.splice(currentlyToasts.value.findIndex(k => k === key), 1))
+  setTimeout(() => currentlyToasts.value.splice(currentlyToasts.value.findIndex(k => k === key), 1), 2500)
 }
 
 function showToast(key: string){

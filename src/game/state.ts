@@ -71,6 +71,7 @@ function rowState(row: number, initialColumns = ['', '', '', '', ''], initialChe
           if (checkedColumns.value[i] === 'correct') continue
           if (solutionLeft.includes(letter)) {
             checkedColumns.value[i] = 'misplaced'
+            solutionLeft = solutionLeft.replace(letter, '')
           } else {
             checkedColumns.value[i] = 'absent'
             if (!solution.includes(letter)) gameState.knownAbsent.value.add(letter)

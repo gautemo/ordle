@@ -1,18 +1,16 @@
 <script setup lang="ts">
 import { useDark } from '@vueuse/core'
 import { game } from './game/state';
-import { Dropdown as TooltipHolder } from 'floating-vue'
-import { ref } from 'vue';
+import PopperToast from './popper/PopperToast.vue';
+import { toast } from './popper/toaster';
 
 const isDark = useDark()
-const showHardmodeInfo = ref(false)
 
 function toggleHardMode(event: MouseEvent) {
   const element = event.currentTarget as HTMLInputElement
   if (game.rows.length > 1 && !game.hardMode) {
     element.checked = false
-    showHardmodeInfo.value = true
-    setTimeout(() => showHardmodeInfo.value = false, 2000)
+    toast('hardmode')
   } else {
     game.changeHardMode(element.checked)
   }
@@ -25,15 +23,16 @@ function toggleHardMode(event: MouseEvent) {
       <input type="checkbox" v-model="isDark" />
       <span>Nattmodus</span>
     </label>
-    <TooltipHolder :shows="showHardmodeInfo" placement="bottom">
+    <PopperToast
+      msg="Kan ikke skurs på når runden er i gang"
+      toast-key="hardmode"
+      placement="bottom"
+    >
       <label>
         <input type="checkbox" :checked="game.hardMode" @click="toggleHardMode" />
-        <span>Vanskelig modus {{showHardmodeInfo}}</span>
+        <span>Vanskelig modus</span>
       </label>
-      <template #popper>
-        <p class="popper">Vanskelig modus kan ikke skurs på når runden er i gang</p>
-      </template>
-    </TooltipHolder>
+    </PopperToast>
   </section>
 </template>
 
@@ -53,8 +52,8 @@ input {
   appearance: none;
   width: var(--size-xl);
   height: var(--size-xl);
-  border: 0.15rem solid currentColor;
-  border-radius: 0.2rem;
+  border: 2px solid currentColor;
+  border-radius: 4px;
 }
 input::before {
   content: "";
