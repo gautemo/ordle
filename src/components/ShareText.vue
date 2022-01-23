@@ -13,7 +13,7 @@ function copy(event: MouseEvent) {
   <div class="box">
     <p class="header">Tekst du kan dele:</p>
     <PopperToast toast-key="copy" msg="Tekst kopiert" placement="right">
-      <button class="copy" @click.once="copy">
+      <button class="copy" @click="copy">
         <span class="line">Ordle {{ game.day.toLocaleDateString() }}</span>
         <span class="line">Forsøk: {{ gameCompletedState }}/6</span>
         <br />

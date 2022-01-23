@@ -34,6 +34,7 @@ const show = computed(() => props.visible || toast.value)
   margin: auto;
   width: fit-content;
   height: fit-content;
+  white-space: pre;
   filter: drop-shadow(0px 2px 3px var(--black));
 }
 .popper::before {
