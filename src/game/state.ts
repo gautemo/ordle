@@ -2,6 +2,7 @@ import { datesAreOnSameDay } from '../utils/date';
 import { computed, readonly, ref, watch } from 'vue';
 import { storePlayed } from './savedStats';
 import { words, solution } from './words';
+import { toast } from '../popper/toaster';
 
 function rowState(row: number, initialColumns = ['', '', '', '', ''], initialCheckedColumns: LetterChecked[] = []) {
   const columns = ref(initialColumns)
@@ -56,6 +57,16 @@ function rowState(row: number, initialColumns = ['', '', '', '', ''], initialChe
     },
     checkAnswer: () => {
       if (checkedColumns.value.length > 0) return
+      if (gameState.hardMode.value) {
+        const needed = gameState.solutionLetters
+          .map(sl => ({ letter: sl.letter, i: [...sl.found].find(i => columns.value[i] !== sl.letter) }))
+          .find(n => n.i !== undefined)
+        if(needed){
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          toast(`row${row}`, `${needed.letter} må være bokstav ${needed.i!+1}`)
+          return
+        }
+      }
       if (answer.value.valid) {
         let solutionLeft = solution
         for (const [i, letter] of [...solution].entries()) {
@@ -201,7 +212,7 @@ function startGame() {
   return { rows: ref([rowState(0)]), started: new Date(), solutionLetters, knownAbsent, hardMode }
 }
 
-function getLetterAt(letter: string){
+function getLetterAt(letter: string) {
   return [...solution].reduce((acc, curr, i) => curr === letter ? [...acc, i] : acc, [] as number[])
 }
 

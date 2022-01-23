@@ -5,14 +5,14 @@ import { toast } from '../popper/toaster';
 
 function copy(event: MouseEvent) {
   navigator.clipboard.writeText((event.currentTarget as HTMLButtonElement).innerText.replace('\n\n', '\n'))
-  toast('copy')
+  toast('copy', 'Tekst kopiert')
 }
 </script>
 
 <template>
   <div class="box">
     <p class="header">Tekst du kan dele:</p>
-    <PopperToast toast-key="copy" msg="Tekst kopiert" placement="right">
+    <PopperToast toast-key="copy" placement="right">
       <button class="copy" @click="copy">
         <span class="line">Ordle {{ game.day.toLocaleDateString() }}</span>
         <span class="line">Forsøk: {{ gameCompletedState }}/6</span>

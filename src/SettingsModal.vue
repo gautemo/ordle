@@ -10,7 +10,7 @@ function toggleHardMode(event: MouseEvent) {
   const element = event.currentTarget as HTMLInputElement
   if (game.rows.length > 1 && !game.hardMode) {
     element.checked = false
-    toast('hardmode')
+    toast('hardmode', 'Kan ikke skurs på når runden er i gang')
   } else {
     game.changeHardMode(element.checked)
   }
@@ -24,7 +24,6 @@ function toggleHardMode(event: MouseEvent) {
       <span>Nattmodus</span>
     </label>
     <!-- <PopperToast
-      msg="Kan ikke skurs på når runden er i gang"
       toast-key="hardmode"
       placement="bottom"
     >

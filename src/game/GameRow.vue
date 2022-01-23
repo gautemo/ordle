@@ -2,6 +2,7 @@
 import { $computed } from 'vue/macros';
 import GameLetter from './GameLetter.vue';
 import { game } from './state';
+import PopperTooltip from '../popper/PopperTooltip.vue';
 import PopperToast from '../popper/PopperToast.vue';
 
 const props = defineProps<{
@@ -19,10 +20,12 @@ const tooltipPlace = $computed(() => {
 </script>
 
 <template>
-  <PopperToast msg="Ikke et ord" :visible="row?.answer.rowFull && !row?.answer.valid" :placement="tooltipPlace">
-    <div class="row">
-      <GameLetter v-for="i in 5" :key="i" :row="props.row" :column="i - 1" />
-    </div>
+  <PopperToast :toast-key="`row${props.row}`" :placement="tooltipPlace">
+    <PopperTooltip msg="Ikke et ord" :visible="Boolean(row?.answer.rowFull) && !row?.answer.valid" :placement="tooltipPlace">
+      <div class="row">
+        <GameLetter v-for="i in 5" :key="i" :row="props.row" :column="i - 1" />
+      </div>
+    </PopperTooltip>
   </PopperToast>
 </template>
 
