@@ -63,9 +63,4 @@ p {
   font-size: 0.9rem;
   line-height: 0px;
 }
-
-.popper {
-  padding: 1rem;
-  max-width: 200px;
-}
 </style>
