@@ -60,6 +60,8 @@ input {
 input:disabled {
   color: inherit;
   background-color: var(--bg-alt2);
+  -webkit-text-fill-color: var(--black);
+  opacity: 1;
 }
 
 input.absent {

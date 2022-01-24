@@ -28,6 +28,7 @@ defineProps<{
   width: fit-content;
   height: fit-content;
   white-space: pre;
+  will-change: filter;
   filter: drop-shadow(0px 2px 3px var(--black));
 }
 .popper::before {
