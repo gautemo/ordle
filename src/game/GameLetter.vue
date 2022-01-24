@@ -62,6 +62,7 @@ input:disabled {
   background-color: var(--bg-alt2);
   -webkit-text-fill-color: var(--black);
   opacity: 1;
+  cursor: auto;
 }
 
 input.absent {
