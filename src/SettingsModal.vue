@@ -23,7 +23,7 @@ function toggleHardMode(event: MouseEvent) {
       <input type="checkbox" v-model="isDark" />
       <span>Nattmodus</span>
     </label>
-    <!-- <PopperToast
+    <PopperToast
       toast-key="hardmode"
       placement="bottom"
     >
@@ -31,7 +31,7 @@ function toggleHardMode(event: MouseEvent) {
         <input type="checkbox" :checked="game.hardMode" @click="toggleHardMode" />
         <span>Vanskelig modus</span>
       </label>
-    </PopperToast> -->
+    </PopperToast>
   </section>
 </template>
 

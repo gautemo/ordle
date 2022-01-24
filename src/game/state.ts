@@ -61,9 +61,20 @@ function rowState(row: number, initialColumns = ['', '', '', '', ''], initialChe
         const needed = gameState.solutionLetters
           .map(sl => ({ letter: sl.letter, i: [...sl.found].find(i => columns.value[i] !== sl.letter) }))
           .find(n => n.i !== undefined)
-        if(needed){
+        if (needed) {
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          toast(`row${row}`, `${needed.letter} må være bokstav ${needed.i!+1}`)
+          toast(`row${row}`, `${needed.letter} må være bokstav ${needed.i! + 1}`)
+          return
+        }
+        const neededMisplaced = gameState.solutionLetters
+          .map(sl => ({ 
+            letter: sl.letter, 
+            times: Math.min(sl.maxGuess, solution.split(sl.letter).length - 1), 
+            guessed: columns.value.filter(c => c === sl.letter).length,
+          }))
+          .find(n => n.guessed < n.times)
+        if (neededMisplaced) {
+          toast(`row${row}`, `${neededMisplaced.letter} må være tilstede ${neededMisplaced.times} gang${neededMisplaced.times > 1 ? 'er' : ''}`)
           return
         }
       }
