@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import CrossIcon from './CrossIcon.vue';
+import CrossIcon from './icons/CrossIcon.vue';
 import { useFocusTrap } from '@vueuse/integrations/useFocusTrap'
 
 const emit = defineEmits<{
@@ -19,7 +19,7 @@ useFocusTrap(modal, { immediate: true })
           <CrossIcon />
         </button>
       </header>
-      <slot></slot>
+      <slot class="slot"></slot>
     </div>
   </div>
 </template>
@@ -48,6 +48,8 @@ header {
   padding: 1rem;
   max-height: 90vh;
   overflow: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 button {

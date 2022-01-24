@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import QuestionIcon from './components/QuestionIcon.vue';
-import GraphIcon from './components/GraphIcon.vue';
-import GearIcon from './components/GearIcon.vue';
+import QuestionIcon from './components/icons/QuestionIcon.vue';
+import GraphIcon from './components/icons/GraphIcon.vue';
+import GearIcon from './components/icons/GearIcon.vue';
 import Game from './game/Game.vue';
 import GameKeyboard from './game/GameKeyboard.vue';
 import { ref, watch } from 'vue';

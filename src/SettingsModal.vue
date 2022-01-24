@@ -3,6 +3,9 @@ import { useDark } from '@vueuse/core'
 import { game } from './game/state';
 import PopperToast from './popper/PopperToast.vue';
 import { toast } from './popper/toaster';
+import GlobeIcon from './components/icons/GlobeIcon.vue';
+import TwitterIcon from './components/icons/TwitterIcon.vue';
+import EmailIcon from './components/icons/EmailIcon.vue';
 
 const isDark = useDark()
 
@@ -32,10 +35,29 @@ function toggleHardMode(event: MouseEvent) {
         <span>Vanskelig modus</span>
       </label>
     </PopperToast>
+    <div class="by">
+      <span>Lagd av Gaute Meek Olsen</span>
+      <a href="https://gaute.dev" target="_blank" rel="noopener">
+        <GlobeIcon/>
+      </a>
+      <a href="https://twitter.com/GauteMeekOlsen" target="_blank" rel="noopener">
+        <TwitterIcon/>
+      </a>
+      <a href="mailto:gautedevelopment@gmail.com">
+        <EmailIcon/>
+      </a>
+    </div>
   </section>
 </template>
 
 <style scoped>
+section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 label {
   cursor: pointer;
   display: flex;
@@ -64,5 +86,19 @@ input::before {
 }
 input:checked::before {
   transform: scale(1);
+}
+
+.by{
+  margin-top: auto;
+  display: flex;
+  gap: 15px;
+}
+
+.by > span {
+  flex: 1;
+}
+
+.by > a{
+  font-size: var(--size-l);
 }
 </style>
