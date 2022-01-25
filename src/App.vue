@@ -4,7 +4,7 @@ import GraphIcon from './components/icons/GraphIcon.vue';
 import GearIcon from './components/icons/GearIcon.vue';
 import Game from './game/Game.vue';
 import GameKeyboard from './game/GameKeyboard.vue';
-import { ref, watch } from 'vue';
+import { ref, watchEffect } from 'vue';
 import SettingsModal from './SettingsModal.vue';
 import ModalWrapper from './components/ModalWrapper.vue';
 import StatsModal from './StatsModal.vue';
@@ -17,9 +17,9 @@ const pageVisited = Boolean(localStorage.getItem('page-visited'))
 localStorage.setItem('page-visited', 'true')
 const showInfo = ref(!pageVisited)
 
-watch(gameStatus, status => {
-  if (status.state === 'won' || status.state === 'failed') {
-    showStats.value = true
+watchEffect(() => {
+  if (gameStatus.value.state === 'won' || gameStatus.value.state === 'failed') {
+    setTimeout(() => showStats.value = true, 2000)
   }
 })
 </script>

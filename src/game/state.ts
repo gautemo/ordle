@@ -9,6 +9,7 @@ function rowState(row: number, initialColumns = ['', '', '', '', ''], initialChe
   const checkedColumns = ref<LetterChecked[]>(initialCheckedColumns)
   const columnFocused = ref(0)
   const moveFocusTo = ref(0)
+  const shake = ref(0)
   function resetFocus() {
     if (!columns.value[0]) columnFocused.value = 0
     else if (!columns.value[1]) columnFocused.value = 1
@@ -30,6 +31,7 @@ function rowState(row: number, initialColumns = ['', '', '', '', ''], initialChe
     moveFocusTo,
     checkedColumns,
     answer,
+    shake,
     active: (activeRow: number) => activeRow == row && checkedColumns.value.length === 0,
     backspace: (moveUIFocus = false) => {
       const index = columnFocused.value
@@ -64,6 +66,7 @@ function rowState(row: number, initialColumns = ['', '', '', '', ''], initialChe
         if (needed) {
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           toast(`row${row}`, `${needed.letter} må være bokstav ${needed.i! + 1}`)
+          shake.value++
           return
         }
         const neededMisplaced = gameState.solutionLetters
@@ -75,6 +78,7 @@ function rowState(row: number, initialColumns = ['', '', '', '', ''], initialChe
           .find(n => n.guessed < n.times)
         if (neededMisplaced) {
           toast(`row${row}`, `${neededMisplaced.letter} må være tilstede ${neededMisplaced.times} gang${neededMisplaced.times > 1 ? 'er' : ''}`)
+          shake.value++
           return
         }
       }
@@ -105,6 +109,8 @@ function rowState(row: number, initialColumns = ['', '', '', '', ''], initialChe
         })
         const won = checkedColumns.value.every(state => state === 'correct')
         if (!won && game.rows.length < 6) addNewRow()
+      }else{
+        shake.value++
       }
     },
     focusTo: (column: number) => {
