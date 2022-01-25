@@ -8,7 +8,7 @@ import { ref, watch } from 'vue';
 import SettingsModal from './SettingsModal.vue';
 import ModalWrapper from './components/ModalWrapper.vue';
 import StatsModal from './StatsModal.vue';
-import { gameCompletedState } from './game/state';
+import { gameStatus } from './game/state';
 import InfoModal from './InfoModal.vue';
 
 const showSettings = ref(false)
@@ -17,8 +17,8 @@ const pageVisited = Boolean(localStorage.getItem('page-visited'))
 localStorage.setItem('page-visited', 'true')
 const showInfo = ref(!pageVisited)
 
-watch(gameCompletedState, (state, prevState) => {
-  if (prevState === 'playing' && state !== 'playing') {
+watch(gameStatus, status => {
+  if (status.state === 'won' || status.state === 'failed') {
     showStats.value = true
   }
 })

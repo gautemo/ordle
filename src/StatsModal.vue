@@ -5,7 +5,7 @@ import StatsGuessRow from './components/StatsGuessRow.vue';
 import { solution } from './game/words';
 import CountDown from './components/CountDown.vue';
 import ShareText from './components/ShareText.vue';
-import { gameCompletedState } from './game/state';
+import { gameStatus } from './game/state';
 
 const totalPlayed = computed(() => Object.values(played.value).reduce((acc, current) => acc + current))
 const winPercentage = computed(() => {
@@ -18,8 +18,8 @@ const revealed = ref(false)
 
 <template>
   <div class="container">
-    <section v-if="gameCompletedState !== 'playing'" class="today">
-      <div v-if="gameCompletedState === 'failed'" class="failed-container">
+    <section v-if="gameStatus.state !== 'playing'" class="today">
+      <div v-if="gameStatus.state === 'failed'" class="failed-container">
         <p class="failed">Ikke riktig.</p>
         <button v-if="!revealed" @click="revealed = true">avslør</button>
         <span v-else class="reveal">Korrekt: {{ solution }}</span>
@@ -29,7 +29,7 @@ const revealed = ref(false)
       </div>
       <CountDown />
     </section>
-    <ShareText v-if="gameCompletedState !== 'failed' && gameCompletedState !== 'playing'" />
+    <ShareText v-if="gameStatus.state === 'won'" />
     <section class="stats">
       <span>{{ totalPlayed }}</span>
       <span>Antall spill</span>
@@ -42,12 +42,12 @@ const revealed = ref(false)
     </section>
     <h3>Fordeling av riktige gjetninger</h3>
     <section class="grid">
-      <StatsGuessRow :row="1" :value="played[1]" :active="gameCompletedState === 1" />
-      <StatsGuessRow :row="2" :value="played[2]" :active="gameCompletedState === 2" />
-      <StatsGuessRow :row="3" :value="played[3]" :active="gameCompletedState === 3" />
-      <StatsGuessRow :row="4" :value="played[4]" :active="gameCompletedState === 4" />
-      <StatsGuessRow :row="5" :value="played[5]" :active="gameCompletedState === 5" />
-      <StatsGuessRow :row="6" :value="played[6]" :active="gameCompletedState === 6" />
+      <StatsGuessRow :row="1" :value="played[1]" :active="gameStatus.state === 'won' && gameStatus.row === 1" />
+      <StatsGuessRow :row="2" :value="played[2]" :active="gameStatus.state === 'won' && gameStatus.row === 2" />
+      <StatsGuessRow :row="3" :value="played[3]" :active="gameStatus.state === 'won' && gameStatus.row === 3" />
+      <StatsGuessRow :row="4" :value="played[4]" :active="gameStatus.state === 'won' && gameStatus.row === 4" />
+      <StatsGuessRow :row="5" :value="played[5]" :active="gameStatus.state === 'won' && gameStatus.row === 5" />
+      <StatsGuessRow :row="6" :value="played[6]" :active="gameStatus.state === 'won' && gameStatus.row === 6" />
     </section>
   </div>
 </template>

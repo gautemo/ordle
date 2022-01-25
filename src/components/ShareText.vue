@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { game, gameCompletedState } from '../game/state';
+import { game, gameStatus } from '../game/state';
 import PopperToast from '../popper/PopperToast.vue';
 import { toast } from '../popper/toaster';
 
@@ -14,8 +14,8 @@ function copy(event: MouseEvent) {
     <p class="header">Tekst du kan dele:</p>
     <PopperToast toast-key="copy" placement="right">
       <button class="copy" @click="copy">
-        <span class="line">Ordle {{ game.day.toLocaleDateString() }}</span>
-        <span class="line">Forsøk: {{ gameCompletedState }}/6</span>
+        <span class="line">Ordle{{game.hardMode ? '[vanskelig]':''}} {{ game.day.toLocaleDateString() }}</span>
+        <span class="line">Forsøk: {{ gameStatus.row }}/6</span>
         <br />
         <div v-for="(row, i) in game.rows" :key="i">
           <span v-for="(column,j) in row.checkedColumns" :key="j">

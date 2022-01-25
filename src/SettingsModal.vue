@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useDark } from '@vueuse/core'
-import { game } from './game/state';
+import { game, gameStatus } from './game/state';
 import PopperToast from './popper/PopperToast.vue';
 import { toast } from './popper/toaster';
 import GlobeIcon from './components/icons/GlobeIcon.vue';
@@ -8,15 +8,17 @@ import TwitterIcon from './components/icons/TwitterIcon.vue';
 import EmailIcon from './components/icons/EmailIcon.vue';
 
 const isDark = useDark()
+const initialHardMode = Boolean(localStorage.getItem('hardMode') ?? false)
 
 function toggleHardMode(event: MouseEvent) {
   const element = event.currentTarget as HTMLInputElement
-  if (game.rows.length > 1 && !game.hardMode) {
+  if (element.checked && gameStatus.value.state === 'playing' && gameStatus.value.row > 1) {
     element.checked = false
     toast('hardmode', 'Kan ikke skurs på når runden er i gang')
-  } else {
+  } else if(gameStatus.value.state !== 'won' && gameStatus.value.state !== 'failed'){
     game.changeHardMode(element.checked)
   }
+  localStorage.setItem('hardMode', element.checked ? 'on' : '')
 }
 </script>
 
@@ -31,7 +33,7 @@ function toggleHardMode(event: MouseEvent) {
       placement="bottom"
     >
       <label>
-        <input type="checkbox" :checked="game.hardMode" @click="toggleHardMode" />
+        <input type="checkbox" :checked="initialHardMode" @click="toggleHardMode" />
         <span>Vanskelig modus</span>
       </label>
     </PopperToast>

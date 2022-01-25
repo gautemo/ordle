@@ -127,28 +127,26 @@ export const game = readonly({
   knownAbsent: gameState.knownAbsent,
   solutionLetters: gameState.solutionLetters,
   hardMode: gameState.hardMode,
-  changeHardMode: (on: boolean) => {
-    gameState.hardMode.value = on
-    localStorage.setItem('hardMode', on ? 'on' : '')
-  }
+  changeHardMode: (on: boolean) => gameState.hardMode.value = on,
 })
-export const gameCompletedState = computed(() => {
+export const gameStatus = computed<{state: 'playing'|'won'|'failed', row: 1|2|3|4|5|6}>(() => {
+  const row = gameState.rows.value.length as 1 | 2 | 3 | 4 | 5 | 6
   const active = gameState.rows.value[gameState.rows.value.length - 1]
-  if (active.checkedColumns.length === 0) return 'playing'
+  if (active.checkedColumns.length === 0) return { state: 'playing', row }
   if (active.checkedColumns.every(s => s === 'correct')) {
-    return gameState.rows.value.length
+    return { state: 'won', row }
   }
-  return 'failed'
+  return { state: 'failed', row }
 })
 
-watch(gameCompletedState, (state, prevState) => {
-  if (prevState === 'playing' && state !== 'playing') {
+watch(gameStatus, status => {
+  if(status.state === 'failed'){
     saveGame()
-    if (state === 'failed') {
-      storePlayed()
-    } else {
-      storePlayed(gameState.rows.value.length as 1 | 2 | 3 | 4 | 5 | 6)
-    }
+    storePlayed()
+  }
+  if(status.state === 'won'){
+    saveGame()
+    storePlayed(status.row)
   }
 })
 
