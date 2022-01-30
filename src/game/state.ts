@@ -113,8 +113,9 @@ function rowState(row: number, initialColumns = ['', '', '', '', ''], initialChe
         shake.value++
       }
     },
-    focusTo: (column: number) => {
+    focusTo: (column: number, moveUIFocus = false) => {
       columnFocused.value = column
+      if (moveUIFocus) moveFocusTo.value = columnFocused.value
     },
     resetFocus
   })
@@ -157,6 +158,12 @@ watch(gameStatus, status => {
 })
 
 document.addEventListener('keyup', event => {
+  if(event.code === 'ArrowLeft' && game.activeRow.columnFocused > 0){
+    game.activeRow.focusTo(game.activeRow.columnFocused - 1, true)
+  }
+  if(event.code === 'ArrowRight' && game.activeRow.columnFocused < 4){
+    game.activeRow.focusTo(game.activeRow.columnFocused + 1, true)
+  }
   if (event.code === 'Tab' && event.target instanceof HTMLButtonElement) game.activeRow.resetFocus()
   if (event.code === 'Enter' && !(event.target instanceof HTMLButtonElement)) {
     game.activeRow.checkAnswer()
