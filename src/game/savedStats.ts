@@ -16,7 +16,7 @@ function storedStreak(){
   const currentKey = 'streak'
   const bestKey = 'best-streak'
   const current = ref(Number(localStorage.getItem(currentKey)))
-  const best = ref(Number(localStorage.getItem(currentKey)))
+  const best = ref(Number(localStorage.getItem(bestKey)))
   const save = () => {
     localStorage.setItem(currentKey, current.value.toString())
     localStorage.setItem(bestKey, best.value.toString())
