@@ -30,6 +30,19 @@ watchEffect(() => {
   }
 })
 const focused = computed(() => isActiveRow && row.columnFocused === props.column)
+
+const labelState = computed(() => {
+  if (row?.checkedColumns[props.column]) {
+    const statuses: { [key: string]: string } = {
+      'correct': 'Riktig',
+      'misplaced': 'Riktig bokstav men på feil plass',
+      'absent': 'Bokstav ikke i ordet'
+    }
+    return statuses[row?.checkedColumns[props.column]]
+  }
+  if(isActiveRow) return `gjett ${props.row + 1} bokstav ${props.column + 1}`
+  return `rad ${props.row + 1} ikke aktiv.`
+})
 </script>
 
 <template>
@@ -43,6 +56,7 @@ const focused = computed(() => isActiveRow && row.columnFocused === props.column
     :disabled="!isActiveRow"
     @focus="row.focusTo(props.column)"
     inputmode="none"
+    :aria-label="labelState"
   />
 </template>
 
@@ -125,7 +139,8 @@ input.focus {
 
 @media (prefers-reduced-motion) {
   @keyframes flip {
-    from, to {
+    from,
+    to {
       transform: rotateX(0deg);
       background-color: var(--bg);
       color: var(--black);

@@ -36,7 +36,7 @@ import GameKeyboardKey from './GameKeyboardKey.vue';
     <GameKeyboardKey letter="B" />
     <GameKeyboardKey letter="N" />
     <GameKeyboardKey letter="M" />
-    <button @click="game.activeRow.backspace()" class="c2">
+    <button @click="game.activeRow.backspace()" class="c2" aria-label="backspace">
       <BackspaceIcon />
     </button>
   </div>

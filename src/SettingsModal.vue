@@ -39,13 +39,13 @@ function toggleHardMode(event: MouseEvent) {
     </PopperToast>
     <div class="by">
       <span>Lagd av Gaute Meek Olsen</span>
-      <a href="https://gaute.dev" target="_blank" rel="noopener">
+      <a href="https://gaute.dev" target="_blank" rel="noopener" aria-label="hjemmeside">
         <GlobeIcon/>
       </a>
-      <a href="https://twitter.com/GauteMeekOlsen" target="_blank" rel="noopener">
+      <a href="https://twitter.com/GauteMeekOlsen" target="_blank" rel="noopener" aria-label="twitter">
         <TwitterIcon/>
       </a>
-      <a href="mailto:gautedevelopment@gmail.com">
+      <a href="mailto:gautedevelopment@gmail.com" aria-label="e-post">
         <EmailIcon/>
       </a>
     </div>

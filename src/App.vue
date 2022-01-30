@@ -30,13 +30,13 @@ watchEffect(() => {
       <span>ORD</span>LE
     </h1>
     <section>
-      <button @click="showInfo = true">
+      <button @click="showInfo = true" aria-label="info">
         <QuestionIcon />
       </button>
-      <button @click="showStats = true">
+      <button @click="showStats = true" aria-label="statistikk">
         <GraphIcon />
       </button>
-      <button @click="showSettings = true">
+      <button @click="showSettings = true" aria-label="innstillinger">
         <GearIcon />
       </button>
     </section>

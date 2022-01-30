@@ -15,7 +15,7 @@ useFocusTrap(modal, { immediate: true })
   <div class="bg" @click="emit('close')" ref="modal">
     <div class="modal" @click.stop>
       <header>
-        <button @click="emit('close')" autofocus>
+        <button @click="emit('close')" autofocus aria-label="lukk">
           <CrossIcon />
         </button>
       </header>
