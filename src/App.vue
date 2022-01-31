@@ -19,7 +19,7 @@ const showInfo = ref(!pageVisited)
 
 watchEffect(() => {
   if (gameStatus.value.state === 'won' || gameStatus.value.state === 'failed') {
-    setTimeout(() => showStats.value = true, 2000)
+    setTimeout(() => showStats.value = true, 1500)
   }
 })
 </script>
