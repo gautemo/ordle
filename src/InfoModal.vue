@@ -3,6 +3,33 @@
 </script>
 
 <template>
+  <section>
+    <p>Ordle er et spill hvor du skal gjette dagens ord innen seks forsøk.</p>
+    <div class="letter-box">
+      <div class="letter correct">A</div>
+      <span>
+        Grønn betyr
+        <u>riktig</u> bokstav på
+        <u>riktig</u> plass.
+      </span>
+    </div>
+    <div class="letter-box">
+      <div class="letter misplaced">B</div>
+      <span>
+        Gul betyr
+        <u>riktig</u> bokstav på
+        <u>feil</u> plass.
+      </span>
+    </div>
+    <div class="letter-box">
+      <div class="letter absent">C</div>
+      <span>
+        Rød betyr at bokstav
+        <u>ikke</u> er i bruk.
+      </span>
+    </div>
+    <p>Kom tilbake neste dag for et nytt ord!</p>
+  </section>
   <section class="attribute">
     Dette spillet er inspirert av
     <a
@@ -11,31 +38,14 @@
       rel="noopener noreferrer"
     >Wordle</a>, men er på norsk.
   </section>
-  <section>
-    <h2>Regler</h2>
-    <p>Gjett dagens Ordle på 6 forsøk.</p>
-    <div class="letter-box">
-      <div class="letter correct">A</div>
-      <span>Grønn betyr <u>riktig</u> bokstav på <u>riktig</u> plass.</span>
-    </div>
-    <div class="letter-box">
-      <div class="letter misplaced">B</div>
-      <span>Gul betyr <u>riktig</u> bokstav på <u>feil</u> plass.</span>
-    </div>
-    <div class="letter-box">
-      <div class="letter absent">C</div>
-      <span>Rød betyr at bokstav <u>ikke</u> er i bruk.</span>
-    </div>
-    <p>Kom tilbake i morgen for et nytt ord!</p>
-  </section>
 </template>
 
 <style scoped>
-.attribute{
+.attribute {
   font-weight: bold;
 }
 
-.letter-box{
+.letter-box {
   display: flex;
   align-items: center;
   gap: 1rem;

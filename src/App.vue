@@ -42,12 +42,6 @@ watchEffect(() => {
     </section>
   </header>
 
-  <main>
-    <Game />
-  </main>
-  <footer>
-    <GameKeyboard />
-  </footer>
   <ModalWrapper v-if="showInfo" @close="showInfo = false">
     <InfoModal />
   </ModalWrapper>
@@ -57,6 +51,13 @@ watchEffect(() => {
   <ModalWrapper v-if="showStats" @close="showStats = false">
     <StatsModal />
   </ModalWrapper>
+  
+  <main>
+    <Game />
+  </main>
+  <footer>
+    <GameKeyboard />
+  </footer>
 </template>
 
 <style scoped>
