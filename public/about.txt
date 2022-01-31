@@ -1,5 +1,9 @@
-This favicon was generated using the following font:
+Contact: mailto:gautedevelopment@gmail.com
+Contact: https://twitter.com/GauteMeekOlsen
 
+Ordle is a norwegian word game inspired by https://www.powerlanguage.co.uk/wordle/
+
+This favicon was generated using the following font:
 - Font Title: Acme
 - Font Author: Copyright (c) 2011 by Juan Pablo del Peral (info@huertatipografica.com.ar), with Reserved Font Name "Acme"
 - Font Source: http://fonts.gstatic.com/s/acme/v11/RrQfboBx-C5_bx3Lb23lzLk.ttf
