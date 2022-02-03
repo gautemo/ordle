@@ -56,6 +56,8 @@ button {
   border: none;
   background: none;
   font-size: var(--size-l);
+  min-height: 30px;
+  min-width: 30px;
 }
 
 @media only screen and (max-width: 600px) {

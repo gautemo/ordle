@@ -93,6 +93,7 @@ input:checked::before {
 .by{
   margin-top: auto;
   display: flex;
+  align-items: center;
   gap: 15px;
 }
 
@@ -102,5 +103,6 @@ input:checked::before {
 
 .by > a{
   font-size: var(--size-l);
+  padding: 5px;
 }
 </style>
