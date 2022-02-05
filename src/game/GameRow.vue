@@ -49,8 +49,9 @@ watch(
 .row {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(5, minmax(20px, 80px));
-  max-width: 95vw;
+  grid-template-columns: repeat(5, minmax(20px, 1fr));
+  width: clamp(260px, min(95vw, 50vh), 515px);
+  gap: var(--tile-gap);
 }
 
 .shake {

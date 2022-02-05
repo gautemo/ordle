@@ -62,8 +62,10 @@ const labelState = computed(() => {
 
 <style scoped>
 input {
+  /* Safari iOS adds inline padding to inputs */
+  padding: 0;
+  /* ---------------------------------------- */
   aspect-ratio: 1 / 1;
-  margin: 3px;
   font-size: var(--size-xl);
   text-align: center;
   text-transform: uppercase;
@@ -101,12 +103,6 @@ input:focus-visible,
 input.focus {
   outline: none;
   border-color: currentColor;
-}
-
-@media only screen and (max-width: 600px) {
-  input {
-    margin: 1px;
-  }
 }
 
 @keyframes flip {
