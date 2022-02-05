@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { computed, watchEffect } from 'vue';
-import { $computed, $ref } from 'vue/macros';
-import { game } from './state';
+import { computed, watchEffect } from 'vue'
+import { $computed, $ref } from 'vue/macros'
+import { game } from './state'
 
 const props = defineProps<{
-  row: number,
-  column: number,
+  row: number
+  column: number
 }>()
 
 const row = $computed(() => game.rows[props.row])
@@ -34,13 +34,13 @@ const focused = computed(() => isActiveRow && row.columnFocused === props.column
 const labelState = computed(() => {
   if (row?.checkedColumns[props.column]) {
     const statuses: { [key: string]: string } = {
-      'correct': 'Riktig',
-      'misplaced': 'Riktig bokstav men på feil plass',
-      'absent': 'Bokstav ikke i ordet'
+      correct: 'Riktig',
+      misplaced: 'Riktig bokstav men på feil plass',
+      absent: 'Bokstav ikke i ordet',
     }
     return statuses[row?.checkedColumns[props.column]]
   }
-  if(isActiveRow) return `gjett ${props.row + 1} bokstav ${props.column + 1}`
+  if (isActiveRow) return `gjett ${props.row + 1} bokstav ${props.column + 1}`
   return `rad ${props.row + 1} ikke aktiv.`
 })
 </script>
@@ -62,7 +62,6 @@ const labelState = computed(() => {
 
 <style scoped>
 input {
-  width: clamp(30px, min(15vw, 8vh), 80px);
   aspect-ratio: 1 / 1;
   margin: 3px;
   font-size: var(--size-xl);
@@ -70,6 +69,7 @@ input {
   text-transform: uppercase;
   border-radius: 8px;
   border: 2px solid var(--grey);
+  touch-action: manipulation;
 }
 
 input:disabled {

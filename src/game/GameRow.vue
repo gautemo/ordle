@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { $computed, $ref } from 'vue/macros';
-import GameLetter from './GameLetter.vue';
-import { game } from './state';
-import PopperTooltip from '../popper/PopperTooltip.vue';
-import PopperToast from '../popper/PopperToast.vue';
-import { watch } from 'vue';
+import { $computed, $ref } from 'vue/macros'
+import GameLetter from './GameLetter.vue'
+import { game } from './state'
+import PopperTooltip from '../popper/PopperTooltip.vue'
+import PopperToast from '../popper/PopperToast.vue'
+import { watch } from 'vue'
 
 const props = defineProps<{
-  row: number,
+  row: number
 }>()
 
 const row = $computed(() => game.rows[props.row])
@@ -20,12 +20,15 @@ const tooltipPlace = $computed(() => {
 })
 
 let shake = $ref(false)
-watch(() => row?.shake, value => {
-  if (value > 0) {
-    shake = true
-    setTimeout(() => shake = false, 500)
+watch(
+  () => row?.shake,
+  value => {
+    if (value > 0) {
+      shake = true
+      setTimeout(() => (shake = false), 500)
+    }
   }
-})
+)
 </script>
 
 <template>
@@ -45,7 +48,9 @@ watch(() => row?.shake, value => {
 <style scoped>
 .row {
   position: relative;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(20px, 80px));
+  max-width: 95vw;
 }
 
 .shake {
