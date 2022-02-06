@@ -18,12 +18,12 @@
   --size-l: 1.2rem;
   --size-xl: 1.5rem;
 
-  --tile-gap: 0.5rem;
+  --tile-gap: 4px;
 }
 
 @media screen and (max-width: 650px), (max-height: 550px) {
   :root {
-    --tile-gap: 0.2rem;
+    --tile-gap: 2px;
   }
 }
 

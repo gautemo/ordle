@@ -50,7 +50,7 @@ watch(
   position: relative;
   display: grid;
   grid-template-columns: repeat(5, minmax(20px, 1fr));
-  width: clamp(260px, min(95vw, 50vh), 515px);
+  width: clamp(210px, min(95vw, 50vh), 450px);
   gap: var(--tile-gap);
 }
 

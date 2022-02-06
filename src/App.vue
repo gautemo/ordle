@@ -2,7 +2,7 @@
 import QuestionIcon from './components/icons/QuestionIcon.vue';
 import GraphIcon from './components/icons/GraphIcon.vue';
 import GearIcon from './components/icons/GearIcon.vue';
-import Game from './game/Game.vue';
+import GameRow from './game/GameRow.vue'
 import GameKeyboard from './game/GameKeyboard.vue';
 import { ref, watchEffect } from 'vue';
 import SettingsModal from './SettingsModal.vue';
@@ -53,7 +53,7 @@ watchEffect(() => {
   </ModalWrapper>
   
   <main>
-    <Game />
+    <GameRow v-for="i in 6" :key="i" :row="i - 1" />
   </main>
   <footer>
     <GameKeyboard />
@@ -99,6 +99,12 @@ button {
   margin: var(--size-s);
   padding: var(--size-xs);
   font-size: var(--size-l);
+}
+
+main {
+  display: grid;
+  grid-template-rows: repeat(6, 1fr);
+  gap: var(--tile-gap);
 }
 
 footer {

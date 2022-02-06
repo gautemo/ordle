@@ -62,9 +62,7 @@ const labelState = computed(() => {
 
 <style scoped>
 input {
-  /* Safari iOS adds inline padding to inputs */
   padding: 0;
-  /* ---------------------------------------- */
   aspect-ratio: 1 / 1;
   font-size: var(--size-xl);
   text-align: center;
