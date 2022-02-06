@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { game } from './state';
-import BackspaceIcon from '../components/BackspaceIcon.vue';
-import GameKeyboardKey from './GameKeyboardKey.vue';
+import { game } from './state'
+import BackspaceIcon from '../components/BackspaceIcon.vue'
+import GameKeyboardKey from './GameKeyboardKey.vue'
 </script>
 
 <template>
@@ -50,6 +50,7 @@ import GameKeyboardKey from './GameKeyboardKey.vue';
   gap: 1px;
   grid-template: repeat(3, 1fr) / repeat(11, 1fr);
   background: var(--bg-alt1);
+  touch-action: manipulation;
 }
 
 .c2 {
