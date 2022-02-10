@@ -14,7 +14,7 @@ function toggleHardMode(event: MouseEvent) {
   const element = event.currentTarget as HTMLInputElement
   if (element.checked && gameStatus.value.state === 'playing' && gameStatus.value.row > 1) {
     element.checked = false
-    toast('hardmode', 'Kan ikke skurs på når runden er i gang')
+    toast('hardmode', 'Kan ikke skrus på når runden er i gang')
   } else if(gameStatus.value.state !== 'won' && gameStatus.value.state !== 'failed'){
     game.changeHardMode(element.checked)
   }
