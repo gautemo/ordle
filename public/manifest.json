@@ -5,7 +5,7 @@
     { "src": "/android-chrome-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
   ],
   "start_url": "/",
-  "theme_color": "#3367D6",
+  "theme_color": "#035e7b",
   "background_color": "#293138",
   "display": "standalone",
   "description": "Ordle er et ordspill. Du får seks forsøk på å gjette dagens ord."
