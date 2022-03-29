@@ -3,6 +3,7 @@ import { computed, readonly, ref, watch } from 'vue';
 import { storePlayed } from './savedStats';
 import { words, solution } from './words';
 import { toast } from '../popper/toaster';
+import { today } from './today';
 
 function rowState(row: number, initialColumns = ['', '', '', '', ''], initialCheckedColumns: LetterChecked[] = []) {
   const columns = ref(initialColumns)
@@ -217,7 +218,7 @@ function startGame() {
   if (savedState) {
     const saved = JSON.parse(savedState) as GameState
     const started = new Date(saved.started)
-    const isToday = datesAreOnSameDay(started, new Date())
+    const isToday = datesAreOnSameDay(started, today)
     if (isToday) {
       return {
         rows: ref(saved.rows.map((r, i) => rowState(i, r.columns as string[], r.checkedColumns as LetterChecked[]))),
@@ -231,7 +232,7 @@ function startGame() {
   const knownAbsent = ref(new Set<string>())
   const solutionLetters = [...new Set([...solution])].map(l => solutionLetter(l, getLetterAt(l)))
   const hardMode = ref(Boolean(localStorage.getItem('hardMode') ?? false))
-  return { rows: ref([rowState(0)]), started: new Date(), solutionLetters, knownAbsent, hardMode }
+  return { rows: ref([rowState(0)]), started: today, solutionLetters, knownAbsent, hardMode }
 }
 
 function getLetterAt(letter: string) {
