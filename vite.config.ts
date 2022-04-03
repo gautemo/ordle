@@ -8,4 +8,10 @@ export default defineConfig({
       reactivityTransform: true
     })
   ],
+  test: {
+    includeSource: ['src/**/*.{js,ts}'],
+  },
+  define: {
+    'import.meta.vitest': 'undefined',
+  },
 })
