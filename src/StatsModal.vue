@@ -6,6 +6,7 @@ import { solution } from './game/words';
 import CountDown from './components/CountDown.vue';
 import ShareText from './components/ShareText.vue';
 import { gameStatus } from './game/state';
+import BookIcon from './components/icons/BookIcon.vue';
 
 const totalPlayed = computed(() => Object.values(played.value).reduce((acc, current) => acc + current))
 const winPercentage = computed(() => {
@@ -22,10 +23,10 @@ const revealed = ref(false)
       <div v-if="gameStatus.state === 'failed'" class="failed-container">
         <p class="failed">Ikke riktig.</p>
         <button v-if="!revealed" @click="revealed = true">avslør</button>
-        <span v-else class="reveal">Korrekt: {{ solution }}</span>
+        <span v-else class="reveal">Korrekt: {{ solution }} <a :href="`https://ordbokene.no/bm/search?q=${solution.toLowerCase()}`" class="book" target="_blank" rel="noopener"><BookIcon /></a></span>
       </div>
       <div v-else>
-        <p class="correct">Riktig: {{ solution }}</p>
+        <p class="correct">Riktig: {{ solution }} <a :href="`https://ordbokene.no/bm/search?q=${solution.toLowerCase()}`" class="book" target="_blank" rel="noopener"><BookIcon /></a></p>
       </div>
       <CountDown />
     </section>
@@ -97,6 +98,9 @@ section {
 }
 
 .correct {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   font-size: var(--size-l);
   margin: 0.5rem 0;
   border-bottom: 3px solid var(--correct);
@@ -119,6 +123,17 @@ section {
 .failed-container button {
   border: 1px dashed var(--grey);
   padding: 5px 10px;
+}
+
+.reveal {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.book{
+  font-size: var(--size-xl);
+  display: flex;
 }
 
 h3{
