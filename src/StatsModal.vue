@@ -90,7 +90,7 @@ section {
   display: grid;
   justify-content: start;
   grid-template: repeat(6, 1fr) / 20px 30px repeat(v-bind(columns), 1fr);
-  gap: 0.5rem;
+  gap: 0.5rem 0;
 }
 
 .today {
