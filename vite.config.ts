@@ -8,6 +8,12 @@ export default defineConfig({
       reactivityTransform: true
     })
   ],
+  
+  build: {
+    rollupOptions: {
+      input: ['index.html', 'import.html']
+    }
+  },
   test: {
     includeSource: ['src/**/*.{js,ts}'],
   },
