@@ -6,6 +6,7 @@ import { toast } from './popper/toaster';
 import GlobeIcon from './components/icons/GlobeIcon.vue';
 import TwitterIcon from './components/icons/TwitterIcon.vue';
 import EmailIcon from './components/icons/EmailIcon.vue';
+import { played, streak } from './game/savedStats';
 
 const isDark = useDark()
 const initialHardMode = Boolean(localStorage.getItem('hardMode') ?? false)
@@ -19,6 +20,16 @@ function toggleHardMode(event: MouseEvent) {
     game.changeHardMode(element.checked)
   }
   localStorage.setItem('hardMode', element.checked ? 'on' : '')
+}
+
+function exportData(){
+  const exportData = {
+    played: played.value,
+    streak,
+  }
+  const queryParam = `?data=${JSON.stringify(exportData)}`
+  navigator.clipboard.writeText(`${location.href}import.html${queryParam}`)
+  toast('export', 'Lenke kopiert.\nÅpne på enhet du ønsker å importere til.')
 }
 </script>
 
@@ -36,6 +47,13 @@ function toggleHardMode(event: MouseEvent) {
         <input type="checkbox" :checked="initialHardMode" @click="toggleHardMode" />
         <span>Vanskelig modus</span>
       </label>
+    </PopperToast>
+    <PopperToast
+      toast-key="export"
+      placement="bottom"
+      class="fit"
+    >
+      <button @click="exportData">Eksporter statistikk</button>
     </PopperToast>
     <div class="by">
       <span>Lagd av Gaute Meek Olsen</span>
@@ -104,5 +122,15 @@ input:checked::before {
 .by > a{
   font-size: var(--size-l);
   padding: 5px;
+}
+
+button{
+  font-size: var(--size-l);
+  border: 2px solid #000;
+  padding: 5px 20px;
+}
+
+.fit{
+  width: fit-content;
 }
 </style>
