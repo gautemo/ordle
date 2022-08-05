@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import { game } from './state';
+import { computed } from 'vue'
+import { game } from './state'
 
 const props = defineProps<{
-  letter: string,
+  letter: string
 }>()
 
 const marked = computed(() => {
-  if(game.knownAbsent.has(props.letter)) return 'absent'
+  if (game.knownAbsent.has(props.letter)) return 'absent'
   return game.solutionLetters.find(sl => sl.letter === props.letter)?.state ?? []
 })
 </script>
@@ -32,7 +32,7 @@ const marked = computed(() => {
   color: var(--black);
 }
 
-.correct.misplaced{
+.correct.misplaced {
   background: linear-gradient(-45deg, var(--misplaced) 47%, var(--correct) 53%);
 }
 </style>

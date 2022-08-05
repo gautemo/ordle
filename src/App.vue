@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import QuestionIcon from './components/icons/QuestionIcon.vue';
-import GraphIcon from './components/icons/GraphIcon.vue';
-import GearIcon from './components/icons/GearIcon.vue';
+import QuestionIcon from './components/icons/QuestionIcon.vue'
+import GraphIcon from './components/icons/GraphIcon.vue'
+import GearIcon from './components/icons/GearIcon.vue'
 import GameRow from './game/GameRow.vue'
-import GameKeyboard from './game/GameKeyboard.vue';
-import { ref, watchEffect } from 'vue';
-import SettingsModal from './SettingsModal.vue';
-import ModalWrapper from './components/ModalWrapper.vue';
-import StatsModal from './StatsModal.vue';
-import { gameStatus } from './game/state';
-import InfoModal from './InfoModal.vue';
+import GameKeyboard from './game/GameKeyboard.vue'
+import { ref, watchEffect } from 'vue'
+import SettingsModal from './SettingsModal.vue'
+import ModalWrapper from './components/ModalWrapper.vue'
+import StatsModal from './StatsModal.vue'
+import { gameStatus } from './game/state'
+import InfoModal from './InfoModal.vue'
 
 const showSettings = ref(false)
 const showStats = ref(false)
@@ -19,16 +19,14 @@ const showInfo = ref(!pageVisited)
 
 watchEffect(() => {
   if (gameStatus.value.state === 'won' || gameStatus.value.state === 'failed') {
-    setTimeout(() => showStats.value = true, 1500)
+    setTimeout(() => (showStats.value = true), 1500)
   }
 })
 </script>
 
 <template>
   <header>
-    <h1>
-      <span>ORD</span>LE
-    </h1>
+    <h1><span>ORD</span>LE</h1>
     <section>
       <button @click="showInfo = true" aria-label="info">
         <QuestionIcon />
@@ -51,7 +49,7 @@ watchEffect(() => {
   <ModalWrapper v-if="showStats" @close="showStats = false">
     <StatsModal />
   </ModalWrapper>
-  
+
   <main>
     <GameRow v-for="i in 6" :key="i" :row="i - 1" />
   </main>
@@ -77,17 +75,12 @@ header {
 header h1 {
   font-size: var(--size-xl);
   margin: 0;
-  font-family: "Arial Black", Gadget, sans-serif;
+  font-family: 'Arial Black', Gadget, sans-serif;
   padding: 5px 50px;
 }
 
 h1 > span {
-  background: linear-gradient(
-    to right,
-    var(--correct) 10%,
-    var(--misplaced) 50%,
-    var(--absent) 90%
-  );
+  background: linear-gradient(to right, var(--correct) 10%, var(--misplaced) 50%, var(--absent) 90%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -126,5 +119,5 @@ footer {
 </style>
 
 <style>
-@import "./globalStyle.css";
+@import './globalStyle.css';
 </style>

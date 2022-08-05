@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import PopperBox from './PopperBox.vue';
+import PopperBox from './PopperBox.vue'
 
 defineProps<{
-  msg: string,
-  visible: boolean,
+  msg: string
+  visible: boolean
   placement: 'top' | 'right' | 'bottom' | 'left'
 }>()
 </script>

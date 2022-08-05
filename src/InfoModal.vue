@@ -1,7 +1,3 @@
-<script setup lang="ts">
-
-</script>
-
 <template>
   <section>
     <p>Ordle er et spill hvor du skal gjette dagens ord innen seks forsøk.</p>
@@ -9,16 +5,14 @@
       <div class="letter correct">A</div>
       <span>
         Grønn betyr
-        <u>riktig</u> bokstav på
-        <u>riktig</u> plass.
+        <u>riktig</u> bokstav på <u>riktig</u> plass.
       </span>
     </div>
     <div class="letter-box">
       <div class="letter misplaced">B</div>
       <span>
         Gul betyr
-        <u>riktig</u> bokstav på
-        <u>feil</u> plass.
+        <u>riktig</u> bokstav på <u>feil</u> plass.
       </span>
     </div>
     <div class="letter-box">
@@ -32,11 +26,8 @@
   </section>
   <section class="attribute">
     Dette spillet er inspirert av
-    <a
-      href="https://www.powerlanguage.co.uk/wordle/"
-      target="_blank"
-      rel="noopener noreferrer"
-    >Wordle</a>, men er på norsk.
+    <a href="https://www.powerlanguage.co.uk/wordle/" target="_blank" rel="noopener noreferrer">Wordle</a>, men er på
+    norsk.
   </section>
 </template>
 

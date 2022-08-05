@@ -8,5 +8,5 @@ module.exports = {
   rules: {
     'vue/return-in-computed-property': 'off',
   },
-  ignorePatterns: ["postcss.config.js"]
+  ignorePatterns: ['postcss.config.js'],
 }

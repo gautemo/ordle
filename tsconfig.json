@@ -16,9 +16,7 @@
     },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
     "skipLibCheck": true,
-    "types": [
-      "vitest/importMeta"
-    ]
+    "types": ["vitest/importMeta"]
   },
   "include": ["vite.config.*", "env.d.ts", "src/**/*", "src/**/*.vue"]
 }

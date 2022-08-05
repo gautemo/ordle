@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { showToast } from './toaster';
-import PopperBox from './PopperBox.vue';
+import { showToast } from './toaster'
+import PopperBox from './PopperBox.vue'
 
 const props = defineProps<{
-  toastKey?: string,
+  toastKey?: string
   placement: 'top' | 'right' | 'bottom' | 'left'
 }>()
 
