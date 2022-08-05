@@ -1,7 +1,7 @@
 import { useDark } from "@vueuse/core"
 import { createApp } from "vue"
-import ImportVue from "./Import.vue"
+import ImportData from "./ImportData.vue"
 
 useDark()
 
-createApp(ImportVue).mount('#app')
+createApp(ImportData).mount('#app')
