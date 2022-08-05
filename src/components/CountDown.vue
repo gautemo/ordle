@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { game } from '../game/state';
-import { reactive } from 'vue';
-import { datesAreOnSameDay } from '../utils/date';
+import { game } from '../game/state'
+import { reactive } from 'vue'
+import { datesAreOnSameDay } from '../utils/date'
 
 const countdown = reactive({
   hours: '00',
@@ -43,5 +43,9 @@ div {
 
 .time {
   font-weight: bold;
+}
+
+span {
+  white-space: nowrap;
 }
 </style>

@@ -6,25 +6,27 @@
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview --port 5050",
     "typecheck": "vue-tsc --noEmit",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore --max-warnings=0",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "test": "vitest"
   },
   "dependencies": {
-    "@vueuse/core": "^7.5.4",
-    "@vueuse/integrations": "^7.5.4",
-    "vue": "^3.2.29"
+    "@vueuse/core": "^9.1.0",
+    "@vueuse/integrations": "^9.1.0",
+    "vue": "^3.2.37"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^2.1.0",
-    "@vue/eslint-config-typescript": "^10.0.0",
-    "autoprefixer": "^10.4.2",
-    "eslint": "^8.7.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-vue": "^8.3.0",
-    "prettier": "^2.5.1",
-    "typescript": "~4.5.5",
-    "vite": "^2.7.13",
-    "vitest": "^0.8.4",
-    "vue-tsc": "^0.31.1"
+    "@vitejs/plugin-vue": "^3.0.1",
+    "@vue/eslint-config-typescript": "^11.0.0",
+    "autoprefixer": "^10.4.8",
+    "eslint": "^8.21.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-vue": "^9.3.0",
+    "prettier": "^2.7.1",
+    "typescript": "~4.7.4",
+    "vite": "^3.0.4",
+    "vitest": "^0.21.0",
+    "vue-tsc": "^0.39.4"
   }
 }

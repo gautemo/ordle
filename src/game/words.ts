@@ -1,13 +1,13 @@
 import { today } from './today'
-import { wordList } from './wordList'
+import wordList from './wordList.json'
 
-function daysSinceStart(date: Date){
+function daysSinceStart(date: Date) {
   const dateWithoutHours = new Date(date.getFullYear(), date.getMonth(), date.getDate())
   return Math.round((dateWithoutHours.getTime() - new Date(2022, 0, 15).getTime()) / (24 * 60 * 60 * 1000))
 }
 
 const words = wordList.list
-const solution = wordList.list[wordList.solutions[(daysSinceStart(today)) % wordList.solutions.length]]
+const solution = wordList.list[wordList.solutions[daysSinceStart(today) % wordList.solutions.length]]
 
 export { words, solution }
 

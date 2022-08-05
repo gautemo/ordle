@@ -1,26 +1,26 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed } from 'vue'
 
 const props = defineProps<{
-  row: number,
-  value: number,
-  active: boolean,
+  row: number
+  value: number
+  active: boolean
 }>()
 
 const span = computed(() => props.value + 1)
 </script>
 
 <template>
-  <div>{{row}}:</div>
-  <div class="bar" :class="{active: active}">{{value}}</div>
+  <div>{{ row }}:</div>
+  <div class="bar" :class="{ active: active }">{{ value }}</div>
 </template>
 
 <style scoped>
-div{
+div {
   grid-row: v-bind(row);
 }
 
-.bar{
+.bar {
   background-color: var(--grey);
   color: var(--white);
   font-weight: bold;
@@ -29,7 +29,7 @@ div{
   padding: 2px 5px;
 }
 
-.active{
+.active {
   background-color: var(--correct);
 }
 </style>

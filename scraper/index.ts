@@ -22,7 +22,8 @@ async function findWords(words: string[]) {
   for (const word of words) {
     await page.goto(`https://ordbokene.no/bm/w/${word.toLowerCase()}`)
     const explanation = await findExplanation(page, '.explanation')
-    const validSolution = Boolean(explanation) && !bannedWordsInSolution.some(ban => word.toLowerCase().includes(ban) || explanation?.toLowerCase().includes(ban))
+    const validSolution =
+      Boolean(explanation) && !bannedWordsInSolution.some(ban => word.toLowerCase().includes(ban) || explanation?.toLowerCase().includes(ban))
     result.push({ word, validSolution })
   }
   console.log(`done with section containing ${result.length} words`)
@@ -48,9 +49,12 @@ const result = await Promise.all(allWords.map(words => words.textContent?.split(
 await browser.close()
 
 const words = {
-  solutions: result.flat().map((w,i) => w.validSolution ? i : null).filter(i => i !== null),
-  list: result.flat().map(w => w.word)
+  solutions: result
+    .flat()
+    .map((w, i) => (w.validSolution ? i : null))
+    .filter(i => i !== null),
+  list: result.flat().map(w => w.word),
 }
-words.solutions.sort(() => .5 - Math.random())
+words.solutions.sort(() => 0.5 - Math.random())
 
 fs.writeFile('../src/game/wordList.json', JSON.stringify(words, null, 2), 'utf8', () => console.log('done'))

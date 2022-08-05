@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import CrossIcon from './icons/CrossIcon.vue';
+import { ref } from 'vue'
+import CrossIcon from './icons/CrossIcon.vue'
 import { useFocusTrap } from '@vueuse/integrations/useFocusTrap'
 
 const emit = defineEmits<{

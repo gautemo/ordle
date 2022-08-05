@@ -5,14 +5,14 @@ import vue from '@vitejs/plugin-vue'
 export default defineConfig({
   plugins: [
     vue({
-      reactivityTransform: true
-    })
+      reactivityTransform: true,
+    }),
   ],
-  
+
   build: {
     rollupOptions: {
-      input: ['index.html', 'import.html']
-    }
+      input: ['index.html', 'import.html'],
+    },
   },
   test: {
     includeSource: ['src/**/*.{js,ts}'],

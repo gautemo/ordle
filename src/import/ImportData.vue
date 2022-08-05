@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { played, streak } from '../game/savedStats'
-import { Data } from './type';
-import CaretDown from './CaretDown.vue';
+import { Data } from './type'
+import CaretDown from './CaretDown.vue'
 
 const searchParams = new URLSearchParams(location.search)
 const data: Data = JSON.parse(searchParams.get('data') ?? '')
@@ -38,7 +38,7 @@ function importData() {
   location.href = location.origin
 }
 
-function no(){
+function no() {
   location.href = location.origin
 }
 </script>
@@ -56,9 +56,7 @@ function no(){
       <span>{{ streak.best }}</span>
       <span>Beste vunnet rekke</span>
     </section>
-    <span class="down">
-      <CaretDown/>med<CaretDown/>
-    </span>
+    <span class="down"> <CaretDown />med<CaretDown /> </span>
     <section class="stats">
       <span>{{ importTotalPlayed }}</span>
       <span>Antall spill</span>
@@ -89,15 +87,15 @@ main {
   grid-template: 1fr auto / repeat(4, 1fr);
 }
 
-.stats>span {
+.stats > span {
   text-align: center;
 }
 
-.stats> :nth-child(2n+1) {
+.stats > :nth-child(2n + 1) {
   font-size: var(--size-xl);
 }
 
-.stats> :nth-child(2n) {
+.stats > :nth-child(2n) {
   grid-row: 2;
 }
 
@@ -109,25 +107,25 @@ main {
   gap: 5px;
 }
 
-.answer{
+.answer {
   margin-top: 25px;
   display: flex;
   justify-content: center;
   gap: 25px;
 }
 
-.answer > button{
+.answer > button {
   font-size: var(--size-l);
   border: 2px solid #000;
   padding: 5px 20px;
 }
 
-.yes{
+.yes {
   background-color: var(--correct);
   color: var(--black);
 }
 </style>
 
 <style>
-@import "../globalStyle.css";
+@import '../globalStyle.css';
 </style>

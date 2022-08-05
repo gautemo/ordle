@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import { played, streak } from './game/savedStats';
-import StatsGuessRow from './components/StatsGuessRow.vue';
-import { solution } from './game/words';
-import CountDown from './components/CountDown.vue';
-import ShareText from './components/ShareText.vue';
-import { gameStatus } from './game/state';
-import BookIcon from './components/icons/BookIcon.vue';
+import { computed, ref } from 'vue'
+import { played, streak } from './game/savedStats'
+import StatsGuessRow from './components/StatsGuessRow.vue'
+import { solution } from './game/words'
+import CountDown from './components/CountDown.vue'
+import ShareText from './components/ShareText.vue'
+import { gameStatus } from './game/state'
+import BookIcon from './components/icons/BookIcon.vue'
 
 const totalPlayed = computed(() => Object.values(played.value).reduce((acc, current) => acc + current))
 const winPercentage = computed(() => {
@@ -23,14 +23,20 @@ const revealed = ref(false)
       <div v-if="gameStatus.state === 'failed'" class="failed-container">
         <p class="failed">Ikke riktig.</p>
         <button v-if="!revealed" @click="revealed = true">avslør</button>
-        <span v-else class="reveal">Korrekt: {{ solution }} <a :href="`https://ordbokene.no/bm/search?q=${solution.toLowerCase()}`" class="book" target="_blank" rel="noopener"><BookIcon /></a></span>
+        <span v-else class="reveal"
+          >Korrekt: {{ solution }}
+          <a :href="`https://ordbokene.no/bm/search?q=${solution.toLowerCase()}`" class="book" target="_blank" rel="noopener"><BookIcon /></a
+        ></span>
       </div>
       <div v-else>
-        <p class="correct">Riktig: {{ solution }} <a :href="`https://ordbokene.no/bm/search?q=${solution.toLowerCase()}`" class="book" target="_blank" rel="noopener"><BookIcon /></a></p>
+        <p class="correct">
+          Riktig: {{ solution }}
+          <a :href="`https://ordbokene.no/bm/search?q=${solution.toLowerCase()}`" class="book" target="_blank" rel="noopener"><BookIcon /></a>
+        </p>
       </div>
       <CountDown />
     </section>
-    <ShareText v-if="gameStatus.state === 'won'" />
+    <ShareText />
     <section class="stats">
       <span>{{ totalPlayed }}</span>
       <span>Antall spill</span>
@@ -66,7 +72,7 @@ section {
   gap: 1rem;
 }
 
-.stats{
+.stats {
   margin: 10px 0;
   display: grid;
   justify-items: center;
@@ -74,11 +80,11 @@ section {
   grid-template: 1fr auto / repeat(4, 1fr);
 }
 
-.stats > span{
+.stats > span {
   text-align: center;
 }
 
-.stats > :nth-child(2n+1) {
+.stats > :nth-child(2n + 1) {
   font-size: var(--size-xl);
 }
 
@@ -89,6 +95,7 @@ section {
 .grid {
   display: grid;
   justify-content: start;
+  align-items: center;
   grid-template: repeat(6, 1fr) / 20px 30px repeat(v-bind(columns), 1fr);
   gap: 0.5rem 0;
 }
@@ -115,6 +122,7 @@ section {
 .failed-container {
   margin: 0.5rem 0;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 15px;
 }
@@ -131,12 +139,12 @@ section {
   gap: 0.5rem;
 }
 
-.book{
+.book {
   font-size: var(--size-xl);
   display: flex;
 }
 
-h3{
+h3 {
   margin: 5px;
 }
 </style>

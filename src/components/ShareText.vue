@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { game, gameStatus } from '../game/state';
-import PopperToast from '../popper/PopperToast.vue';
-import { toast } from '../popper/toaster';
+import { game, gameStatus } from '../game/state'
+import PopperToast from '../popper/PopperToast.vue'
+import { toast } from '../popper/toaster'
 
 function copy(event: MouseEvent) {
   navigator.clipboard.writeText((event.currentTarget as HTMLButtonElement).innerText.replace('\n\n', '\n'))
@@ -14,11 +14,11 @@ function copy(event: MouseEvent) {
     <p class="header">Tekst du kan dele:</p>
     <PopperToast toast-key="copy" placement="right">
       <button class="copy" @click="copy">
-        <span class="line">Ordle{{game.hardMode ? '[vanskelig]':''}} {{ new Intl.DateTimeFormat('nb').format(game.day) }}</span>
-        <span class="line">Forsøk: {{ gameStatus.row }}/6</span>
+        <span class="line">Ordle{{ game.hardMode ? '[vanskelig]' : '' }} {{ new Intl.DateTimeFormat('nb').format(game.day) }}</span>
+        <span class="line" v-if="gameStatus.state === 'won'">Forsøk: {{ gameStatus.row }}/6</span>
         <br />
         <div v-for="(row, i) in game.rows" :key="i">
-          <span v-for="(column,j) in row.checkedColumns" :key="j">
+          <span v-for="(column, j) in row.checkedColumns" :key="j">
             <template v-if="column === 'correct'">🟩</template>
             <template v-if="column === 'misplaced'">🟨</template>
             <template v-if="column === 'absent'">🟥</template>
@@ -59,7 +59,7 @@ p {
   user-select: text;
 }
 
-.copy div > span{
+.copy div > span {
   font-size: 0.9rem;
   line-height: 0px;
 }

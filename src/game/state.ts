@@ -1,9 +1,9 @@
-import { datesAreOnSameDay } from '../utils/date';
-import { computed, readonly, ref, watch } from 'vue';
-import { storePlayed } from './savedStats';
-import { words, solution } from './words';
-import { toast } from '../popper/toaster';
-import { today } from './today';
+import { datesAreOnSameDay } from '../utils/date'
+import { computed, readonly, ref, watch } from 'vue'
+import { storePlayed } from './savedStats'
+import { words, solution } from './words'
+import { toast } from '../popper/toaster'
+import { today } from './today'
 
 function rowState(row: number, initialColumns = ['', '', '', '', ''], initialCheckedColumns: LetterChecked[] = []) {
   const columns = ref(initialColumns)
@@ -23,7 +23,7 @@ function rowState(row: number, initialColumns = ['', '', '', '', ''], initialChe
     return {
       value,
       rowFull: value.length === 5,
-      valid: words.includes(value)
+      valid: words.includes(value),
     }
   })
   return readonly({
@@ -71,9 +71,9 @@ function rowState(row: number, initialColumns = ['', '', '', '', ''], initialChe
           return
         }
         const neededMisplaced = gameState.solutionLetters
-          .map(sl => ({ 
-            letter: sl.letter, 
-            times: Math.min(sl.maxGuess, solution.split(sl.letter).length - 1), 
+          .map(sl => ({
+            letter: sl.letter,
+            times: Math.min(sl.maxGuess, solution.split(sl.letter).length - 1),
             guessed: columns.value.filter(c => c === sl.letter).length,
           }))
           .find(n => n.guessed < n.times)
@@ -110,7 +110,7 @@ function rowState(row: number, initialColumns = ['', '', '', '', ''], initialChe
         })
         const won = checkedColumns.value.every(state => state === 'correct')
         if (!won && game.rows.length < 6) addNewRow()
-      }else{
+      } else {
         shake.value++
       }
     },
@@ -118,7 +118,7 @@ function rowState(row: number, initialColumns = ['', '', '', '', ''], initialChe
       columnFocused.value = column
       if (moveUIFocus) moveFocusTo.value = columnFocused.value
     },
-    resetFocus
+    resetFocus,
   })
 }
 
@@ -135,9 +135,9 @@ export const game = readonly({
   knownAbsent: gameState.knownAbsent,
   solutionLetters: gameState.solutionLetters,
   hardMode: gameState.hardMode,
-  changeHardMode: (on: boolean) => gameState.hardMode.value = on,
+  changeHardMode: (on: boolean) => (gameState.hardMode.value = on),
 })
-export const gameStatus = computed<{state: 'playing'|'won'|'failed', row: 1|2|3|4|5|6}>(() => {
+export const gameStatus = computed<{ state: 'playing' | 'won' | 'failed'; row: 1 | 2 | 3 | 4 | 5 | 6 }>(() => {
   const row = gameState.rows.value.length as 1 | 2 | 3 | 4 | 5 | 6
   const active = gameState.rows.value[gameState.rows.value.length - 1]
   if (active.checkedColumns.length === 0) return { state: 'playing', row }
@@ -148,21 +148,21 @@ export const gameStatus = computed<{state: 'playing'|'won'|'failed', row: 1|2|3|
 })
 
 watch(gameStatus, status => {
-  if(status.state === 'failed'){
+  if (status.state === 'failed') {
     saveGame()
     storePlayed()
   }
-  if(status.state === 'won'){
+  if (status.state === 'won') {
     saveGame()
     storePlayed(status.row)
   }
 })
 
 document.addEventListener('keyup', event => {
-  if(event.code === 'ArrowLeft' && game.activeRow.columnFocused > 0){
+  if (event.code === 'ArrowLeft' && game.activeRow.columnFocused > 0) {
     game.activeRow.focusTo(game.activeRow.columnFocused - 1, true)
   }
-  if(event.code === 'ArrowRight' && game.activeRow.columnFocused < 4){
+  if (event.code === 'ArrowRight' && game.activeRow.columnFocused < 4) {
     game.activeRow.focusTo(game.activeRow.columnFocused + 1, true)
   }
   if (event.code === 'Tab' && event.target instanceof HTMLButtonElement) game.activeRow.resetFocus()
@@ -193,7 +193,7 @@ function solutionLetter(letter: string, at: number[], initMaxGuess = 0, initFoun
     found,
     state,
     fountAt: (i: number) => found.value.add(i),
-    guessedTimes: (times: number) => maxGuess.value = Math.max(maxGuess.value, times),
+    guessedTimes: (times: number) => (maxGuess.value = Math.max(maxGuess.value, times)),
   })
 }
 
@@ -203,12 +203,16 @@ function saveGame() {
     rows: gameState.rows.value.map(r => {
       return {
         columns: r.columns,
-        checkedColumns: r.checkedColumns
+        checkedColumns: r.checkedColumns,
       }
     }),
     knownAbsent: [...gameState.knownAbsent.value],
-    solutionLetters: gameState.solutionLetters.map(sl => ({ letter: sl.letter, found: [...sl.found], maxGuess: sl.maxGuess })),
-    hardMode: gameState.hardMode.value
+    solutionLetters: gameState.solutionLetters.map(sl => ({
+      letter: sl.letter,
+      found: [...sl.found],
+      maxGuess: sl.maxGuess,
+    })),
+    hardMode: gameState.hardMode.value,
   }
   localStorage.setItem('gameState', JSON.stringify(toSave))
 }
@@ -225,7 +229,7 @@ function startGame() {
         started: started,
         knownAbsent: ref(new Set([...saved.knownAbsent])),
         solutionLetters: saved.solutionLetters.map(sl => solutionLetter(sl.letter, getLetterAt(sl.letter), sl.maxGuess, sl.found)),
-        hardMode: ref(saved.hardMode)
+        hardMode: ref(saved.hardMode),
       }
     }
   }
@@ -236,7 +240,7 @@ function startGame() {
 }
 
 function getLetterAt(letter: string) {
-  return [...solution].reduce((acc, curr, i) => curr === letter ? [...acc, i] : acc, [] as number[])
+  return [...solution].reduce((acc, curr, i) => (curr === letter ? [...acc, i] : acc), [] as number[])
 }
 
 interface GameState {

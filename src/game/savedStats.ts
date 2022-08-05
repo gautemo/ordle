@@ -1,4 +1,4 @@
-import { readonly, ref } from 'vue';
+import { readonly, ref } from 'vue'
 import { useStorage } from '@vueuse/core'
 
 export const played = useStorage('played', {
@@ -8,11 +8,11 @@ export const played = useStorage('played', {
   4: 0,
   5: 0,
   6: 0,
-  fails: 0
+  fails: 0,
 })
 export const streak = storedStreak()
 
-function storedStreak(){
+function storedStreak() {
   const currentKey = 'streak'
   const bestKey = 'best-streak'
   const current = ref(Number(localStorage.getItem(currentKey)))
@@ -24,23 +24,23 @@ function storedStreak(){
   return readonly({
     current,
     best,
-    bump(){
+    bump() {
       current.value++
-      if(current.value > best.value) best.value++
+      if (current.value > best.value) best.value++
       save()
     },
-    reset(){
+    reset() {
       current.value = 0
       save()
     },
   })
 }
 
-export function storePlayed(wonRow?: 1|2|3|4|5|6){
-  if(wonRow){
+export function storePlayed(wonRow?: 1 | 2 | 3 | 4 | 5 | 6) {
+  if (wonRow) {
     played.value[wonRow]++
     streak.bump()
-  }else{
+  } else {
     played.value.fails++
     streak.reset()
   }

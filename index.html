@@ -11,7 +11,11 @@
     <link rel="manifest" href="manifest.json" />
     <title>Ordle</title>
     <meta name="author" content="Gaute Meek Olsen" />
-    <meta name="description" property="og:description" content="Ordle er et ordspill. Du får seks forsøk på å gjette dagens ord. For hvert gjett får du informasjon om bokstavene er riktig, feilplassert eller ikke i bruk. Litt som mastermind spillet bare med ord. Inspirert av Wordle."/>
+    <meta
+      name="description"
+      property="og:description"
+      content="Ordle er et ordspill. Du får seks forsøk på å gjette dagens ord. For hvert gjett får du informasjon om bokstavene er riktig, feilplassert eller ikke i bruk. Litt som mastermind spillet bare med ord. Inspirert av Wordle."
+    />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:image" content="https://ordle.no/card-twitter.png" />
     <meta property="og:title" content="Ordle" />
@@ -23,10 +27,7 @@
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
     <script>
-      if (
-        !sessionStorage.getItem('_swa') &&
-        document.referrer.indexOf(location.protocol + '//' + location.host) !== 0
-      ) {
+      if (!sessionStorage.getItem('_swa') && document.referrer.indexOf(location.protocol + '//' + location.host) !== 0) {
         fetch(
           'https://counter.dev/track?' +
             new URLSearchParams({
