@@ -8,7 +8,7 @@ jobs:
       - name: Install
         run: npm ci --ignore-scripts
       - name: npm audit
-        run: npm audit signatures
+        run: npm audit signatures --audit-level=critical
       - name: format
         run: npm run format:check
       - name: lint
