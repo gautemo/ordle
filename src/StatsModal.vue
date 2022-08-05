@@ -30,7 +30,7 @@ const revealed = ref(false)
       </div>
       <CountDown />
     </section>
-    <ShareText v-if="gameStatus.state === 'won'" />
+    <ShareText />
     <section class="stats">
       <span>{{ totalPlayed }}</span>
       <span>Antall spill</span>
@@ -89,6 +89,7 @@ section {
 .grid {
   display: grid;
   justify-content: start;
+  align-items: center;
   grid-template: repeat(6, 1fr) / 20px 30px repeat(v-bind(columns), 1fr);
   gap: 0.5rem 0;
 }
@@ -115,6 +116,7 @@ section {
 .failed-container {
   margin: 0.5rem 0;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 15px;
 }

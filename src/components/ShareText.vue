@@ -15,7 +15,7 @@ function copy(event: MouseEvent) {
     <PopperToast toast-key="copy" placement="right">
       <button class="copy" @click="copy">
         <span class="line">Ordle{{game.hardMode ? '[vanskelig]':''}} {{ new Intl.DateTimeFormat('nb').format(game.day) }}</span>
-        <span class="line">Forsøk: {{ gameStatus.row }}/6</span>
+        <span class="line" v-if="gameStatus.state === 'won'">Forsøk: {{ gameStatus.row }}/6</span>
         <br />
         <div v-for="(row, i) in game.rows" :key="i">
           <span v-for="(column,j) in row.checkedColumns" :key="j">

@@ -44,4 +44,8 @@ div {
 .time {
   font-weight: bold;
 }
+
+span {
+  white-space: nowrap;
+}
 </style>
