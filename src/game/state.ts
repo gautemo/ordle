@@ -78,12 +78,7 @@ function rowState(row: number, initialColumns = ['', '', '', '', ''], initialChe
           }))
           .find(n => n.guessed < n.times)
         if (neededMisplaced) {
-          toast(
-            `row${row}`,
-            `${neededMisplaced.letter} må være tilstede ${neededMisplaced.times} gang${
-              neededMisplaced.times > 1 ? 'er' : ''
-            }`
-          )
+          toast(`row${row}`, `${neededMisplaced.letter} må være tilstede ${neededMisplaced.times} gang${neededMisplaced.times > 1 ? 'er' : ''}`)
           shake.value++
           return
         }
@@ -233,9 +228,7 @@ function startGame() {
         rows: ref(saved.rows.map((r, i) => rowState(i, r.columns as string[], r.checkedColumns as LetterChecked[]))),
         started: started,
         knownAbsent: ref(new Set([...saved.knownAbsent])),
-        solutionLetters: saved.solutionLetters.map(sl =>
-          solutionLetter(sl.letter, getLetterAt(sl.letter), sl.maxGuess, sl.found)
-        ),
+        solutionLetters: saved.solutionLetters.map(sl => solutionLetter(sl.letter, getLetterAt(sl.letter), sl.maxGuess, sl.found)),
         hardMode: ref(saved.hardMode),
       }
     }

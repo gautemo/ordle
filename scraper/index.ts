@@ -23,8 +23,7 @@ async function findWords(words: string[]) {
     await page.goto(`https://ordbokene.no/bm/w/${word.toLowerCase()}`)
     const explanation = await findExplanation(page, '.explanation')
     const validSolution =
-      Boolean(explanation) &&
-      !bannedWordsInSolution.some(ban => word.toLowerCase().includes(ban) || explanation?.toLowerCase().includes(ban))
+      Boolean(explanation) && !bannedWordsInSolution.some(ban => word.toLowerCase().includes(ban) || explanation?.toLowerCase().includes(ban))
     result.push({ word, validSolution })
   }
   console.log(`done with section containing ${result.length} words`)
@@ -45,9 +44,7 @@ async function findExplanation(page: puppeteer.Page, query: string, tries = 0): 
   }
 }
 
-const result = await Promise.all(
-  allWords.map(words => words.textContent?.split(' ') ?? []).map(words => findWords(words))
-)
+const result = await Promise.all(allWords.map(words => words.textContent?.split(' ') ?? []).map(words => findWords(words)))
 
 await browser.close()
 

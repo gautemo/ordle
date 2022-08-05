@@ -26,8 +26,7 @@
   </section>
   <section class="attribute">
     Dette spillet er inspirert av
-    <a href="https://www.powerlanguage.co.uk/wordle/" target="_blank" rel="noopener noreferrer">Wordle</a>, men er på
-    norsk.
+    <a href="https://www.powerlanguage.co.uk/wordle/" target="_blank" rel="noopener noreferrer">Wordle</a>, men er på norsk.
   </section>
 </template>
 

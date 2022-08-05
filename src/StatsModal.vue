@@ -13,9 +13,7 @@ const winPercentage = computed(() => {
   if (totalPlayed.value === 0) return 0
   return Math.ceil(((totalPlayed.value - played.value.fails) / totalPlayed.value) * 100)
 })
-const columns = computed(() =>
-  Math.max(played.value[1], played.value[2], played.value[3], played.value[4], played.value[5], played.value[6])
-)
+const columns = computed(() => Math.max(played.value[1], played.value[2], played.value[3], played.value[4], played.value[5], played.value[6]))
 const revealed = ref(false)
 </script>
 
@@ -27,24 +25,13 @@ const revealed = ref(false)
         <button v-if="!revealed" @click="revealed = true">avslør</button>
         <span v-else class="reveal"
           >Korrekt: {{ solution }}
-          <a
-            :href="`https://ordbokene.no/bm/search?q=${solution.toLowerCase()}`"
-            class="book"
-            target="_blank"
-            rel="noopener"
-            ><BookIcon /></a
+          <a :href="`https://ordbokene.no/bm/search?q=${solution.toLowerCase()}`" class="book" target="_blank" rel="noopener"><BookIcon /></a
         ></span>
       </div>
       <div v-else>
         <p class="correct">
           Riktig: {{ solution }}
-          <a
-            :href="`https://ordbokene.no/bm/search?q=${solution.toLowerCase()}`"
-            class="book"
-            target="_blank"
-            rel="noopener"
-            ><BookIcon
-          /></a>
+          <a :href="`https://ordbokene.no/bm/search?q=${solution.toLowerCase()}`" class="book" target="_blank" rel="noopener"><BookIcon /></a>
         </p>
       </div>
       <CountDown />
