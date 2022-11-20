@@ -36,7 +36,7 @@ const revealed = ref(false)
       </div>
       <CountDown />
     </section>
-    <ShareText />
+    <ShareText v-if="gameStatus.state !== 'playing'"/>
     <section class="stats">
       <span>{{ totalPlayed }}</span>
       <span>Antall spill</span>
