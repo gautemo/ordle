@@ -11,7 +11,6 @@ const props = defineProps<{
 const row = $computed(() => game.rows[props.row])
 const letter = $computed(() => row?.columns[props.column])
 const isActiveRow = $computed(() => row?.active(game.rows.length - 1))
-const animDelay = $computed(() => `${props.column * 0.15}s`)
 
 function onKey(event: KeyboardEvent) {
   if (event.code === 'Backspace') {
@@ -93,53 +92,14 @@ input.correct {
 input.absent,
 input.correct,
 input.misplaced {
-  background-color: var(--input-color);
-  animation: flip 0.5s ease-in v-bind(animDelay) forwards;
+  background-color: var(--bg);
+  color: var(--black);
+  -webkit-text-fill-color: var(--black);
 }
 
 input:focus-visible,
 input.focus {
   outline: none;
   border-color: currentColor;
-}
-
-@keyframes flip {
-  from {
-    background-color: var(--input-color);
-    color: currentColor;
-    -webkit-text-fill-color: currentColor;
-  }
-
-  49% {
-    background-color: var(--input-color);
-    color: currentColor;
-    -webkit-text-fill-color: currentColor;
-  }
-
-  50% {
-    transform: rotateX(90deg);
-    background-color: var(--bg);
-    color: var(--black);
-    -webkit-text-fill-color: var(--black);
-  }
-
-  to {
-    transform: rotateX(0deg);
-    background-color: var(--bg);
-    color: var(--black);
-    -webkit-text-fill-color: var(--black);
-  }
-}
-
-@media (prefers-reduced-motion) {
-  @keyframes flip {
-    from,
-    to {
-      transform: rotateX(0deg);
-      background-color: var(--bg);
-      color: var(--black);
-      -webkit-text-fill-color: var(--black);
-    }
-  }
 }
 </style>
