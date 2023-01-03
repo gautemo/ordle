@@ -46,18 +46,9 @@ const labelState = computed(() => {
 </script>
 
 <template>
-  <input
-    type="text"
-    @keyup="onKey"
-    :value="letter"
-    maxlength="1"
-    ref="el"
-    :class="[row?.checkedColumns[props.column], { focus: focused }]"
-    :disabled="!isActiveRow"
-    @focus="row.focusTo(props.column)"
-    inputmode="none"
-    :aria-label="labelState"
-  />
+  <input type="text" @keyup="onKey" :value="letter" maxlength="1" ref="el"
+    :class="[row?.checkedColumns[props.column], { focus: focused }]" :disabled="!isActiveRow"
+    @focus="row.focusTo(props.column)" inputmode="none" :aria-label="labelState" />
 </template>
 
 <style scoped>
@@ -130,6 +121,22 @@ input.focus {
     -webkit-text-fill-color: var(--black);
   }
 }
+
+.reduce-animation input.absent,
+.reduce-animation input.correct,
+.reduce-animation input.misplaced {
+  animation: stopflip forwards;
+}
+
+@keyframes stopflip {
+    from,
+    to {
+      transform: rotateX(0deg);
+      background-color: var(--bg);
+      color: var(--black);
+      -webkit-text-fill-color: var(--black);
+    }
+  }
 
 @media (prefers-reduced-motion) {
   @keyframes flip {

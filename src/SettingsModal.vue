@@ -7,6 +7,7 @@ import GlobeIcon from './components/icons/GlobeIcon.vue'
 import TwitterIcon from './components/icons/TwitterIcon.vue'
 import EmailIcon from './components/icons/EmailIcon.vue'
 import { played, streak } from './game/savedStats'
+import { animationOff } from './useAnimationActive'
 
 const isDark = useDark()
 const initialHardMode = Boolean(localStorage.getItem('hardMode') ?? false)
@@ -45,6 +46,10 @@ function exportData() {
         <span>Vanskelig modus</span>
       </label>
     </PopperToast>
+    <label>
+      <input type="checkbox" v-model="animationOff" />
+      <span>Uten animasjoner</span>
+    </label>
     <PopperToast toast-key="export" placement="bottom" class="fit">
       <button @click="exportData">Eksporter statistikk</button>
     </PopperToast>
