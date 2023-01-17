@@ -7,7 +7,7 @@ import GlobeIcon from './components/icons/GlobeIcon.vue'
 import TwitterIcon from './components/icons/TwitterIcon.vue'
 import EmailIcon from './components/icons/EmailIcon.vue'
 import { played, streak } from './game/savedStats'
-import { animationOff } from './useAnimationActive'
+import { animationOff, isSafariv16_2 } from './useAnimationActive'
 
 const isDark = useDark()
 const initialHardMode = Boolean(localStorage.getItem('hardMode') ?? false)
@@ -46,7 +46,7 @@ function exportData() {
         <span>Vanskelig modus</span>
       </label>
     </PopperToast>
-    <label>
+    <label v-if="!isSafariv16_2">
       <input type="checkbox" v-model="animationOff" />
       <span>Uten animasjoner</span>
     </label>
