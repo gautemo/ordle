@@ -8,6 +8,7 @@ import TwitterIcon from './components/icons/TwitterIcon.vue'
 import EmailIcon from './components/icons/EmailIcon.vue'
 import { played, streak } from './game/savedStats'
 import { animationOff, isSafariv16_2 } from './useAnimationActive'
+import { colorContrastOn } from './useColorContrast'
 
 const isDark = useDark()
 const initialHardMode = Boolean(localStorage.getItem('hardMode') ?? false)
@@ -49,6 +50,10 @@ function exportData() {
     <label v-if="!isSafariv16_2">
       <input type="checkbox" v-model="animationOff" />
       <span>Uten animasjoner</span>
+    </label>
+    <label>
+      <input type="checkbox" v-model="colorContrastOn" />
+      <span>Høy fargekontrast (forbedring hvis fargeblind)</span>
     </label>
     <PopperToast toast-key="export" placement="bottom" class="fit">
       <button @click="exportData">Eksporter statistikk</button>

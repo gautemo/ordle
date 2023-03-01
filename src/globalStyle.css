@@ -36,6 +36,12 @@ html.dark {
   color: var(--white);
 }
 
+html.color-contrast {
+  --correct: #009e73;
+  --absent: #d55e00;
+  --misplaced: #f0e442;
+}
+
 html,
 body,
 #app {
