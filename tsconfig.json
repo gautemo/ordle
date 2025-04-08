@@ -18,5 +18,5 @@
     "skipLibCheck": true,
     "types": ["vitest/importMeta"]
   },
-  "include": ["vite.config.*", "env.d.ts", "src/**/*", "src/**/*.vue"]
+  "include": ["vite.config.*", "env.d.ts", "src/**/*", "src/**/*.vue", "words"]
 }
