@@ -28,7 +28,7 @@ import GameKeyboardKey from './GameKeyboardKey.vue'
     <GameKeyboardKey letter="L" />
     <GameKeyboardKey letter="Ø" />
     <GameKeyboardKey letter="Æ" />
-    <button @click="game.activeRow.checkAnswer()" class="c2">ENTER</button>
+    <button @click="game.activeRow?.checkAnswer()" class="c2">ENTER</button>
     <GameKeyboardKey letter="Z" />
     <GameKeyboardKey letter="X" />
     <GameKeyboardKey letter="C" />
@@ -36,7 +36,7 @@ import GameKeyboardKey from './GameKeyboardKey.vue'
     <GameKeyboardKey letter="B" />
     <GameKeyboardKey letter="N" />
     <GameKeyboardKey letter="M" />
-    <button @click="game.activeRow.backspace()" class="c2" aria-label="backspace">
+    <button @click="game.activeRow?.backspace()" class="c2" aria-label="backspace">
       <BackspaceIcon />
     </button>
   </div>

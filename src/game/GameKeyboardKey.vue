@@ -13,7 +13,7 @@ const marked = computed(() => {
 </script>
 
 <template>
-  <button @click="game.activeRow.setLetter(props.letter)" :class="marked">{{ props.letter }}</button>
+  <button @click="game.activeRow?.setLetter(props.letter)" :class="marked">{{ props.letter }}</button>
 </template>
 
 <style scoped>

@@ -1,17 +1,16 @@
 <script setup lang="ts">
-import { $computed, $ref } from 'vue/macros'
 import GameLetter from './GameLetter.vue'
-import { game } from './state'
+import { game } from './state.ts'
 import PopperTooltip from '../popper/PopperTooltip.vue'
 import PopperToast from '../popper/PopperToast.vue'
-import { watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 
 const props = defineProps<{
   row: number
 }>()
 
-const row = $computed(() => game.rows[props.row])
-const tooltipPlace = $computed(() => {
+const row = computed(() => game.rows[props.row])
+const tooltipPlace = computed(() => {
   if (window.innerWidth <= 650) {
     if (props.row <= 4) return 'top'
     return 'bottom'
@@ -19,13 +18,13 @@ const tooltipPlace = $computed(() => {
   return 'right'
 })
 
-let shake = $ref(false)
+let shake = ref(false)
 watch(
-  () => row?.shake,
+  () => row.value?.shake,
   value => {
-    if (value > 0) {
-      shake = true
-      setTimeout(() => (shake = false), 500)
+    if (value && value > 0) {
+      shake.value = true
+      setTimeout(() => (shake.value = false), 500)
     }
   }
 )

@@ -36,7 +36,7 @@ const alradyPlayed = currentWordList.solutions.slice(0, (daysSinceStart() % curr
 const alradyPlayedWords = currentWordList.list.filter((_, i) => alradyPlayed.includes(i)).map(it => it.toLowerCase())
 const solutionIndexes = result.map((w, i) => (w.validSolution ? i : null)).filter(i => i !== null)
 const solutions = Object.groupBy(solutionIndexes, i => {
-  const word = result[i].word
+  const word = result[i]!.word
   if(alradyPlayedWords.includes(word)) {
     return 'played'
   }
@@ -64,7 +64,7 @@ async function getNgram(filename: string, processedFilename: string, withLang: b
     const words: Ngram[] = []
     readLine.on('line', line => {
       const data = line.split(',')
-      const word = data[0].toLowerCase().replaceAll('"', '')
+      const word = data[0]!.toLowerCase().replaceAll('"', '')
       const lang = withLang ? data[1] : null
       const frequency = Number(withLang ? data[2] : data[1])
       const isWord = /^([a-z]|æ|ø|å)+$/i.test(word)
