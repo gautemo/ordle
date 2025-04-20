@@ -33,7 +33,6 @@ function rowState(row: number, initialColumns = ['', '', '', '', ''], initialChe
     checkedColumns,
     answer,
     shake,
-    active: (activeRow: number) => activeRow == row && checkedColumns.value.length === 0,
     backspace: (moveUIFocus = false) => {
       const index = columnFocused.value
       if (columns.value[index]) {

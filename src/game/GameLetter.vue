@@ -5,11 +5,11 @@ import { game } from './state'
 const props = defineProps<{
   row: number
   column: number
+  isActiveRow: boolean
 }>()
 
 const row = computed(() => game.rows[props.row])
 const letter = computed(() => row.value?.columns[props.column])
-const isActiveRow = computed(() => row.value?.active(game.rows.length - 1))
 const animDelay = computed(() => `${props.column * 0.15}s`)
 
 function onKey(event: KeyboardEvent) {
@@ -23,12 +23,12 @@ function onKey(event: KeyboardEvent) {
 
 const inputEl = useTemplateRef<HTMLInputElement>('input')
 watchEffect(() => {
-  if (isActiveRow && row.value?.moveFocusTo === props.column && inputEl.value) {
+  if (props.isActiveRow && row.value?.moveFocusTo === props.column && inputEl.value) {
     inputEl.value.disabled = false
     inputEl.value.focus()
   }
 })
-const focused = computed(() => isActiveRow && row.value?.columnFocused === props.column)
+const focused = computed(() => props.isActiveRow && row.value?.columnFocused === props.column)
 
 const labelState = computed(() => {
   if (row.value?.checkedColumns[props.column]) {
@@ -39,14 +39,14 @@ const labelState = computed(() => {
     }
     return statuses[row.value.checkedColumns[props.column]!]
   }
-  if (isActiveRow) return `gjett ${props.row + 1} bokstav ${props.column + 1}`
+  if (props.isActiveRow) return `gjett ${props.row + 1} bokstav ${props.column + 1}`
   return `rad ${props.row + 1} ikke aktiv.`
 })
 </script>
 
 <template>
   <input type="text" @keyup="onKey" :value="letter" maxlength="1" ref="input"
-    :class="[row?.checkedColumns[props.column], { focus: focused }]" :disabled="!isActiveRow"
+    :class="[row?.checkedColumns[props.column], { focus: focused }]" :disabled="!props.isActiveRow"
     @focus="row?.focusTo(props.column)" inputmode="none" :aria-label="labelState" />
 </template>
 
