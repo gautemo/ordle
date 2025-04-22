@@ -27,7 +27,7 @@ watch(
       shake.value = true
       setTimeout(() => (shake.value = false), 500)
     }
-  }
+  },
 )
 </script>
 
@@ -35,7 +35,7 @@ watch(
   <PopperToast :toast-key="`row${props.row}`" :placement="tooltipPlace">
     <PopperTooltip msg="Ikke et ord" :visible="Boolean(row?.answer.rowFull) && !row?.answer.valid" :placement="tooltipPlace">
       <div class="row" :class="{ shake: shake }">
-        <GameLetter v-for="i in 5" :key="i" :row="props.row" :column="i - 1" :isActiveRow="isActiveRow"/>
+        <GameLetter v-for="i in 5" :key="i" :row="props.row" :column="i - 1" :isActiveRow="isActiveRow" />
       </div>
     </PopperTooltip>
   </PopperToast>

@@ -152,7 +152,7 @@ watch(gameStatus, status => {
 })
 
 document.addEventListener('keyup', event => {
-  if(game.activeRow) {
+  if (game.activeRow) {
     if (event.code === 'ArrowLeft' && game.activeRow.columnFocused > 0) {
       game.activeRow.focusTo(game.activeRow.columnFocused - 1)
     }

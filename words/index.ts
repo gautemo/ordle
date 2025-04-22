@@ -6,7 +6,7 @@ import puppeteer from 'puppeteer'
 const browser = await puppeteer.launch()
 let page = await browser.newPage()
 
-const currentWordList: { solutions: number[], list: string[] } = JSON.parse(readFileSync('src/game/wordList.json', 'utf-8'))
+const currentWordList: { solutions: number[]; list: string[] } = JSON.parse(readFileSync('src/game/wordList.json', 'utf-8'))
 const fiveLetterWords = readFileSync('words/data/nsf2023.txt', 'utf-8')
   .split(/\r?\n/)
   .filter(w => w.length === 5)
@@ -20,10 +20,10 @@ const bokNgram = await getNgram('ngram-2022-digibok-unigram.csv', 'digibok.json'
 
 const result = fiveLetterWords.map(word => {
   const inOrdbok = ordbok.find(w => w.word === word)
-  if(!inOrdbok) {
+  if (!inOrdbok) {
     return { word, validSolution: false }
   }
-  if(!notBannedWords.includes(word) && (bannedWords.includes(inOrdbok.word) || bannedWords.some(banned => inOrdbok.information.includes(banned)))) {
+  if (!notBannedWords.includes(word) && (bannedWords.includes(inOrdbok.word) || bannedWords.some(banned => inOrdbok.information.includes(banned)))) {
     return { word, validSolution: false }
   }
   const avisWord = avisNgram.find(w => w.word === word)
@@ -37,15 +37,15 @@ const alradyPlayedWords = currentWordList.list.filter((_, i) => alradyPlayed.inc
 const solutionIndexes = result.map((w, i) => (w.validSolution ? i : null)).filter(i => i !== null)
 const solutions = Object.groupBy(solutionIndexes, i => {
   const word = result[i]!.word
-  if(alradyPlayedWords.includes(word)) {
+  if (alradyPlayedWords.includes(word)) {
     return 'played'
   }
   return 'unplayed'
 })
 
 const words = {
-  solutions: [...solutions.played?.sort(() => 0.5 - Math.random()) ?? [], ...solutions.unplayed?.sort(() => 0.5 - Math.random()) ?? []],
-  list: result.map(w => w.word)
+  solutions: [...(solutions.played?.sort(() => 0.5 - Math.random()) ?? []), ...(solutions.unplayed?.sort(() => 0.5 - Math.random()) ?? [])],
+  list: result.map(w => w.word),
 }
 
 writeFileSync('src/game/wordList.json', JSON.stringify(words, null, 2))
@@ -69,7 +69,7 @@ async function getNgram(filename: string, processedFilename: string, withLang: b
       const isWord = /^([a-z]|æ|ø|å)+$/i.test(word)
       if (isWord && word.length === 5 && frequency && (lang === null || lang === 'nob') && fiveLetterWords.includes(word)) {
         const exists = words.find(w => w.word === word)
-        if(exists) {
+        if (exists) {
           exists.frequency += frequency
         } else {
           words.push({ word, frequency })
@@ -104,7 +104,7 @@ async function getWordOrdbok(word: string, retryIn: number): Promise<OrdbokWord 
   try {
     await page.goto(`https://ordbokene.no/nob/bm/${word}`)
     const articleEl = await page.$('.article-title')
-    if(articleEl) {
+    if (articleEl) {
       const definitionEl = await page.$('.definitions')
       const expressionsEl = await page.$('.expressions')
       let information = ''
@@ -120,7 +120,7 @@ async function getWordOrdbok(word: string, retryIn: number): Promise<OrdbokWord 
           information += expression
         }
       }
-      if(!information) {
+      if (!information) {
         console.error(`${word}: missing information`)
       }
       return { word, information }

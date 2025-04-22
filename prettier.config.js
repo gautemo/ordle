@@ -7,7 +7,7 @@ const config = {
   semi: false,
   singleQuote: true,
   endOfLine: 'auto',
-  arrowParens: 'avoid'
-};
+  arrowParens: 'avoid',
+}
 
-export default config;
+export default config

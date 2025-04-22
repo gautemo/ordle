@@ -8,9 +8,9 @@ function toast(key: string, msg: string) {
     () =>
       currentlyToasts.value.splice(
         currentlyToasts.value.findIndex(t => t.key === key),
-        1
+        1,
       ),
-    2500
+    2500,
   )
 }
 
