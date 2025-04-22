@@ -44,12 +44,11 @@ const solutions = Object.groupBy(solutionIndexes, i => {
 })
 
 const words = {
-  solutions: [...solutions.played ?? [], ...solutions.unplayed?.sort(() => 0.5 - Math.random()) ?? []],
+  solutions: [...solutions.played?.sort(() => 0.5 - Math.random()) ?? [], ...solutions.unplayed?.sort(() => 0.5 - Math.random()) ?? []],
   list: result.map(w => w.word)
 }
 
-// writeFileSync('words/data/testWordList.json', JSON.stringify(words, null, 2))
-writeFileSync('src/game/wordList.json', JSON.stringify(words))
+writeFileSync('src/game/wordList.json', JSON.stringify(words, null, 2))
 
 type Ngram = { word: string; frequency: number }
 async function getNgram(filename: string, processedFilename: string, withLang: boolean): Promise<Ngram[]> {
