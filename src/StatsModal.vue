@@ -24,14 +24,14 @@ const revealed = ref(false)
         <p class="failed">Ikke riktig.</p>
         <button v-if="!revealed" @click="revealed = true">avslør</button>
         <span v-else class="reveal"
-          >Korrekt: {{ solution }}
-          <a :href="`https://ordbokene.no/bm/search?q=${solution.toLowerCase()}`" class="book" target="_blank" rel="noopener"><BookIcon /></a
+          >Korrekt: <span class="solution">{{ solution }}</span>
+          <a :href="`https://ordbokene.no/bm/search?q=${solution}`" class="book" target="_blank" rel="noopener"><BookIcon /></a
         ></span>
       </div>
       <div v-else>
         <p class="correct">
-          Riktig: {{ solution }}
-          <a :href="`https://ordbokene.no/bm/search?q=${solution.toLowerCase()}`" class="book" target="_blank" rel="noopener"><BookIcon /></a>
+          Riktig: <span class="solution">{{ solution }}</span>
+          <a :href="`https://ordbokene.no/bm/search?q=${solution}`" class="book" target="_blank" rel="noopener"><BookIcon /></a>
         </p>
       </div>
       <CountDown />
@@ -146,5 +146,9 @@ section {
 
 h3 {
   margin: 5px;
+}
+
+.solution {
+  text-transform: uppercase;
 }
 </style>
