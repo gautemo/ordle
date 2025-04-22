@@ -14,16 +14,16 @@ const animDelay = computed(() => `${props.column * 0.15}s`)
 
 function onKey(event: KeyboardEvent) {
   if (event.code === 'Backspace') {
-    row.value?.backspace(true)
+    row.value?.backspace()
   }
   if (/^(\w|æ|ø|å){1}$/i.test(event.key)) {
-    row.value?.setLetter(event.key, true)
+    row.value?.setLetter(event.key)
   }
 }
 
 const inputEl = useTemplateRef<HTMLInputElement>('input')
 watchEffect(() => {
-  if (props.isActiveRow && row.value?.moveFocusTo === props.column && inputEl.value) {
+  if (inputEl.value && props.isActiveRow && row.value?.columnFocused === props.column && inputEl.value !== document.activeElement) {
     inputEl.value.disabled = false
     inputEl.value.focus()
   }

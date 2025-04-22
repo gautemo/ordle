@@ -9,7 +9,6 @@ function rowState(row: number, initialColumns = ['', '', '', '', ''], initialChe
   const columns = ref(initialColumns)
   const checkedColumns = ref<LetterChecked[]>(initialCheckedColumns)
   const columnFocused = ref(0)
-  const moveFocusTo = ref(0)
   const shake = ref(0)
   function resetFocus() {
     if (!columns.value[0]) columnFocused.value = 0
@@ -29,11 +28,10 @@ function rowState(row: number, initialColumns = ['', '', '', '', ''], initialChe
   return readonly({
     columns,
     columnFocused,
-    moveFocusTo,
     checkedColumns,
     answer,
     shake,
-    backspace: (moveUIFocus = false) => {
+    backspace: () => {
       const index = columnFocused.value
       if (columns.value[index]) {
         columns.value[index] = ''
@@ -43,9 +41,8 @@ function rowState(row: number, initialColumns = ['', '', '', '', ''], initialChe
           columnFocused.value = index - 1
         }
       }
-      if (moveUIFocus) moveFocusTo.value = columnFocused.value
     },
-    setLetter: (value: string, moveUIFocus = false) => {
+    setLetter: (value: string) => {
       if (checkedColumns.value.length > 0) return
       if (value.length > 1) value = value[value.length - 1]!
       const index = columnFocused.value
@@ -55,7 +52,6 @@ function rowState(row: number, initialColumns = ['', '', '', '', ''], initialChe
       } else {
         resetFocus()
       }
-      if (moveUIFocus) moveFocusTo.value = columnFocused.value
     },
     checkAnswer: () => {
       if (checkedColumns.value.length > 0) return
@@ -112,9 +108,8 @@ function rowState(row: number, initialColumns = ['', '', '', '', ''], initialChe
         shake.value++
       }
     },
-    focusTo: (column: number, moveUIFocus = false) => {
+    focusTo: (column: number) => {
       columnFocused.value = column
-      if (moveUIFocus) moveFocusTo.value = columnFocused.value
     },
     resetFocus,
   })
@@ -159,20 +154,20 @@ watch(gameStatus, status => {
 document.addEventListener('keyup', event => {
   if(game.activeRow) {
     if (event.code === 'ArrowLeft' && game.activeRow.columnFocused > 0) {
-      game.activeRow.focusTo(game.activeRow.columnFocused - 1, true)
+      game.activeRow.focusTo(game.activeRow.columnFocused - 1)
     }
     if (event.code === 'ArrowRight' && game.activeRow.columnFocused < 4) {
-      game.activeRow.focusTo(game.activeRow.columnFocused + 1, true)
+      game.activeRow.focusTo(game.activeRow.columnFocused + 1)
     }
     if (event.code === 'Tab' && event.target instanceof HTMLButtonElement) game.activeRow.resetFocus()
     if (event.code === 'Enter' && !(event.target instanceof HTMLButtonElement)) {
       game.activeRow.checkAnswer()
     }
     if (event.code === 'Backspace' && !(event.target instanceof HTMLInputElement)) {
-      game.activeRow.backspace(true)
+      game.activeRow.backspace()
     }
     if (/^(\w|æ|ø|å){1}$/i.test(event.key) && !(event.target instanceof HTMLInputElement)) {
-      game.activeRow.setLetter(event.key, true)
+      game.activeRow.setLetter(event.key)
     }
   }
 })
