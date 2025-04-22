@@ -14,13 +14,15 @@ onMounted(() => {
 </script>
 
 <template>
-  <dialog ref="modal">
-    <header>
-      <button @click="modal?.close()" autofocus aria-label="lukk">
-        <CrossIcon />
-      </button>
-    </header>
-    <slot class="slot"></slot>
+  <dialog ref="modal" @click="modal?.close()">
+    <div @click.stop>
+      <header>
+        <button @click="modal?.close()" autofocus aria-label="lukk">
+          <CrossIcon />
+        </button>
+      </header>
+      <slot class="slot"></slot>
+    </div>
   </dialog>
 </template>
 
@@ -37,16 +39,18 @@ dialog::backdrop {
 dialog {
   border: none;
   color: var(--text-color);
-  width: clamp(300px, 90vw, 500px);
-  height: fit-content;
-  min-height: 300px;
   background-color: var(--bg);
   box-shadow: 0 4px 10px 2px var(--shadow);
-  padding: 1rem;
+  padding: 0rem;
+  height: fit-content;
+  min-height: 300px;
   max-height: 90vh;
   overflow: auto;
-  display: flex;
-  flex-direction: column;
+}
+
+dialog > div {
+  padding: 1rem;
+  width: clamp(300px, 90vw, 500px);
 }
 
 button {
