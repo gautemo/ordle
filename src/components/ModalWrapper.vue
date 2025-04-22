@@ -42,6 +42,7 @@ dialog {
   background-color: var(--bg);
   box-shadow: 0 4px 10px 2px var(--shadow);
   padding: 0rem;
+  max-width: none;
   height: fit-content;
   min-height: 300px;
   max-height: 90vh;
