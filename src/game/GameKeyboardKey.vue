@@ -17,6 +17,10 @@ const marked = computed(() => {
 </template>
 
 <style scoped>
+button {
+  text-transform: uppercase;
+}
+
 .absent {
   background-color: var(--absent);
   color: var(--black);

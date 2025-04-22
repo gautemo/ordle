@@ -6,36 +6,36 @@ import GameKeyboardKey from './GameKeyboardKey.vue'
 
 <template>
   <div class="keyboard">
-    <GameKeyboardKey letter="Q" />
-    <GameKeyboardKey letter="W" />
-    <GameKeyboardKey letter="E" />
-    <GameKeyboardKey letter="R" />
-    <GameKeyboardKey letter="T" />
-    <GameKeyboardKey letter="Y" />
-    <GameKeyboardKey letter="U" />
-    <GameKeyboardKey letter="I" />
-    <GameKeyboardKey letter="O" />
-    <GameKeyboardKey letter="P" />
-    <GameKeyboardKey letter="Å" />
-    <GameKeyboardKey letter="A" />
-    <GameKeyboardKey letter="S" />
-    <GameKeyboardKey letter="D" />
-    <GameKeyboardKey letter="F" />
-    <GameKeyboardKey letter="G" />
-    <GameKeyboardKey letter="H" />
-    <GameKeyboardKey letter="J" />
-    <GameKeyboardKey letter="K" />
-    <GameKeyboardKey letter="L" />
-    <GameKeyboardKey letter="Ø" />
-    <GameKeyboardKey letter="Æ" />
+    <GameKeyboardKey letter="q" />
+    <GameKeyboardKey letter="w" />
+    <GameKeyboardKey letter="e" />
+    <GameKeyboardKey letter="r" />
+    <GameKeyboardKey letter="t" />
+    <GameKeyboardKey letter="y" />
+    <GameKeyboardKey letter="u" />
+    <GameKeyboardKey letter="i" />
+    <GameKeyboardKey letter="o" />
+    <GameKeyboardKey letter="p" />
+    <GameKeyboardKey letter="å" />
+    <GameKeyboardKey letter="a" />
+    <GameKeyboardKey letter="s" />
+    <GameKeyboardKey letter="d" />
+    <GameKeyboardKey letter="f" />
+    <GameKeyboardKey letter="g" />
+    <GameKeyboardKey letter="h" />
+    <GameKeyboardKey letter="j" />
+    <GameKeyboardKey letter="k" />
+    <GameKeyboardKey letter="l" />
+    <GameKeyboardKey letter="ø" />
+    <GameKeyboardKey letter="æ" />
     <button @click="game.activeRow?.checkAnswer()" class="c2">ENTER</button>
-    <GameKeyboardKey letter="Z" />
-    <GameKeyboardKey letter="X" />
-    <GameKeyboardKey letter="C" />
-    <GameKeyboardKey letter="V" />
-    <GameKeyboardKey letter="B" />
-    <GameKeyboardKey letter="N" />
-    <GameKeyboardKey letter="M" />
+    <GameKeyboardKey letter="z" />
+    <GameKeyboardKey letter="x" />
+    <GameKeyboardKey letter="c" />
+    <GameKeyboardKey letter="v" />
+    <GameKeyboardKey letter="b" />
+    <GameKeyboardKey letter="n" />
+    <GameKeyboardKey letter="m" />
     <button @click="game.activeRow?.backspace()" class="c2" aria-label="backspace">
       <BackspaceIcon />
     </button>

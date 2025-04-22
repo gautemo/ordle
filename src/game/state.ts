@@ -46,7 +46,7 @@ function rowState(row: number, initialColumns = ['', '', '', '', ''], initialChe
       if (checkedColumns.value.length > 0) return
       if (value.length > 1) value = value[value.length - 1]!
       const index = columnFocused.value
-      columns.value[index] = value.toLowerCase()
+      columns.value[index] = value
       if (index < 4 && (!columns.value[index + 1] || columns.value.every(l => l))) {
         columnFocused.value = index + 1
       } else {
