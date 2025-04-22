@@ -62,7 +62,7 @@ button {
 }
 
 @media only screen and (max-width: 600px) {
-  dialog {
+  dialog > div {
     padding: 10px;
   }
 }
