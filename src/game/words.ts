@@ -7,7 +7,7 @@ function daysSinceStart(date: Date) {
 }
 
 const words = wordList.list
-const solution = wordList.list[wordList.solutions[daysSinceStart(today) % wordList.solutions.length]]
+const solution = wordList.list[wordList.solutions[daysSinceStart(today) % wordList.solutions.length]!]!
 
 export { words, solution }
 

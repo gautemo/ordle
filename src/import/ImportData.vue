@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { played, streak } from '../game/savedStats'
-import { Data } from './type'
+import type { Data } from './type'
 import CaretDown from './CaretDown.vue'
 
 const searchParams = new URLSearchParams(location.search)

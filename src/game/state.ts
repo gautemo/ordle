@@ -1,15 +1,14 @@
 import { datesAreOnSameDay } from '../utils/date'
 import { computed, readonly, ref, watch } from 'vue'
-import { storePlayed } from './savedStats'
-import { words, solution } from './words'
-import { toast } from '../popper/toaster'
-import { today } from './today'
+import { storePlayed } from './savedStats.ts'
+import { words, solution } from './words.ts'
+import { toast } from '../popper/toaster.ts'
+import { today } from './today.ts'
 
 function rowState(row: number, initialColumns = ['', '', '', '', ''], initialCheckedColumns: LetterChecked[] = []) {
   const columns = ref(initialColumns)
   const checkedColumns = ref<LetterChecked[]>(initialCheckedColumns)
   const columnFocused = ref(0)
-  const moveFocusTo = ref(0)
   const shake = ref(0)
   function resetFocus() {
     if (!columns.value[0]) columnFocused.value = 0
@@ -29,12 +28,10 @@ function rowState(row: number, initialColumns = ['', '', '', '', ''], initialChe
   return readonly({
     columns,
     columnFocused,
-    moveFocusTo,
     checkedColumns,
     answer,
     shake,
-    active: (activeRow: number) => activeRow == row && checkedColumns.value.length === 0,
-    backspace: (moveUIFocus = false) => {
+    backspace: () => {
       const index = columnFocused.value
       if (columns.value[index]) {
         columns.value[index] = ''
@@ -44,19 +41,17 @@ function rowState(row: number, initialColumns = ['', '', '', '', ''], initialChe
           columnFocused.value = index - 1
         }
       }
-      if (moveUIFocus) moveFocusTo.value = columnFocused.value
     },
-    setLetter: (value: string, moveUIFocus = false) => {
+    setLetter: (value: string) => {
       if (checkedColumns.value.length > 0) return
-      if (value.length > 1) value = value[value.length - 1]
+      if (value.length > 1) value = value[value.length - 1]!
       const index = columnFocused.value
-      columns.value[index] = value.toUpperCase()
+      columns.value[index] = value
       if (index < 4 && (!columns.value[index + 1] || columns.value.every(l => l))) {
         columnFocused.value = index + 1
       } else {
         resetFocus()
       }
-      if (moveUIFocus) moveFocusTo.value = columnFocused.value
     },
     checkAnswer: () => {
       if (checkedColumns.value.length > 0) return
@@ -65,7 +60,6 @@ function rowState(row: number, initialColumns = ['', '', '', '', ''], initialChe
           .map(sl => ({ letter: sl.letter, i: [...sl.found].find(i => columns.value[i] !== sl.letter) }))
           .find(n => n.i !== undefined)
         if (needed) {
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           toast(`row${row}`, `${needed.letter} må være bokstav ${needed.i! + 1}`)
           shake.value++
           return
@@ -104,7 +98,7 @@ function rowState(row: number, initialColumns = ['', '', '', '', ''], initialChe
             if (!solution.includes(letter)) gameState.knownAbsent.value.add(letter)
           }
         }
-        new Set([...columns.value]).forEach(letter => {
+        new Set(columns.value).forEach(letter => {
           const occurs = columns.value.filter(l => l === letter).length
           gameState.solutionLetters.find(sl => sl.letter === letter)?.guessedTimes(occurs)
         })
@@ -114,9 +108,8 @@ function rowState(row: number, initialColumns = ['', '', '', '', ''], initialChe
         shake.value++
       }
     },
-    focusTo: (column: number, moveUIFocus = false) => {
+    focusTo: (column: number) => {
       columnFocused.value = column
-      if (moveUIFocus) moveFocusTo.value = columnFocused.value
     },
     resetFocus,
   })
@@ -140,8 +133,8 @@ export const game = readonly({
 export const gameStatus = computed<{ state: 'playing' | 'won' | 'failed'; row: 1 | 2 | 3 | 4 | 5 | 6 }>(() => {
   const row = gameState.rows.value.length as 1 | 2 | 3 | 4 | 5 | 6
   const active = gameState.rows.value[gameState.rows.value.length - 1]
-  if (active.checkedColumns.length === 0) return { state: 'playing', row }
-  if (active.checkedColumns.every(s => s === 'correct')) {
+  if (active?.checkedColumns.length === 0) return { state: 'playing', row }
+  if (active?.checkedColumns.every(s => s === 'correct')) {
     return { state: 'won', row }
   }
   return { state: 'failed', row }
@@ -159,21 +152,23 @@ watch(gameStatus, status => {
 })
 
 document.addEventListener('keyup', event => {
-  if (event.code === 'ArrowLeft' && game.activeRow.columnFocused > 0) {
-    game.activeRow.focusTo(game.activeRow.columnFocused - 1, true)
-  }
-  if (event.code === 'ArrowRight' && game.activeRow.columnFocused < 4) {
-    game.activeRow.focusTo(game.activeRow.columnFocused + 1, true)
-  }
-  if (event.code === 'Tab' && event.target instanceof HTMLButtonElement) game.activeRow.resetFocus()
-  if (event.code === 'Enter' && !(event.target instanceof HTMLButtonElement)) {
-    game.activeRow.checkAnswer()
-  }
-  if (event.code === 'Backspace' && !(event.target instanceof HTMLInputElement)) {
-    game.activeRow.backspace(true)
-  }
-  if (/^(\w|æ|ø|å){1}$/i.test(event.key) && !(event.target instanceof HTMLInputElement)) {
-    game.activeRow.setLetter(event.key, true)
+  if (game.activeRow) {
+    if (event.code === 'ArrowLeft' && game.activeRow.columnFocused > 0) {
+      game.activeRow.focusTo(game.activeRow.columnFocused - 1)
+    }
+    if (event.code === 'ArrowRight' && game.activeRow.columnFocused < 4) {
+      game.activeRow.focusTo(game.activeRow.columnFocused + 1)
+    }
+    if (event.code === 'Tab' && event.target instanceof HTMLButtonElement) game.activeRow.resetFocus()
+    if (event.code === 'Enter' && !(event.target instanceof HTMLButtonElement)) {
+      game.activeRow.checkAnswer()
+    }
+    if (event.code === 'Backspace' && !(event.target instanceof HTMLInputElement)) {
+      game.activeRow.backspace()
+    }
+    if (/^(\w|æ|ø|å){1}$/i.test(event.key) && !(event.target instanceof HTMLInputElement)) {
+      game.activeRow.setLetter(event.key)
+    }
   }
 })
 
@@ -227,14 +222,14 @@ function startGame() {
       return {
         rows: ref(saved.rows.map((r, i) => rowState(i, r.columns as string[], r.checkedColumns as LetterChecked[]))),
         started: started,
-        knownAbsent: ref(new Set([...saved.knownAbsent])),
+        knownAbsent: ref(new Set(saved.knownAbsent)),
         solutionLetters: saved.solutionLetters.map(sl => solutionLetter(sl.letter, getLetterAt(sl.letter), sl.maxGuess, sl.found)),
         hardMode: ref(saved.hardMode),
       }
     }
   }
   const knownAbsent = ref(new Set<string>())
-  const solutionLetters = [...new Set([...solution])].map(l => solutionLetter(l, getLetterAt(l)))
+  const solutionLetters = [...new Set(solution)].map(l => solutionLetter(l, getLetterAt(l)))
   const hardMode = ref(Boolean(localStorage.getItem('hardMode') ?? false))
   return { rows: ref([rowState(0)]), started: today, solutionLetters, knownAbsent, hardMode }
 }

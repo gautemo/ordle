@@ -4,7 +4,6 @@ import { game, gameStatus } from './game/state'
 import PopperToast from './popper/PopperToast.vue'
 import { toast } from './popper/toaster'
 import GlobeIcon from './components/icons/GlobeIcon.vue'
-import TwitterIcon from './components/icons/TwitterIcon.vue'
 import EmailIcon from './components/icons/EmailIcon.vue'
 import { played, streak } from './game/savedStats'
 import { animationOff, isSafariv16_2 } from './useAnimationActive'
@@ -62,9 +61,6 @@ function exportData() {
       <span>Lagd av Gaute Meek Olsen</span>
       <a href="https://gaute.dev" target="_blank" rel="noopener" aria-label="hjemmeside">
         <GlobeIcon />
-      </a>
-      <a href="https://twitter.com/GauteMeekOlsen" target="_blank" rel="noopener" aria-label="twitter">
-        <TwitterIcon />
       </a>
       <a href="mailto:gautedevelopment@gmail.com" aria-label="e-post">
         <EmailIcon />

@@ -1,54 +1,62 @@
 <script setup lang="ts">
-import { computed, watchEffect } from 'vue'
-import { $computed, $ref } from 'vue/macros'
+import { computed, watchEffect, useTemplateRef } from 'vue'
 import { game } from './state'
 
 const props = defineProps<{
   row: number
   column: number
+  isActiveRow: boolean
 }>()
 
-const row = $computed(() => game.rows[props.row])
-const letter = $computed(() => row?.columns[props.column])
-const isActiveRow = $computed(() => row?.active(game.rows.length - 1))
-const animDelay = $computed(() => `${props.column * 0.15}s`)
+const row = computed(() => game.rows[props.row])
+const letter = computed(() => row.value?.columns[props.column])
+const animDelay = computed(() => `${props.column * 0.15}s`)
 
 function onKey(event: KeyboardEvent) {
   if (event.code === 'Backspace') {
-    row.backspace(true)
+    row.value?.backspace()
   }
   if (/^(\w|æ|ø|å){1}$/i.test(event.key)) {
-    row.setLetter(event.key, true)
+    row.value?.setLetter(event.key)
   }
 }
 
-const el = $ref<HTMLInputElement>()
+const inputEl = useTemplateRef<HTMLInputElement>('input')
 watchEffect(() => {
-  if (isActiveRow && row.moveFocusTo === props.column && el) {
-    el.disabled = false
-    el.focus()
+  if (inputEl.value && props.isActiveRow && row.value?.columnFocused === props.column && inputEl.value !== document.activeElement) {
+    inputEl.value.disabled = false
+    inputEl.value.focus()
   }
 })
-const focused = computed(() => isActiveRow && row.columnFocused === props.column)
+const focused = computed(() => props.isActiveRow && row.value?.columnFocused === props.column)
 
 const labelState = computed(() => {
-  if (row?.checkedColumns[props.column]) {
+  if (row.value?.checkedColumns[props.column]) {
     const statuses: { [key: string]: string } = {
       correct: 'Riktig',
       misplaced: 'Riktig bokstav men på feil plass',
       absent: 'Bokstav ikke i ordet',
     }
-    return statuses[row?.checkedColumns[props.column]]
+    return statuses[row.value.checkedColumns[props.column]!]
   }
-  if (isActiveRow) return `gjett ${props.row + 1} bokstav ${props.column + 1}`
+  if (props.isActiveRow) return `gjett ${props.row + 1} bokstav ${props.column + 1}`
   return `rad ${props.row + 1} ikke aktiv.`
 })
 </script>
 
 <template>
-  <input type="text" @keyup="onKey" :value="letter" maxlength="1" ref="el"
-    :class="[row?.checkedColumns[props.column], { focus: focused }]" :disabled="!isActiveRow"
-    @focus="row.focusTo(props.column)" inputmode="none" :aria-label="labelState" />
+  <input
+    type="text"
+    @keyup="onKey"
+    :value="letter"
+    maxlength="1"
+    ref="input"
+    :class="[row?.checkedColumns[props.column], { focus: focused }]"
+    :disabled="!props.isActiveRow"
+    @focus="row?.focusTo(props.column)"
+    inputmode="none"
+    :aria-label="labelState"
+  />
 </template>
 
 <style scoped>
@@ -129,14 +137,14 @@ input.focus {
 }
 
 @keyframes stopflip {
-    from,
-    to {
-      transform: rotateX(0deg);
-      background-color: var(--bg);
-      color: var(--black);
-      -webkit-text-fill-color: var(--black);
-    }
+  from,
+  to {
+    transform: rotateX(0deg);
+    background-color: var(--bg);
+    color: var(--black);
+    -webkit-text-fill-color: var(--black);
   }
+}
 
 @media (prefers-reduced-motion) {
   @keyframes flip {

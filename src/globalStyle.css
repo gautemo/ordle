@@ -33,7 +33,7 @@ html.dark {
   --bg-alt1: #22282a;
   --input-color: var(--black);
   --shadow: rgba(124, 124, 124, 0.6);
-  color: var(--white);
+  --text-color: var(--white);
 }
 
 html.color-contrast {
@@ -48,6 +48,7 @@ body,
   margin: 0;
   height: 100%;
   font-family: Arial, Helvetica, sans-serif;
+  color: var(--text-color);
 }
 
 input,
