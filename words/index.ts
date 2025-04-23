@@ -38,7 +38,7 @@ const todaysWord = currentWordList.list[currentWordList.solutions[daysSinceStart
 const solutionIndexes = result.map((w, i) => (w.validSolution ? i : null)).filter(i => i !== null)
 const solutions = Object.groupBy(solutionIndexes, i => {
   const word = result[i]!.word
-  if(word === todaysWord) {
+  if (word === todaysWord) {
     return 'today'
   }
   if (alradyPlayedWords.includes(word)) {
@@ -48,7 +48,11 @@ const solutions = Object.groupBy(solutionIndexes, i => {
 })
 
 const words = {
-  solutions: [...(solutions.played?.sort(() => 0.5 - Math.random()) ?? []), ...(solutions.unplayed?.sort(() => 0.5 - Math.random()) ?? [])].toSpliced(daysSinceStart() % currentWordList.solutions.length, 0, solutions.today![0]!),
+  solutions: [...(solutions.played?.sort(() => 0.5 - Math.random()) ?? []), ...(solutions.unplayed?.sort(() => 0.5 - Math.random()) ?? [])].toSpliced(
+    daysSinceStart() % currentWordList.solutions.length,
+    0,
+    solutions.today![0]!,
+  ),
   list: result.map(w => w.word),
 }
 
