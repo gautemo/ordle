@@ -6,7 +6,7 @@ import puppeteer from 'puppeteer'
 const browser = await puppeteer.launch()
 let page = await browser.newPage()
 
-const currentWordList: { solutions: number[]; list: string[] } = JSON.parse(readFileSync('src/game/wordList.json', 'utf-8'))
+const currentWordList: { solutions: number[]; list: string[] } = JSON.parse(readFileSync('words/data/mainWordList.json', 'utf-8'))
 const fiveLetterWords = readFileSync('words/data/nsf2023.txt', 'utf-8')
   .split(/\r?\n/)
   .filter(w => w.length === 5)
@@ -32,11 +32,15 @@ const result = fiveLetterWords.map(word => {
   return { word, validSolution: bestFreq >= 1_500 }
 })
 
-const alradyPlayed = currentWordList.solutions.slice(0, (daysSinceStart() % currentWordList.solutions.length) + 1)
+const alradyPlayed = currentWordList.solutions.slice(0, daysSinceStart() % currentWordList.solutions.length)
 const alradyPlayedWords = currentWordList.list.filter((_, i) => alradyPlayed.includes(i)).map(it => it.toLowerCase())
+const todaysWord = currentWordList.list[currentWordList.solutions[daysSinceStart() % currentWordList.solutions.length]!]!.toLowerCase()
 const solutionIndexes = result.map((w, i) => (w.validSolution ? i : null)).filter(i => i !== null)
 const solutions = Object.groupBy(solutionIndexes, i => {
   const word = result[i]!.word
+  if(word === todaysWord) {
+    return 'today'
+  }
   if (alradyPlayedWords.includes(word)) {
     return 'played'
   }
@@ -44,7 +48,7 @@ const solutions = Object.groupBy(solutionIndexes, i => {
 })
 
 const words = {
-  solutions: [...(solutions.played?.sort(() => 0.5 - Math.random()) ?? []), ...(solutions.unplayed?.sort(() => 0.5 - Math.random()) ?? [])],
+  solutions: [...(solutions.played?.sort(() => 0.5 - Math.random()) ?? []), ...(solutions.unplayed?.sort(() => 0.5 - Math.random()) ?? [])].toSpliced(daysSinceStart() % currentWordList.solutions.length, 0, solutions.today![0]!),
   list: result.map(w => w.word),
 }
 
