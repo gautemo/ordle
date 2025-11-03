@@ -61,20 +61,22 @@ function exportData() {
     <PopperToast toast-key="export" placement="bottom" class="fit">
       <button @click="exportData">Eksporter statistikk</button>
     </PopperToast>
-    <div>
-      Ordle <button @click="openVersions = true" class="link-look">versjon 2</button>
-    </div>
-    <ModalWrapper v-if="openVersions" @close="openVersions = false">
-      <VersionsModal />
-    </ModalWrapper>
-    <div class="by">
-      <span>Lagd av Gaute Meek Olsen</span>
-      <a href="https://gaute.dev" target="_blank" rel="noopener" aria-label="hjemmeside">
-        <GlobeIcon />
-      </a>
-      <a href="mailto:gautedevelopment@gmail.com" aria-label="e-post">
-        <EmailIcon />
-      </a>
+    <div class="info">
+      <div class="small">
+        Ordle <button @click="openVersions = true" class="link-look">versjon 9</button>
+      </div>
+      <ModalWrapper v-if="openVersions" @close="openVersions = false">
+        <VersionsModal />
+      </ModalWrapper>
+      <div class="by">
+        <span>Lagd av Gaute Meek Olsen</span>
+        <a href="https://gaute.dev" target="_blank" rel="noopener" aria-label="hjemmeside">
+          <GlobeIcon />
+        </a>
+        <a href="mailto:gautedevelopment@gmail.com" aria-label="e-post">
+          <EmailIcon />
+        </a>
+      </div>
     </div>
   </section>
 </template>
@@ -154,5 +156,9 @@ button {
 
 .dark .link-look {
   color: rgb(71, 172, 255);
+}
+
+.small, .small > .link-look {
+  font-size: 0.9rem;
 }
 </style>
