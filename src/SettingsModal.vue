@@ -8,9 +8,13 @@ import EmailIcon from './components/icons/EmailIcon.vue'
 import { played, streak } from './game/savedStats'
 import { animationOff, isSafariv16_2 } from './useAnimationActive'
 import { colorContrastOn } from './useColorContrast'
+import { ref } from 'vue'
+import VersionsModal from './VersionsModal.vue'
+import ModalWrapper from './components/ModalWrapper.vue'
 
 const isDark = useDark()
 const initialHardMode = Boolean(localStorage.getItem('hardMode') ?? false)
+const openVersions = ref(false)
 
 function toggleHardMode(event: MouseEvent) {
   const element = event.currentTarget as HTMLInputElement
@@ -57,14 +61,20 @@ function exportData() {
     <PopperToast toast-key="export" placement="bottom" class="fit">
       <button @click="exportData">Eksporter statistikk</button>
     </PopperToast>
-    <div class="by">
-      <span>Lagd av Gaute Meek Olsen</span>
-      <a href="https://gaute.dev" target="_blank" rel="noopener" aria-label="hjemmeside">
-        <GlobeIcon />
-      </a>
-      <a href="mailto:gautedevelopment@gmail.com" aria-label="e-post">
-        <EmailIcon />
-      </a>
+    <div class="info">
+      <div class="small">Ordle <button @click="openVersions = true" class="link-look">versjon 9</button></div>
+      <ModalWrapper v-if="openVersions" @close="openVersions = false">
+        <VersionsModal />
+      </ModalWrapper>
+      <div class="by">
+        <span>Lagd av Gaute Meek Olsen</span>
+        <a href="https://gaute.dev" target="_blank" rel="noopener" aria-label="hjemmeside">
+          <GlobeIcon />
+        </a>
+        <a href="mailto:gautedevelopment@gmail.com" aria-label="e-post">
+          <EmailIcon />
+        </a>
+      </div>
     </div>
   </section>
 </template>
@@ -95,6 +105,7 @@ input {
   border: 2px solid currentColor;
   border-radius: 4px;
 }
+
 input::before {
   content: '';
   position: absolute;
@@ -103,6 +114,7 @@ input::before {
   transform: scale(0);
   transition: 250ms transform ease-in-out;
 }
+
 input:checked::before {
   transform: scale(1);
 }
@@ -131,5 +143,21 @@ button {
 
 .fit {
   width: fit-content;
+}
+
+.link-look {
+  color: rgb(38, 78, 255);
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+.dark .link-look {
+  color: rgb(71, 172, 255);
+}
+
+.small,
+.small > .link-look {
+  font-size: 0.9rem;
 }
 </style>

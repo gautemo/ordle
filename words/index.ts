@@ -28,7 +28,7 @@ const result = fiveLetterWords.map(word => {
   }
   const avisWord = avisNgram.find(w => w.word === word)
   const bokWord = bokNgram.find(w => w.word === word)
-  const bestFreq = Math.max(avisWord?.frequency ?? 0, bokWord?.frequency ?? 0)
+  const bestFreq = Math.max(avisWord?.frequency ?? 0, bokWord?.frequency ?? 0) // TODO change to combined freq
   return { word, validSolution: bestFreq >= 1_500 }
 })
 
