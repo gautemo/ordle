@@ -62,9 +62,7 @@ function exportData() {
       <button @click="exportData">Eksporter statistikk</button>
     </PopperToast>
     <div class="info">
-      <div class="small">
-        Ordle <button @click="openVersions = true" class="link-look">versjon 9</button>
-      </div>
+      <div class="small">Ordle <button @click="openVersions = true" class="link-look">versjon 9</button></div>
       <ModalWrapper v-if="openVersions" @close="openVersions = false">
         <VersionsModal />
       </ModalWrapper>
@@ -128,11 +126,11 @@ input:checked::before {
   gap: 15px;
 }
 
-.by>span {
+.by > span {
   flex: 1;
 }
 
-.by>a {
+.by > a {
   font-size: var(--size-l);
   padding: 5px;
 }
@@ -158,7 +156,8 @@ button {
   color: rgb(71, 172, 255);
 }
 
-.small, .small > .link-look {
+.small,
+.small > .link-look {
   font-size: 0.9rem;
 }
 </style>
