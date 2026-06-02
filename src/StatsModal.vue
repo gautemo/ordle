@@ -25,13 +25,13 @@ const revealed = ref(false)
         <button v-if="!revealed" @click="revealed = true">avslør</button>
         <span v-else class="reveal"
           >Korrekt: <span class="solution">{{ solution }}</span>
-          <a :href="`https://ordbokene.no/bm/search?q=${solution}`" class="book" target="_blank" rel="noopener"><BookIcon /></a
+          <a :href="`https://ordbokene.no/nob/bm/${solution}`" class="book" target="_blank" rel="noopener"><BookIcon /></a
         ></span>
       </div>
       <div v-else>
         <p class="correct">
           Riktig: <span class="solution">{{ solution }}</span>
-          <a :href="`https://ordbokene.no/bm/search?q=${solution}`" class="book" target="_blank" rel="noopener"><BookIcon /></a>
+          <a :href="`https://ordbokene.no/nob/bm/${solution}`" class="book" target="_blank" rel="noopener"><BookIcon /></a>
         </p>
       </div>
       <CountDown />
